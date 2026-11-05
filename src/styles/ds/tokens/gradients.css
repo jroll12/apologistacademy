@@ -1,0 +1,8 @@
+:root{
+--gradient-aurora:linear-gradient(90deg,#4F46E5 0%,#7137FF 35%,#9089FC 65%,#80CAFF 100%);/* @kind color */
+--gradient-ember:linear-gradient(90deg,#7137FF 0%,#9089FC 45%,#FF80B5 100%);/* @kind color */
+}
+/* Signature drift. Max one gradient element per viewport. */
+.ap-gradient-animate{background-size:300% 100%;animation:ap-gradient-drift var(--motion-gradient) var(--ease-gradient) infinite alternate}
+/* Gradient text: display sizes only, 48px and up. */
+.ap-gradient-text{background-image:var(--gradient-aurora);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;text-shadow:0 0 40px rgba(113,55,255,0.25)}

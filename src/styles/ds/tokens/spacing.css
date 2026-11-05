@@ -1,0 +1,10 @@
+:root{
+--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;--space-24:96px;--space-32:128px;--space-40:160px;
+--section-y-mobile:64px;--section-y-desktop:128px;
+--band-y-mobile:96px;--band-y-desktop:160px;
+--container-max:1280px;--container-prose:672px;
+--gutter-mobile:16px;--gutter-tablet:24px;--gutter-desktop:32px;
+--grid-gap-desktop:32px;--grid-gap-mobile:16px;
+--bp-sm:640px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--bp-2xl:1536px;
+--tap-min:44px;
+}

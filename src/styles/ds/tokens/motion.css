@@ -1,0 +1,18 @@
+:root{
+--motion-instant:100ms;/* @kind other */
+--motion-fast:200ms;/* @kind other */
+--motion-base:300ms;/* @kind other */
+--motion-slow:500ms;/* @kind other */
+--motion-gradient:8000ms;/* @kind other */
+--ease-out:ease-out;/* @kind other */
+--ease-standard:cubic-bezier(0.4,0,0.2,1);/* @kind other */
+--ease-reveal:cubic-bezier(0.16,1,0.3,1);/* @kind other */
+--ease-gradient:ease-in-out;/* @kind other */
+}
+@keyframes ap-gradient-drift{from{background-position:0% 50%}to{background-position:100% 50%}}
+@keyframes ap-rise-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes ap-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+.ap-gradient-animate{background-position:50% 50%!important}
+}

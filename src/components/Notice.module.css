@@ -1,0 +1,73 @@
+/* Design-system blob: heavy blur, low opacity, behind everything, never interactive. */
+.blob {
+  position: absolute;
+  top: -140px;
+  inset-inline-end: -160px;
+  z-index: -1;
+  width: 520px;
+  height: 440px;
+  border-radius: 50%;
+  background-image: var(--gradient-aurora);
+  filter: blur(96px);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.draft {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-quiet);
+}
+
+.draftTag {
+  padding: 2px 8px;
+  border: 1px solid var(--warning);
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 12px;
+  color: var(--warning);
+}
+
+.state {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  border-radius: var(--radius-xl);
+  background: var(--surface-card);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--primary-500);
+  color: var(--white);
+}
+
+.icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}

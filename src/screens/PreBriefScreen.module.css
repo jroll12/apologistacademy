@@ -1,0 +1,119 @@
+.question {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.questionText {
+  margin-top: 2px;
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.expect {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding-inline-start: 20px;
+  color: var(--text-soft);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.expect li::marker {
+  color: var(--primary-300);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.group legend {
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 64px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast) var(--ease-out),
+    background-color var(--motion-fast) var(--ease-out);
+}
+
+.option:hover {
+  border-color: var(--gray-300);
+}
+
+.option:has(input:checked) {
+  border-color: var(--primary-400);
+  background: rgba(113, 55, 255, 0.16);
+}
+
+.option:has(input:focus-visible) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.optionLabel {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 15px;
+}
+
+.group:disabled .option {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.group:disabled .option:has(input:checked) {
+  border-color: var(--line);
+  background: transparent;
+}
+
+/* Keep Start within reach on a phone. */
+.start {
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  padding-block: 12px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(to bottom, transparent, var(--gray-900) 28%);
+}
+
+@media (min-width: 1024px) {
+  .questionText {
+    font-size: 34px;
+  }
+
+  .start {
+    position: static;
+    margin-top: 8px;
+    max-width: 320px;
+    background: none;
+  }
+}

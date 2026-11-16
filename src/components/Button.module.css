@@ -1,0 +1,96 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--tap-min);
+  padding: 8px 18px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 15px;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background-color var(--motion-instant) var(--ease-out),
+    border-color var(--motion-instant) var(--ease-out),
+    color var(--motion-instant) var(--ease-out);
+}
+
+.button svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.primary {
+  background: var(--primary-500);
+  border-color: var(--primary-500);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--primary-600);
+  border-color: var(--primary-600);
+}
+
+/* Buttons that are links must not pick up the link hover colour or underline. */
+.primary:hover,
+.secondary:hover {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.ghost:hover {
+  color: var(--primary-300);
+}
+
+.secondary {
+  border-color: var(--line);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--gray-950);
+  border-color: var(--gray-400);
+}
+
+.ghost {
+  color: var(--primary-300);
+  padding-inline: 12px;
+}
+
+.ghost:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Pressed: a colour shift only. No scale, no bounce. */
+.primary:active:not(:disabled) {
+  background: var(--primary-700);
+  border-color: var(--primary-700);
+}
+
+.sm {
+  padding: 6px 14px;
+  font-size: 14px;
+}
+
+.icon {
+  width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  flex: none;
+}
+
+.block {
+  display: flex;
+  width: 100%;
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}

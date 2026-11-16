@@ -1,0 +1,92 @@
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: flex-start;
+  max-width: 86%;
+}
+
+.who {
+  margin: 0 0 4px;
+  margin-inline-start: 12px;
+  font-size: 12px;
+  color: var(--text-quiet);
+}
+
+.bubble {
+  max-width: 86%;
+  padding: 12px 16px;
+  border-radius: var(--radius-3xl);
+  font-size: 15px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.group .bubble {
+  max-width: 100%;
+}
+
+.skeptic {
+  background: var(--surface-card);
+}
+
+.me {
+  align-self: flex-end;
+  background: var(--gray-700);
+}
+
+.enter {
+  animation: bubble-in var(--motion-base) var(--ease-reveal) both;
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.typing {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 18px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--text-quiet);
+  animation: dot-pulse 1.2s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dot-pulse {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+.typingLabel {
+  margin-inline-start: 6px;
+  font-size: 13px;
+  color: var(--text-quiet);
+}

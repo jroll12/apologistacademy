@@ -1,28 +1,10 @@
+import type { StorageLike } from '../store/storage';
+
+/** New conversations a person can begin per local day. Change it here. */
 export const DAILY_LIMIT = 3;
 const KEY = 'ap.practice.daily';
 
-export interface StorageLike {
-  getItem(key: string): string | null;
-  setItem(key: string, value: string): void;
-}
-
-const memory = (): StorageLike => {
-  const m = new Map<string, string>();
-  return { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => void m.set(k, v) };
-};
-
-let fallback: StorageLike | undefined;
-export function defaultStorage(): StorageLike {
-  try {
-    const s = window.localStorage;
-    s.setItem('ap.probe', '1');
-    return s;
-  } catch {
-    return (fallback ??= memory());
-  }
-}
-
-/** Local calendar day, so the limit resets at the user's midnight. */
+/** Local calendar day, so the limit resets at the person's own midnight. */
 export function dayKey(now: Date): string {
   const p = (n: number) => String(n).padStart(2, '0');
   return `${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}`;
@@ -39,13 +21,18 @@ export function used(storage: StorageLike, now: Date): number {
   }
 }
 
-/** Checked only when a NEW conversation starts. Never call this mid-conversation. */
+/** Checked only when a NEW conversation is about to start. Never call this mid-conversation. */
 export function canStart(storage: StorageLike, now: Date, limit = DAILY_LIMIT): boolean {
   return used(storage, now) < limit;
 }
 
+/** Called when the person sends their first reply, so opening a question and backing out is free. */
 export function recordStart(storage: StorageLike, now: Date): void {
-  storage.setItem(KEY, JSON.stringify({ day: dayKey(now), count: used(storage, now) + 1 }));
+  try {
+    storage.setItem(KEY, JSON.stringify({ day: dayKey(now), count: used(storage, now) + 1 }));
+  } catch {
+    // Storage blocked: the limit simply does not apply on this device.
+  }
 }
 
 export function nextReset(now: Date): Date {

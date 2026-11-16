@@ -1,32 +1,19 @@
-import type { CSSProperties } from 'react';
+import s from './Logo.module.css';
 
 interface Props {
+  /** Path to the real mark (assets/logo.svg) once it exists. */
   src?: string;
-  height?: number;
-  tone?: 'light' | 'dark';
   label?: string;
-  style?: CSSProperties;
 }
 
 /**
- * Wordmark holder, ported from the Apologist design system. No logo file exists yet, so this
- * renders the name as plain display type. Pass `src` (assets/logo.svg) once the real mark exists.
+ * Wordmark holder, from the Apologist design system. No logo file exists yet, so this
+ * sets the name as plain display type and never draws or approximates the mark.
  */
-export function Logo({ src, height = 28, tone = 'light', label = 'Apologist', style }: Props) {
-  if (src) return <img src={src} alt={label} style={{ height, width: 'auto', display: 'block', ...style }} />;
+export function Logo({ src, label = 'Apologist' }: Props) {
+  if (src) return <img className={s.image} src={src} alt={label} />;
   return (
-    <span
-      data-logo-placeholder="true"
-      style={{
-        fontFamily: 'var(--font-display)',
-        fontWeight: 600,
-        fontSize: height,
-        letterSpacing: '-0.02em',
-        lineHeight: 1,
-        color: tone === 'light' ? '#FFFFFF' : 'var(--gray-900)',
-        ...style,
-      }}
-    >
+    <span className={s.wordmark} data-logo-placeholder="true">
       {label}
     </span>
   );

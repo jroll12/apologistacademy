@@ -1,0 +1,138 @@
+.dialog {
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  overflow: visible;
+}
+
+.dialog::backdrop {
+  background: rgba(3, 7, 18, 0.65);
+  animation: fade-in var(--motion-base) var(--ease-standard) both;
+}
+
+.dialog[data-closing]::backdrop {
+  animation: fade-out 180ms var(--ease-standard) both;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: var(--content-max);
+  max-height: 92dvh;
+  margin-inline: auto;
+  padding: 0 16px calc(20px + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  border-radius: var(--radius-3xl) var(--radius-3xl) 0 0;
+  background: rgba(17, 24, 39, 0.98);
+  box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.7);
+  animation: sheet-in var(--motion-base) var(--ease-reveal) both;
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.panel:focus {
+  outline: none;
+}
+
+.dialog[data-closing] .panel {
+  animation: sheet-out 180ms var(--ease-standard) both;
+}
+
+/* A generous target for dragging the sheet down. */
+.grab {
+  display: flex;
+  justify-content: center;
+  padding-block: 12px 4px;
+  margin-inline: -16px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.handle {
+  width: 40px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--line);
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes sheet-out {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Wider screens: a centered dialog instead of a bottom sheet. */
+@media (min-width: 768px) {
+  .dialog {
+    inset: 0;
+    width: min(480px, calc(100% - 48px));
+    height: fit-content;
+    margin: auto;
+  }
+
+  .panel {
+    border-radius: var(--radius-3xl);
+    padding-bottom: 20px;
+    box-shadow: var(--shadow-xl);
+    animation-name: pop-in;
+  }
+
+  .dialog[data-closing] .panel {
+    animation-name: pop-out;
+  }
+
+  .grab {
+    display: none;
+  }
+
+  .panel {
+    padding-top: 20px;
+  }
+
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes pop-out {
+    to {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: var(--primary-500);
+  color: var(--white);
+}
+
+.tile svg {
+  width: 22px;
+  height: 22px;
+}
+
+.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.lg svg {
+  width: 24px;
+  height: 24px;
+}

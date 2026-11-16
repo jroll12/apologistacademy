@@ -1,0 +1,12 @@
+dist
+node_modules
+package-lock.json
+.old
+.pixel
+.netlify
+playwright-report
+test-results
+# Design-system tokens are kept byte for byte as the design system publishes them.
+src/styles/ds
+# Browser-test screenshots.
+e2e/**/*-snapshots

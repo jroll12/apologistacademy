@@ -1,0 +1,163 @@
+.lead,
+.more {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.headline {
+  font-size: 34px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.sub {
+  color: var(--text-quiet);
+  max-width: 34em;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.featureQuestion {
+  margin-top: 8px;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.featureAction {
+  margin-top: 18px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions > * {
+  flex: 1;
+}
+
+.picks {
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A phone shows four. Wider screens have room for six. */
+.pick:nth-child(n + 5) {
+  display: none;
+}
+
+.pickLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding-block: 10px;
+  color: var(--white);
+  font-size: 15px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.pickLink:hover {
+  color: var(--primary-300);
+  text-decoration: none;
+}
+
+.pickTopic {
+  flex: none;
+  font-size: 13px;
+  color: var(--text-quiet);
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.historyLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  font-size: 14px;
+}
+
+.bar {
+  width: 100%;
+  height: 6px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--line);
+  overflow: hidden;
+  appearance: none;
+}
+
+.bar::-webkit-progress-bar {
+  background: var(--line);
+}
+
+.bar::-webkit-progress-value {
+  background: var(--primary-400);
+  border-radius: var(--radius-full);
+}
+
+.bar::-moz-progress-bar {
+  background: var(--primary-400);
+  border-radius: var(--radius-full);
+}
+
+@media (min-width: 1024px) {
+  .home {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: start;
+    column-gap: 72px;
+    padding-top: 56px;
+  }
+
+  .lead {
+    gap: 24px;
+  }
+
+  .headline {
+    font-size: var(--text-h1);
+  }
+
+  .sub {
+    font-size: 18px;
+  }
+
+  .feature {
+    padding: 28px;
+  }
+
+  .featureQuestion {
+    font-size: 28px;
+  }
+
+  .more {
+    gap: 24px;
+    padding: 28px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-xl);
+    background: var(--surface-raised);
+  }
+
+  .pick:nth-child(n + 5) {
+    display: list-item;
+  }
+}

@@ -1,0 +1,159 @@
+/* Shared building blocks used by several screens. */
+
+.screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  /* clip, not hidden: hidden would stop the top bar from sticking. */
+  overflow-x: clip;
+  isolation: isolate;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter-mobile);
+}
+
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-block: 20px 32px;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+}
+
+.h2 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.h3 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--primary-300);
+}
+
+.muted {
+  color: var(--text-quiet);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.small {
+  color: var(--text-quiet);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.text {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
+.card {
+  background: var(--surface-card);
+  border-radius: var(--radius-xl);
+  padding: 16px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.link {
+  color: var(--text-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link:hover {
+  color: var(--text-link-hover);
+}
+
+/* House entrance: children rise in, one after another. */
+.rise > * {
+  animation: ap-rise-in var(--motion-slow) var(--ease-reveal) both;
+}
+
+.rise > *:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.rise > *:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.rise > *:nth-child(4) {
+  animation-delay: 240ms;
+}
+
+.rise > *:nth-child(n + 5) {
+  animation-delay: 320ms;
+}
+
+/* Loading placeholder. */
+.skeleton {
+  border-radius: var(--radius-xl);
+  background: linear-gradient(90deg, var(--gray-800) 25%, var(--gray-700) 50%, var(--gray-800) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  min-height: 72px;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: var(--content-max-wide);
+    padding-inline: var(--gutter-desktop);
+  }
+
+  .page {
+    gap: 24px;
+    padding-block: 32px 64px;
+  }
+
+  /* Reading-width column for single-column screens on desktop, lined up with the top bar. */
+  .narrow > * {
+    max-width: 720px;
+  }
+}

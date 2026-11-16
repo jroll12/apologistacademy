@@ -1,70 +1,164 @@
-import { useEffect, useRef } from 'react';
+import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline';
+import { useEffect, useRef, useState } from 'react';
+import { Navigate, useParams } from 'react-router';
+import { useApp } from '../app/AppContext';
 import { Button } from '../components/Button';
-import { ChatBubble, TypingBubble } from '../components/ChatBubble';
+import { ChatBubble, PendingBubble } from '../components/ChatBubble';
 import { CoachFab } from '../components/CoachFab';
 import { Composer } from '../components/Composer';
-import { Icon } from '../components/Icon';
+import { Sheet } from '../components/Sheet';
 import { TopBar } from '../components/TopBar';
 import { TurnProgress } from '../components/TurnProgress';
-import { getQuestion } from '../data/questions';
-import { turnOf, type State } from '../conversation/state';
+import { turnOf } from '../conversation/conversation';
+import { recordStart } from '../conversation/dailyLimit';
+import { findQuestion } from '../data/questions';
+import { useConversationRunner } from '../hooks/useConversationRunner';
+import { DESKTOP, useMediaQuery } from '../hooks/useMediaQuery';
+import { useOnline } from '../hooks/useOnline';
+import { cx } from '../lib/cx';
+import ui from '../styles/ui.module.css';
+import { useSpeechOutput } from '../voice/useSpeechOutput';
+import { CoachPanel } from './CoachPanel';
+import s from './ConversationScreen.module.css';
+import { NotFoundScreen } from './NotFoundScreen';
 
-interface Props {
-  state: State;
-  resetTime: string;
-  onSend: (text: string) => void;
-  onCoach: () => void;
-  onBack: () => void;
-  onHow: () => void;
-  onBrowse: () => void;
-}
+export function ConversationScreen() {
+  const { conversationId = '' } = useParams();
+  const { data, storage, provider, dispatch, setDraft, setSettings } = useApp();
+  const conversation = data.conversations[conversationId];
+  const question = findQuestion(conversation?.questionId);
 
-/** Screens 3 (ready), 5 (skeptic replying) and 6 (daily limit reached). */
-export function ConversationScreen({ state, resetTime, onSend, onCoach, onBack, onHow, onBrowse }: Props) {
-  const q = getQuestion(state.questionId ?? 'suffering');
-  const { limited, pending } = state;
-  const turn = turnOf(state);
-  const logRef = useRef<HTMLDivElement>(null);
+  const streaming = useConversationRunner(conversation);
+  const desktop = useMediaQuery(DESKTOP);
+  const online = useOnline();
+  const speech = useSpeechOutput();
+  const [coachOpen, setCoachOpen] = useState(false);
+  const thread = useRef<HTMLDivElement>(null);
 
+  const messages = conversation?.messages ?? [];
+  const awaiting = conversation?.awaiting ?? false;
+  const lastSkeptic = [...messages].reverse().find((m) => m.from === 'skeptic');
+  const readAloud = data.settings.readAloud;
+
+  // Keep the newest message in view.
   useEffect(() => {
-    const el = logRef.current;
+    const el = thread.current;
     if (el) el.scrollTop = el.scrollHeight;
-  }, [state.messages.length, pending]);
+  }, [messages.length, awaiting, streaming, conversation?.error]);
+
+  // Read each new skeptic message aloud, if asked. Messages already on screen at load stay silent.
+  const spoken = useRef(lastSkeptic?.id);
+  useEffect(() => {
+    if (!lastSkeptic || lastSkeptic.id === spoken.current) return;
+    spoken.current = lastSkeptic.id;
+    if (readAloud) speech.speak(lastSkeptic.text);
+  }, [lastSkeptic, readAloud, speech]);
+
+  // On desktop Coach is a side panel. Move focus to it when it opens.
+  useEffect(() => {
+    if (coachOpen && desktop) document.getElementById('coach-title')?.focus({ preventScroll: true });
+  }, [coachOpen, desktop]);
+
+  if (!conversation || !question) return <NotFoundScreen what="conversation" />;
+  if (conversation.status === 'ended') return <Navigate to={`/review/${conversation.id}`} replace />;
+
+  const id = conversation.id;
+
+  const send = (text: string) => {
+    // The daily limit counts a conversation when the first reply goes out, not when it is opened.
+    if (!conversation.counted) {
+      recordStart(storage, new Date());
+      dispatch(id, { type: 'COUNTED' });
+    }
+    speech.cancel();
+    dispatch(id, { type: 'SEND', text, now: Date.now() });
+    setDraft(id, '');
+  };
+
+  const toggleReadAloud = () => {
+    if (readAloud) speech.cancel();
+    setSettings({ readAloud: !readAloud });
+  };
+
+  const closeCoach = () => setCoachOpen(false);
 
   return (
-    <>
-      <TopBar title={q.text} onBack={onBack} onHow={onHow} />
-      {limited ? (
-        <TurnProgress turn={0} status="Not started" />
-      ) : (
-        <TurnProgress turn={turn} status="Practice only" badge="Simulated skeptic. Not a real person." />
-      )}
+    <div className={cx(ui.screen, s.screen)}>
+      <TopBar title={question.text} backTo="/questions" />
+      <div className={s.layout}>
+        <div className={s.main}>
+          <TurnProgress
+            turn={turnOf(conversation)}
+            status="Practice only"
+            badge="Simulated skeptic. Not a real person."
+            action={
+              speech.supported && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-pressed={readAloud}
+                  aria-label="Read replies aloud"
+                  title={readAloud ? 'Reading replies aloud' : 'Read replies aloud'}
+                  onClick={toggleReadAloud}
+                >
+                  {readAloud ? <SpeakerWaveIcon aria-hidden="true" /> : <SpeakerXMarkIcon aria-hidden="true" />}
+                </Button>
+              )
+            }
+          />
 
-      {limited ? (
-        <div className="msgs" style={{ justifyContent: 'center' }}>
-          <div className="card" style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <div className="tile"><Icon name="clock" size={24} /></div>
-            <h2 className="d" style={{ fontSize: 22 }}>Daily limit reached</h2>
-            <p className="txt">You have used today's practice conversations. Come back tomorrow for more.</p>
-            <p className="muted">Resets at {resetTime}.</p>
-            <Button variant="pri" block style={{ marginTop: 4 }} onClick={onBrowse}>Back to questions</Button>
-            <Button variant="ghost" block onClick={onHow}>How limits work</Button>
+          <div className={s.threadWrap}>
+            <div className={s.thread} ref={thread}>
+              <div className={cx(ui.container, s.messages)} role="log" aria-label="Conversation" aria-live="polite">
+                {messages.map((m, i) => (
+                  <ChatBubble key={m.id} message={m} still={i < messages.length - 1} />
+                ))}
+                {awaiting && !conversation.error && <PendingBubble text={streaming} />}
+                {conversation.error && (
+                  <div className={s.error} role="alert">
+                    <p className={ui.text}>The skeptic's reply did not arrive. {conversation.error}</p>
+                    <Button variant="secondary" size="sm" onClick={() => dispatch(id, { type: 'RETRY' })}>
+                      Try again
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className={s.fabRail}>
+              <div className={cx(ui.container, s.fabSlot)}>
+                <CoachFab expanded={coachOpen} onClick={() => setCoachOpen((open) => !open)} />
+              </div>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="msgs fabpad" ref={logRef} role="log" aria-label="Conversation" aria-live="polite">
-          {state.messages.map((m) => <ChatBubble key={m.id} message={m} />)}
-          {pending && <TypingBubble />}
-        </div>
-      )}
 
-      <Composer
-        key={state.convoId}
-        disabled={pending || limited}
-        placeholder={limited ? 'Off until the limit resets' : pending ? 'Paused while the skeptic writes' : 'Type or speak your reply'}
-        onSend={onSend}
-      />
-      <CoachFab disabled={limited} onClick={onCoach} />
-    </>
+          {!online && provider.mode === 'live' && (
+            <p className={cx(ui.container, ui.small, s.offline)} role="status">
+              You are offline. Your conversation is saved and will carry on when you reconnect.
+            </p>
+          )}
+
+          <Composer
+            key={id}
+            value={data.drafts[id] ?? ''}
+            onChange={(text) => setDraft(id, text)}
+            onSend={send}
+            disabled={awaiting}
+            placeholder={awaiting ? 'Paused while the skeptic writes' : 'Type or speak your reply'}
+          />
+        </div>
+
+        {desktop && coachOpen && (
+          <aside className={s.side} aria-labelledby="coach-title">
+            <CoachPanel conversation={conversation} open onClose={closeCoach} />
+          </aside>
+        )}
+      </div>
+
+      {!desktop && (
+        <Sheet open={coachOpen} onClose={closeCoach} labelledBy="coach-title">
+          <CoachPanel conversation={conversation} open={coachOpen} onClose={closeCoach} />
+        </Sheet>
+      )}
+    </div>
   );
 }

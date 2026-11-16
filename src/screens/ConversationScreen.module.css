@@ -1,0 +1,89 @@
+/* This screen is an app view: it fills the viewport and only the thread scrolls. */
+.screen {
+  height: 100dvh;
+}
+
+.layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  /* A reading-width column on wide screens. */
+  --content-max-wide: 760px;
+}
+
+.threadWrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.thread {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-700) transparent;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* Room at the bottom so the last message is never hidden behind the Coach button. */
+  padding-block: 16px 92px;
+}
+
+.error {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 86%;
+  padding: 14px 16px;
+  border: 1px solid var(--error);
+  border-radius: var(--radius-xl);
+}
+
+/* Floats the Coach button over the thread, lined up with the content column. */
+.fabRail {
+  position: absolute;
+  inset: auto 0 12px;
+  pointer-events: none;
+}
+
+.fabSlot {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.offline {
+  padding-block: 4px;
+}
+
+.side {
+  flex: none;
+  width: 400px;
+  padding: 20px 24px 24px;
+  overflow-y: auto;
+  border-inline-start: 1px solid var(--border-strong);
+  background: var(--surface-inset);
+  animation: side-in var(--motion-base) var(--ease-reveal) both;
+}
+
+@keyframes side-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

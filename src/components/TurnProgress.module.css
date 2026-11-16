@@ -1,0 +1,49 @@
+.turn {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-block: 8px 12px;
+}
+
+.label {
+  font-size: 15px;
+}
+
+.right {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: var(--tap-min);
+}
+
+.segments {
+  display: flex;
+  gap: 6px;
+}
+
+.segment {
+  flex: 1;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--line);
+  overflow: hidden;
+}
+
+.fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary-400);
+  transition: width var(--motion-slow) var(--ease-reveal);
+}
+
+.fill.on {
+  width: 100%;
+}
+
+/* The one gradient moment: all five turns done. */
+.complete {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-image: var(--gradient-aurora);
+}

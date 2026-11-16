@@ -4,3 +4,8 @@ dist
 *.log
 .pixel
 tsconfig.tsbuildinfo
+.old
+test-results
+playwright-report
+.netlify
+.env

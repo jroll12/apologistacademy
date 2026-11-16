@@ -1,0 +1,36 @@
+.coach {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.step {
+  padding: 14px 16px;
+  border-radius: var(--radius-xl);
+  background: var(--surface-card);
+  animation: ap-rise-in var(--motion-base) var(--ease-reveal) both;
+}
+
+.locked {
+  background: rgba(31, 41, 55, 0.5);
+  animation: none;
+}
+
+.stepText {
+  margin-top: 4px;
+  white-space: pre-line;
+}
+
+.wait {
+  padding-block: 8px;
+}
+
+.retry {
+  margin-top: 10px;
+}

@@ -1,0 +1,82 @@
+.dock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-block: 12px calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
+.field {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  min-height: 56px;
+  padding: 6px;
+  padding-inline-start: 18px;
+  border-radius: var(--radius-3xl);
+  background: var(--surface-inset);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: box-shadow var(--motion-fast) var(--ease-out);
+}
+
+.field:focus-within {
+  box-shadow: inset 0 0 0 2px var(--primary-500);
+}
+
+.off {
+  opacity: 0.4;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  /* One line sits level with the 44px buttons; it grows to about five lines, then scrolls. */
+  padding: 10.5px 0;
+  max-height: 136px;
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  color: var(--text-soft);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.input::placeholder {
+  color: var(--text-quiet);
+  opacity: 1;
+}
+
+.count {
+  align-self: center;
+  flex: none;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-quiet);
+}
+
+.countFull {
+  color: var(--warning);
+}
+
+.note {
+  padding-inline: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-quiet);
+}
+
+/* A soft ring that breathes while the microphone is open. */
+.listening {
+  animation: listen 1.6s ease-in-out infinite;
+}
+
+@keyframes listen {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(143, 97, 255, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(143, 97, 255, 0);
+  }
+}

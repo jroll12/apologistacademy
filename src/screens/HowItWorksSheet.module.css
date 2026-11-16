@@ -1,0 +1,39 @@
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-lg);
+  background: var(--primary-500);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 14px;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 15px;
+}
+
+.cardBody {
+  margin-top: 4px;
+}

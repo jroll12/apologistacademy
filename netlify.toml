@@ -4,3 +4,13 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Single-page app: every path that is not a file or the API serves the app.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

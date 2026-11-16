@@ -1,63 +1,130 @@
 # Apologist Academy: practice conversations
 
-A clickable prototype of the practice-conversation flow: pick a hard question, talk with a simulated skeptic for five turns, ask the Coach for stepped help, and read a review with no scores.
+Practice answering hard questions about the Christian faith. Pick a question, talk with a simulated skeptic for five turns, ask Coach for help in steps, and read a review at the end. No scores.
 
-Built from the "Practice conversation wireframes" design board using the Apologist Project Design System.
+Built with the Apologist Project Design System, evolved from the "Practice conversation wireframes" design board.
 
-## Run
+## Run it
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173
-npm test         # reducer, daily limit, browse filter
-npm run build
 ```
 
-Below 480px wide the app fills the screen. On wider screens it sits in a 390×844 phone frame, as on the board.
+```bash
+npm run dev
+```
 
-## What is real and what is a placeholder
+Then open http://localhost:5173.
 
-This is a **prototype with canned responses**. Nothing calls an AI yet.
+| Command          | What it does                                                          |
+| ---------------- | --------------------------------------------------------------------- |
+| `npm run check`  | Lint, typecheck, unit tests and build                                 |
+| `npm test`       | Unit and component tests                                              |
+| `npm run e2e`    | Browser tests (phone, desktop, live path, accessibility, screenshots) |
+| `npm run format` | Format with Prettier                                                  |
 
-- Every string on the design board is used word for word.
-- Anything the board does not show is a bracketed placeholder (`[Skeptic reply, turn 3]`, `[Coach outline]`, `[Coach sample reply]`, and the openings and reviews for the four questions other than "Why does God allow suffering?"). No apologetics content is invented. Replace the placeholders in `src/data/scripts.ts`.
-- Sources are the board's hard-coded `Source title one, Author, year` placeholders.
-- The wordmark is a placeholder (`data-logo-placeholder`) until the logo file exists. Pass `src` to `Logo` once it does.
-- The round Coach chip uses a cross glyph as a stand-in for the logo.
-- The daily limit is 3 new conversations per local day, kept in `localStorage` (`src/conversation/dailyLimit.ts`). It is checked only when a new conversation starts, never mid-conversation, and resets at local midnight. This is a client-side stand-in for a real server-side limit.
-- Voice input uses the browser's speech recognition where it exists. Where it does not, the Speak button is disabled.
-- "How limits work" on the limit screen opens the How it works sheet. The board does not define it.
+The browser tests need Chromium once: `npx playwright install chromium`.
 
-## Adding real AI later
+## Two modes
 
-`src/conversation/provider.ts` is the seam. `App.tsx` uses `cannedProvider`. A live provider would call a small server route that holds the API key (a key must not ship in the browser bundle) and return the same four things: skeptic opening, skeptic reply, Coach content, review. Swapping it in is one line in `App.tsx`.
+**Scripted (the default).** With no API key, the skeptic and Coach follow scripts in `src/data/scripts.ts`. A script cannot respond to what you say, so the review holds general notes and never claims to know what you covered. Skeptic styles are shown but switched off.
 
-## Design fidelity
+**Live AI.** With a key, a server function calls Claude. The skeptic responds to what you actually say and streams in, Coach helps with each reply, the review is personal, and skeptic styles work. The app asks the server which mode it is in. Nothing needs changing in the code.
 
-Compared against the board screen by screen in a headless browser: Home, Browse, Turn 3, Skeptic replying and Feedback are pixel-identical. The Coach sheet and How it works sheet are identical too; only the dimmed area behind their scrim differs, because the board's wireframe hides the "Simulated skeptic" badge there and the app shows the real screen. The limit screen differs only in the reset time (the board shows `[time]`, the app shows the real time). `src/styles/app.css` is the board's own stylesheet with hex values replaced by the equal design-system tokens (`src/styles/ds/`, copied unchanged from the Apologist Project Design System). The tokens come from the system. The components are local, because the board differs from the system's own components on purpose:
+### Switch live AI on
 
-| Board | Design system component |
-|---|---|
-| Sentence-case button labels | Uppercase labels |
-| Outlined secondary button | Filled gray secondary |
-| 8px suggested-question chips, 40px tall | 6px, 44px tall |
-| 20px card padding on the board | 32px |
-| Skeptic replies in bubbles | Bubble-less agent turns |
+In Netlify, under **Site configuration → Environment variables**, add:
 
-Known departures from the design system's accessibility rules, kept because the board specifies them:
+| Variable            | Needed | What it does                                                                               |
+| ------------------- | ------ | ------------------------------------------------------------------------------------------ |
+| `ANTHROPIC_API_KEY` | Yes    | Turns live AI on. It stays on the server and never reaches the browser.                    |
+| `CLAUDE_MODEL`      | No     | Model id. Default `claude-opus-5-5`.                                                       |
+| `LIVE_DAILY_LIMIT`  | No     | Live conversations one person may start per day. Default 10.                               |
+| `LIVE_GLOBAL_LIMIT` | No     | Live conversations everyone together may start per day. Default 500. This bounds the bill. |
 
-- Several buttons are 34px or 40px tall. The system asks for 44px minimum tap targets.
-- Secondary text uses `--gray-300`, which passes contrast.
+Redeploy after adding them. To try it locally, set `ANTHROPIC_API_KEY` before `npm run dev`. `MOCK_AI=1 npm run dev` runs the live path with a built-in fake model and no key.
 
-Dev-only: `npm run dev` then `/?screen=home|browse|turn3|coach|replying|limit|how|feedback` loads each state from the board. It is removed from production builds.
+**Try one real conversation before sharing a live link.** See "What has and has not been tested" below.
 
-## Layout
+### Guardrails, enforced on the server
+
+- The skeptic is a clearly simulated character, stays respectful, never claims to be converted, and says it is simulated if asked.
+- Five turns per conversation, 600 characters per reply, and the daily caps above. The caps count conversations started, never replies.
+- Coach and the review may quote only the one checked verse for the question. They may not name books, authors, websites or studies, and the review gives no scores.
+- Sources shown in the review come only from the list in `src/data/questions.ts`. The model never supplies them.
+- If the model declines a request for safety reasons, the API retries it on a fallback model in the same call.
+
+## Content
+
+All of it lives in `src/data/`.
+
+- **`questions.ts`**: 16 questions in 8 topics. Each has a verse and a `sources` list.
+- **`scripts.ts`**: for each question, the skeptic's opening and four follow-ups, Coach's nudge, outline and sample reply, and review notes.
+- **`personas.ts`**: skeptic styles and difficulty levels, with the instruction each gives the live skeptic.
+
+### The copy is a draft
+
+Every script is marked `draft: true`. While a script is a draft, the app shows a "Draft copy" note wherever its text appears. The copy was written to the design system's voice rules and has **not** been reviewed for theology or tone. To approve a script, review it and set `draft: false`.
+
+Strings marked `(board)` in `scripts.ts` come from the design board word for word.
+
+### Scripture
+
+Verses are quoted from the Berean Standard Bible and were checked word for word against the source text. The house translation is ESV. To use it, replace the `text` and `translation` in `questions.ts`.
+
+### Sources
+
+Every `sources` list is empty on purpose, and the review says "Sources to be added". No titles or links were invented. Add real ones like this:
+
+```ts
+sources: [{ title: 'Document title', publisher: 'Ministry partner', href: 'https://…' }],
+```
+
+### Add a question
+
+1. Add it to `QUESTIONS` in `questions.ts` with a unique `id`, a topic, a verse and sources.
+2. Add a script under the same `id` in `scripts.ts`.
+
+`npm test` fails if a question has no script, if any copy contains an em dash, emoji, a banned filler word or a leftover placeholder, or if a source is missing a title, publisher or https link.
+
+## What has and has not been tested
+
+**Tested and passing**
+
+- 113 unit and component tests: turn logic, the daily limit, saving and loading, search, the scripted provider, the server routes and their limits, and a full conversation in a simulated browser.
+- 65 browser tests in Chromium at phone and desktop sizes: the full flow, resume after reload, Coach, history, search, the daily limit, keyboard-only use, focus handling, reduced motion, an automated accessibility scan (axe) on every screen, and a check that every control is at least 44px.
+- The live path end to end against the built-in fake model: streaming, Coach, the personal review, styles, and request checks.
+- The Claude adapter against a local stand-in for the API. This proves exactly what request is sent and that replies are read correctly.
+- The Netlify function bundles and answers correctly when called directly.
+
+**Not tested**
+
+- **A real Claude reply.** No API key was available during development. The request has never been sent to the real API, so the first live conversation is its first real test.
+- **Netlify hosting itself:** that `/api/*` reaches the function ahead of the page fallback, and the stored usage counter (Netlify Blobs). If Blobs is unavailable the counter falls back to memory, which resets when the function restarts.
+- **Voice** with real audio. Speech input and read-aloud use the browser's own features. Firefox has no speech input, and the app says so.
+- **Browsers other than Chromium**, and real phones.
+- **Right-to-left languages.** Layout uses logical properties, but no RTL language has been tried.
+
+## Known limits
+
+- Conversations are saved in the browser on one device. There are no accounts and nothing syncs.
+- The scripted daily limit (3 a day, set in `src/conversation/dailyLimit.ts`) is kept in the browser, so clearing site data resets it. The live limits are enforced on the server and are approximate under heavy simultaneous use.
+- The wordmark is plain type and the Coach button uses a cross as a stand-in, because no logo file exists yet. Pass `src` to `Logo` when it does.
+
+## Where things are
 
 ```
-src/styles/ds/        design-system tokens (unchanged)
-src/styles/app.css    board styles on tokens, plus a few app-only rules at the end
-src/components/       Button, TopBar, TurnProgress, ChatBubble, Composer, CoachFab, Sheet, Logo, Icon
-src/screens/          Home, Browse, Conversation (ready / replying / limit), Feedback, CoachSheet, HowItWorksSheet
-src/conversation/     state machine, provider interface, canned provider, daily limit, dev fixtures
-src/data/             questions and canned scripts
+src/app/            app state: store, provider choice, starting conversations
+src/conversation/   turn logic, the provider interface, scripted and live providers, daily limit
+src/store/          saved data (versioned, in localStorage)
+src/data/           questions, scripts, skeptic styles
+src/components/     buttons, top bar, chat bubbles, composer, sheet, cards
+src/screens/        Home, Library, Get ready, Conversation, Coach, Review, History
+src/voice/          speech input and read-aloud
+src/styles/ds/      Apologist design-system tokens, unchanged
+server/             the API: prompts, limits, the Claude adapter, a fake model for tests
+netlify/functions/  the Netlify entry point for the API
+e2e/                browser tests
 ```
+
+`src/conversation/provider.ts` is the seam between the app and whoever plays the skeptic. `server/anthropicClient.ts` is the only file that talks to the Anthropic SDK.

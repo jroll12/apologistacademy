@@ -42,6 +42,8 @@ In Netlify, under **Site configuration → Environment variables**, add:
 | `LIVE_DAILY_LIMIT`  | No     | Live conversations one person may start per day. Default 10.                               |
 | `LIVE_GLOBAL_LIMIT` | No     | Live conversations everyone together may start per day. Default 500. This bounds the bill. |
 
+**Using an Apologist agent instead of Claude.** Set `APOLOGIST_API_URL` (the full chat-completions endpoint) and `APOLOGIST_API_KEY` instead of the Anthropic key. `APOLOGIST_MODEL` is optional. If both are set, the agent is used unless `AI_PROVIDER=anthropic`. This path sends a `x-api-key` header and an OpenAI-style request, and asks for plain JSON from Coach and the review, which the server checks itself. It has only been tested against a local stand-in, not the real platform.
+
 Redeploy after adding them. To try it locally, set `ANTHROPIC_API_KEY` before `npm run dev`. `MOCK_AI=1 npm run dev` runs the live path with a built-in fake model and no key.
 
 **Try one real conversation before sharing a live link.** See "What has and has not been tested" below.

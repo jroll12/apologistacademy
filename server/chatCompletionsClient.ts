@@ -48,18 +48,38 @@ export function extractJson(text: string): unknown {
 export function createChatCompletionsClient(opts: ChatCompletionsOptions): AiClient {
   const doFetch = opts.fetch ?? fetch;
 
-  async function post(body: Record<string, unknown>, signal?: AbortSignal): Promise<Response> {
-    let res: Response;
+  // The docs list both x-api-key and Authorization: Bearer. Samples use x-api-key, so try it first
+  // and, if the key is refused, try Bearer once. The one that works is remembered.
+  let auth: 'x-api-key' | 'bearer' = 'x-api-key';
+
+  async function send(body: Record<string, unknown>, signal?: AbortSignal): Promise<Response> {
+    const headers: Record<string, string> = { 'content-type': 'application/json' };
+    if (auth === 'bearer') headers.authorization = `Bearer ${opts.apiKey}`;
+    else headers['x-api-key'] = opts.apiKey;
     try {
-      res = await doFetch(opts.url, {
+      return await doFetch(opts.url, {
         method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-api-key': opts.apiKey },
-        body: JSON.stringify({ ...(opts.model ? { model: opts.model } : {}), ...body }),
+        headers,
+        body: JSON.stringify({
+          ...(opts.model ? { model: opts.model } : {}),
+          // No sign-in, and no memory carried over between people or conversations.
+          metadata: { anonymous: true, language: 'en', max_memories: 0 },
+          ...body,
+        }),
         signal,
       });
     } catch (err) {
       if (err instanceof Error && err.name === 'AbortError') throw err;
       throw new AiUnavailable('Could not reach the AI service.');
+    }
+  }
+
+  async function post(body: Record<string, unknown>, signal?: AbortSignal): Promise<Response> {
+    let res = await send(body, signal);
+    if ((res.status === 401 || res.status === 403) && auth === 'x-api-key') {
+      auth = 'bearer';
+      res = await send(body, signal);
+      if (res.status === 401 || res.status === 403) auth = 'x-api-key';
     }
     if (res.status === 401 || res.status === 403) throw new AiUnavailable('Live AI is not set up correctly.');
     if (res.status === 429) throw new AiUnavailable('The AI is busy right now. Try again in a moment.');

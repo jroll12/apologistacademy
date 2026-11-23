@@ -61,6 +61,30 @@ describe('chat-completions client', () => {
     expect(seen!.body.messages[1]).toEqual({ role: 'user', content: 'Hi' });
   });
 
+  it('sends no memory or sign-in metadata', async () => {
+    respond = () => ({ status: 200, type: 'text/event-stream', body: sse('ok') });
+    await client().streamText(REQ, () => {});
+    expect(seen!.body.metadata).toEqual({ anonymous: true, language: 'en', max_memories: 0 });
+  });
+
+  it('falls back to a Bearer token when x-api-key is refused', async () => {
+    respond = () => ({ status: 200, type: 'text/event-stream', body: sse('ok') });
+    const real = respond;
+    let first = true;
+    respond = (stream) => {
+      if (first) {
+        first = false;
+        return { status: 401, type: 'application/json', body: '{}' };
+      }
+      return real(stream);
+    };
+    const out: string[] = [];
+    await client().streamText(REQ, (t) => out.push(t));
+    expect(out.join('')).toBe('ok');
+    expect(seen!.headers.authorization).toBe('Bearer test-key-not-real');
+    expect(seen!.headers['x-api-key']).toBeUndefined();
+  });
+
   it('reports a content filter as a refusal', async () => {
     respond = () => ({
       status: 200,

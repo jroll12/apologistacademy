@@ -2,12 +2,6 @@
   gap: 28px;
 }
 
-.top {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
 .hero {
   display: flex;
   flex-direction: column;
@@ -25,7 +19,7 @@
   line-height: 1.5;
 }
 
-/* Resume and Suggested: stacked, in the right-hand column on desktop. */
+/* Resume and Suggested: stacked on a phone, two columns on desktop. */
 .featured {
   display: grid;
   gap: 20px;
@@ -162,16 +156,9 @@
     padding-top: 48px;
   }
 
-  /* Headline and tagline on the left, the card or cards on the right. */
-  .top {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 64px;
-    /* Top-aligned, so the headline stays put whether or not there is a conversation to resume. */
-    align-items: start;
-  }
-
+  /* Two equal columns. Suggested alone takes the first; with Resume, it is Resume then Suggested. */
   .featured {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
   }
 

@@ -71,7 +71,7 @@ export function CoachPanel({ conversation, open, onClose }: Props) {
         <h2 id="coach-title" className={ui.h2} tabIndex={-1}>
           Coach
         </h2>
-        <Button variant="secondary" size="sm" onClick={onClose}>
+        <Button variant="ghost" size="sm" onClick={onClose}>
           Close
         </Button>
       </div>

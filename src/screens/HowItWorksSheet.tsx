@@ -22,7 +22,7 @@ export function HowItWorksSheet() {
         <h2 id="how-title" className={ui.h2}>
           How it works
         </h2>
-        <Button variant="secondary" size="sm" onClick={closeHow}>
+        <Button variant="ghost" size="sm" onClick={closeHow}>
           Close
         </Button>
       </div>

@@ -27,9 +27,6 @@ export function QuestionCard({ question, practiced }: Props) {
         </span>
         <span className={s.text}>{question.text}</span>
       </span>
-      <span className={s.go} aria-hidden="true">
-        Start
-      </span>
     </Link>
   );
 }

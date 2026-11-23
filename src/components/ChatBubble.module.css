@@ -28,7 +28,7 @@
 /* Shorter lines on a wide screen are easier to read. */
 @media (min-width: 1024px) {
   .bubble {
-    max-width: 72%;
+    max-width: 60%;
   }
 }
 

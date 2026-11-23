@@ -46,6 +46,8 @@ test.describe('screens look as expected', () => {
   test('How it works', async ({ page }) => {
     await page.goto('/');
     await openHowItWorks(page);
+    // Let the sheet finish sliding in before taking the picture.
+    await page.waitForTimeout(600);
     await expect(page).toHaveScreenshot('how-it-works.png');
   });
 });

@@ -35,46 +35,44 @@ export function HomeScreen() {
       <Blob />
       <TopBar />
       <main className={cx(ui.container, ui.page, s.home, ui.rise)}>
-        <div className={s.top}>
-          <div className={s.hero}>
-            <h1 className={cx(ui.h1, s.headline)} tabIndex={-1}>
-              Practice a hard talk
-            </h1>
-            <p className={s.tagline}>{TAGLINE}</p>
-          </div>
+        <div className={s.hero}>
+          <h1 className={cx(ui.h1, s.headline)} tabIndex={-1}>
+            Practice a hard talk
+          </h1>
+          <p className={s.tagline}>{TAGLINE}</p>
+        </div>
 
-          <div className={s.featured}>
-            {resume && resumeQuestion && (
-              <section className={s.feature} aria-labelledby="resume-title">
-                <h2 className={ui.h3} id="resume-title">
-                  Pick up where you left off
-                </h2>
-                <div className={cx(ui.card, s.featureCard)}>
-                  <p className={cx(ui.display, s.featureQuestion)}>{resumeQuestion.text}</p>
-                  <ButtonLink variant="primary" to={`/talk/${resume.id}`} className={s.featureAction}>
-                    Resume
-                  </ButtonLink>
-                </div>
-              </section>
-            )}
-
-            <section className={s.feature} aria-labelledby="suggested-title">
-              <h2 className={ui.h3} id="suggested-title">
-                Suggested to start
+        <div className={s.featured}>
+          {resume && resumeQuestion && (
+            <section className={s.feature} aria-labelledby="resume-title">
+              <h2 className={ui.h3} id="resume-title">
+                Pick up where you left off
               </h2>
               <div className={cx(ui.card, s.featureCard)}>
-                <p className={cx(ui.display, s.featureQuestion)}>{suggested.text}</p>
-                {/* One primary button per screen: Resume takes it when there is something to resume. */}
-                <ButtonLink
-                  variant={resume ? 'secondary' : 'primary'}
-                  to={`/practice/${suggested.id}`}
-                  className={s.featureAction}
-                >
-                  Start
+                <p className={cx(ui.display, s.featureQuestion)}>{resumeQuestion.text}</p>
+                <ButtonLink variant="primary" to={`/talk/${resume.id}`} className={s.featureAction}>
+                  Resume
                 </ButtonLink>
               </div>
             </section>
-          </div>
+          )}
+
+          <section className={s.feature} aria-labelledby="suggested-title">
+            <h2 className={ui.h3} id="suggested-title">
+              Suggested to start
+            </h2>
+            <div className={cx(ui.card, s.featureCard)}>
+              <p className={cx(ui.display, s.featureQuestion)}>{suggested.text}</p>
+              {/* One primary button per screen: Resume takes it when there is something to resume. */}
+              <ButtonLink
+                variant={resume ? 'secondary' : 'primary'}
+                to={`/practice/${suggested.id}`}
+                className={s.featureAction}
+              >
+                Start
+              </ButtonLink>
+            </div>
+          </section>
         </div>
 
         <section className={s.more} aria-labelledby="more-title">

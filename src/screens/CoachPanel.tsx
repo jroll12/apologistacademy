@@ -10,7 +10,7 @@ import { cx } from '../lib/cx';
 import ui from '../styles/ui.module.css';
 import s from './CoachPanel.module.css';
 
-const STEP_NAMES = ['nudge', 'outline', 'sample reply'] as const;
+const STEP_NAMES = ['hint', 'outline', 'sample reply'] as const;
 
 function Step({
   title,
@@ -100,7 +100,7 @@ export function CoachPanel({ conversation, open, onClose }: Props) {
               Step {step} of 3: {STEP_NAMES[step - 1]}
             </span>
           </div>
-          <Step title="Nudge" text={coach.nudge} locked={false} lockedText="" />
+          <Step title="Hint" text={coach.nudge} locked={false} lockedText="" />
           <Step title="Outline" text={coach.outline} locked={step < 2} lockedText="Shows when you ask." />
           <Step title="Sample reply" text={coach.sample} locked={step < 3} lockedText="Shows after the outline." />
           {!live && isDraft(conversation.questionId) && <DraftNote />}

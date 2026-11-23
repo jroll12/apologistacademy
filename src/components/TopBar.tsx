@@ -38,7 +38,7 @@ function NavMenu() {
   const how = () => {
     close();
     // Open the sheet after the menu has handed focus back to its button, so the sheet returns it there.
-    requestAnimationFrame(openHow);
+    requestAnimationFrame(() => openHow());
   };
 
   return (
@@ -118,7 +118,7 @@ export function TopBar({ title, backTo, narrow }: Props) {
           <NavLink to="/history" viewTransition className={navClass}>
             History
           </NavLink>
-          <button type="button" className={s.navLink} onClick={openHow}>
+          <button type="button" className={s.navLink} onClick={() => openHow()}>
             How it works
           </button>
         </nav>

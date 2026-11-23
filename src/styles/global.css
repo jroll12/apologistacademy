@@ -19,6 +19,28 @@
   --line: var(--gray-500);
   --content-max: 640px;
   --content-max-wide: 1120px;
+  /* Type scale, in rem so the browser's text-size setting works (16px = 1rem by default). */
+  --fs-12: 0.75rem;
+  --fs-13: 0.8125rem;
+  --fs-14: 0.875rem;
+  --fs-15: 0.9375rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-22: 1.375rem;
+  --fs-28: 1.75rem;
+  --fs-32: 2rem;
+  /* The design-system tokens, unchanged in size but in rem. */
+  --text-h1: clamp(2.125rem, 4.5vw, 3.5rem);
+  --text-h2: clamp(1.75rem, 3.2vw, 2.5rem);
+  --text-h3: clamp(1.375rem, 2.2vw, 1.75rem);
+  --text-h4: clamp(1.125rem, 1.6vw, 1.25rem);
+  --text-body-lg: clamp(1.125rem, 1.4vw, 1.25rem);
+  --text-body: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-caption: 0.75rem;
+  --text-eyebrow: clamp(0.8125rem, 1vw, 0.875rem);
+  --text-button: 1rem;
   /* The reading column on desktop: question page, conversation, review. */
   --column: 720px;
 }
@@ -118,4 +140,27 @@ button:disabled {
   ::view-transition-new(*) {
     animation: none !important;
   }
+}
+
+/* Hidden until a keyboard user tabs to it. */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: 16px;
+  border-radius: var(--radius-full);
+  background: var(--primary-500);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
 }

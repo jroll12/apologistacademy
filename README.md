@@ -39,7 +39,7 @@ In Netlify, under **Site configuration → Environment variables**, add:
 | ------------------- | ------ | ------------------------------------------------------------------------------------------ |
 | `ANTHROPIC_API_KEY` | Yes    | Turns live AI on. It stays on the server and never reaches the browser.                    |
 | `CLAUDE_MODEL`      | No     | Model id. Default `claude-opus-5-5`.                                                       |
-| `LIVE_DAILY_LIMIT`  | No     | Live conversations one person may start per day. Default 10.                               |
+| `LIVE_DAILY_LIMIT`  | No     | Live conversations one person may start per day. Default: no per-person limit.             |
 | `LIVE_GLOBAL_LIMIT` | No     | Live conversations everyone together may start per day. Default 500. This bounds the bill. |
 
 **Using an Apologist agent instead of Claude.** Set `APOLOGIST_API_URL` (the full chat-completions endpoint) or, if a settings screen will not take `:` and `/`, just `APOLOGIST_AGENT_DOMAIN` (for example `apologist-academy.apologist.ai`), and `APOLOGIST_API_KEY` instead of the Anthropic key. `APOLOGIST_MODEL` is optional. If both are set, the agent is used unless `AI_PROVIDER=anthropic`. This path sends an `x-api-key` header (and tries `Authorization: Bearer` if that is refused) and an OpenAI-style request with no agent memory, and asks for plain JSON from Coach and the review, which the server checks itself. It has only been tested against a local stand-in, not the real platform.
@@ -51,7 +51,7 @@ Redeploy after adding them. To try it locally, set `ANTHROPIC_API_KEY` before `n
 ### Guardrails, enforced on the server
 
 - The skeptic is a clearly simulated character, stays respectful, never claims to be converted, and says it is simulated if asked.
-- Five turns per conversation, 600 characters per reply, and the daily caps above. The caps count conversations started, never replies.
+- Five turns per conversation, 600 characters per reply, and the overall daily cap above. It counts conversations started, never replies.
 - Coach and the review may quote only the one checked verse for the question. They may not name books, authors, websites or studies, and the review gives no scores.
 - Sources shown in the review come only from the list in `src/data/questions.ts`. The model never supplies them.
 - If the model declines a request for safety reasons, the API retries it on a fallback model in the same call.
@@ -76,7 +76,7 @@ Verses are quoted from the Berean Standard Bible and were checked word for word 
 
 ### Sources
 
-Every `sources` list is empty on purpose, and the review says "Sources to be added". No titles or links were invented. Add real ones like this:
+Every `sources` list is empty on purpose, and the review leaves out the Sources card until a question has some. No titles or links were invented. Add real ones like this:
 
 ```ts
 sources: [{ title: 'Document title', publisher: 'Ministry partner', href: 'https://…' }],
@@ -93,8 +93,8 @@ sources: [{ title: 'Document title', publisher: 'Ministry partner', href: 'https
 
 **Tested and passing**
 
-- 113 unit and component tests: turn logic, the daily limit, saving and loading, search, the scripted provider, the server routes and their limits, and a full conversation in a simulated browser.
-- 65 browser tests in Chromium at phone and desktop sizes: the full flow, resume after reload, Coach, history, search, the daily limit, keyboard-only use, focus handling, reduced motion, an automated accessibility scan (axe) on every screen, and a check that every control is at least 44px.
+- 118 unit and component tests: turn logic, saving and loading, search, the scripted provider, the server routes and their limits, and a full conversation in a simulated browser.
+- 63 browser tests in Chromium at phone and desktop sizes: the full flow, resume after reload, Coach, history, search, keyboard-only use, focus handling, reduced motion, an automated accessibility scan (axe) on every screen, and a check that every control is at least 44px.
 - The live path end to end against the built-in fake model: streaming, Coach, the personal review, styles, and request checks.
 - The Claude adapter against a local stand-in for the API. This proves exactly what request is sent and that replies are read correctly.
 - The Netlify function bundles and answers correctly when called directly.
@@ -110,14 +110,14 @@ sources: [{ title: 'Document title', publisher: 'Ministry partner', href: 'https
 ## Known limits
 
 - Conversations are saved in the browser on one device. There are no accounts and nothing syncs.
-- The scripted daily limit (3 a day, set in `src/conversation/dailyLimit.ts`) is kept in the browser, so clearing site data resets it. The live limits are enforced on the server and are approximate under heavy simultaneous use.
+- There is no per-person daily limit for now. The server still caps live conversations for everyone together (`LIVE_GLOBAL_LIMIT`, default 500 a day) to bound the bill, and that count is approximate under heavy simultaneous use.
 - The Coach button uses the Apologist cross (from `icon-square.svg`). The wordmark is still plain type because no full logo file exists yet. Pass `src` to `Logo` when it does.
 
 ## Where things are
 
 ```
 src/app/            app state: store, provider choice, starting conversations
-src/conversation/   turn logic, the provider interface, scripted and live providers, daily limit
+src/conversation/   turn logic, the provider interface, scripted and live providers
 src/store/          saved data (versioned, in localStorage)
 src/data/           questions, scripts, skeptic styles
 src/components/     buttons, top bar, chat bubbles, composer, sheet, cards

@@ -4,16 +4,28 @@ import { finishConversation, reply, replyBox, skipIntro, startQuestion } from '.
 const SUFFERING = /Why does God allow suffering/;
 
 test.describe('first visit', () => {
-  test('shows How it works once, then never again', async ({ page }) => {
+  test('the landing page is not covered; How it works shows on the first Start, then never again', async ({ page }) => {
     await page.goto('/');
+    await expect(page.getByRole('heading', { level: 1, name: 'Practice a hard talk' })).toBeVisible();
+    await expect(page.getByRole('dialog', { name: 'How it works' })).toBeHidden();
+
+    await page.goto('/practice/suffering');
+    await page.getByRole('button', { name: 'Start', exact: true }).click();
     const intro = page.getByRole('dialog', { name: 'How it works' });
     await expect(intro).toBeVisible();
     await expect(intro.getByText('simulated character, not a real person')).toBeVisible();
+    await expect(intro.getByRole('link', { name: 'The Apologist Project' })).toHaveAttribute(
+      'href',
+      'https://apologistproject.org/',
+    );
     await intro.getByRole('button', { name: 'Got it' }).click();
-    await expect(intro).toBeHidden();
-    await page.reload();
-    await expect(page.getByRole('heading', { level: 1, name: 'Practice a hard talk' })).toBeVisible();
-    await expect(page.getByRole('dialog')).toBeHidden();
+    // Closing it carries straight on into the conversation.
+    await expect(page.getByText('If God is good and strong, why is there so much pain?')).toBeVisible();
+
+    await page.goto('/practice/bible');
+    await page.getByRole('button', { name: 'Start', exact: true }).click();
+    await expect(page).toHaveURL(/\/talk\//);
+    await expect(page.getByRole('dialog', { name: 'How it works' })).toBeHidden();
   });
 });
 
@@ -43,7 +55,7 @@ test.describe('practice', () => {
     await expect(page.getByText('I need to think about that. Thanks for the talk.').first()).toBeVisible();
     await expect(page.getByText('Ask what is behind the question.')).toBeVisible();
     await expect(page.getByText('Psalm 34:18 (BSB)')).toBeVisible();
-    await expect(page.getByText('Sources to be added.')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Sources' })).toHaveCount(0);
     // A scripted review must not pretend to know what the person covered.
     await expect(page.getByText('What you covered')).toHaveCount(0);
     // "No scores" is a promise: no digits out of ten, no percentages, no grades.
@@ -101,38 +113,6 @@ test.describe('practice', () => {
     await expect(coach.getByRole('button', { name: /^Show/ })).toHaveCount(0);
     await coach.getByRole('button', { name: 'Back to my reply' }).click();
     await expect(page.getByRole('heading', { name: 'Coach' })).toBeHidden();
-  });
-
-  test('the daily limit blocks a fourth conversation, counts on the first reply, and resets the next day', async ({
-    page,
-  }) => {
-    // Opening and leaving a question does not use up a conversation.
-    await startQuestion(page, SUFFERING);
-    await expect(page.getByText('If God is good and strong')).toBeVisible();
-
-    for (const q of [/Can I trust the Bible/, /Did Jesus really rise/, /Is Jesus the only way/]) {
-      await startQuestion(page, q);
-      await reply(page, 'One reply');
-    }
-
-    await page.goto('/practice/science');
-    await expect(page.getByRole('heading', { name: 'Daily limit reached' })).toBeVisible();
-    await expect(page.getByText(/Resets at \d{1,2}:\d{2}/)).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Start', exact: true })).toHaveCount(0);
-
-    // A conversation already under way is never cut off.
-    await page.goto('/history');
-    await page.getByRole('link', { name: /Is Jesus the only way/ }).click();
-    await reply(page, 'Still allowed');
-    await expect(page.getByText('Turn 3 of 5')).toBeVisible();
-
-    // The next day the limit is gone.
-    await page.evaluate(() => {
-      const saved = JSON.parse(localStorage.getItem('ap.practice.daily')!);
-      localStorage.setItem('ap.practice.daily', JSON.stringify({ ...saved, day: '2000-01-01' }));
-    });
-    await page.goto('/practice/science');
-    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible();
   });
 });
 

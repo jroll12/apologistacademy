@@ -111,9 +111,10 @@ export function ReviewScreen() {
             </blockquote>
           </section>
 
-          <section className={cx(ui.card, s.note)}>
-            <h3 className={cx(ui.h3, s.noteTitle)}>Sources</h3>
-            {question.sources.length > 0 ? (
+          {/* Hidden until the question has real sources. */}
+          {question.sources.length > 0 && (
+            <section className={cx(ui.card, s.note)}>
+              <h3 className={cx(ui.h3, s.noteTitle)}>Sources</h3>
               <ul className={s.sources}>
                 {question.sources.map((src) => (
                   <li key={src.href}>
@@ -124,10 +125,8 @@ export function ReviewScreen() {
                   </li>
                 ))}
               </ul>
-            ) : (
-              <p className={cx(ui.muted, s.noteText)}>Sources to be added.</p>
-            )}
-          </section>
+            </section>
+          )}
         </aside>
 
         <details className={s.transcript}>

@@ -26,8 +26,16 @@ function Shell() {
     document.querySelector<HTMLElement>('h1')?.focus({ preventScroll: true });
   }, [pathname]);
 
+  const skip = (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.querySelector<HTMLElement>('h1')?.focus();
+  };
+
   return (
     <>
+      <a href="#" className="skip-link" onClick={skip}>
+        Skip to content
+      </a>
       <Outlet />
       <HowItWorksSheet />
     </>

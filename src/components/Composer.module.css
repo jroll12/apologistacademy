@@ -38,7 +38,7 @@
   background: transparent;
   color: var(--text-soft);
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: var(--fs-15);
   line-height: 1.5;
 }
 
@@ -50,7 +50,7 @@
 .count {
   align-self: center;
   flex: none;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-variant-numeric: tabular-nums;
   color: var(--text-quiet);
 }
@@ -61,7 +61,7 @@
 
 .note {
   padding-inline: 12px;
-  font-size: 13px;
+  font-size: var(--fs-13);
   line-height: 1.4;
   color: var(--text-quiet);
 }
@@ -74,9 +74,9 @@
 @keyframes listen {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(143, 97, 255, 0.55);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary-400) 55%, transparent);
   }
   50% {
-    box-shadow: 0 0 0 8px rgba(143, 97, 255, 0);
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--primary-400) 0%, transparent);
   }
 }

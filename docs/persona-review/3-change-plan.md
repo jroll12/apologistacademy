@@ -1,6 +1,6 @@
 # Change plan from the persona review
 
-For approval. Nothing here has been applied. Each item names the finding it fixes (see `2-findings.md`).
+Status: applied on 2026-11-23, except F1 (no feedback link, by decision). See the re-test table at the end of `2-findings.md`.
 
 ## Decisions needed from you
 

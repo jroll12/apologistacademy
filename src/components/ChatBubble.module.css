@@ -10,7 +10,7 @@
   max-width: 86%;
   padding: 12px 16px;
   border-radius: var(--radius-3xl);
-  font-size: 15px;
+  font-size: var(--fs-15);
   line-height: 1.55;
   overflow-wrap: anywhere;
   white-space: pre-wrap;
@@ -88,6 +88,6 @@
 
 .typingLabel {
   margin-inline-start: 6px;
-  font-size: 13px;
+  font-size: var(--fs-13);
   color: var(--text-quiet);
 }

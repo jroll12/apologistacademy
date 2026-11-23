@@ -103,10 +103,4 @@ describe('conversation reducer', () => {
     const review = { personalized: false, covered: null, couldAdd: 'a', possibleAnswer: 'b' };
     expect(run(fresh(), { type: 'REVIEW_LOADED', review }).review).toBeNull();
   });
-
-  it('marks a conversation as counted once', () => {
-    const c = run(fresh(), { type: 'COUNTED' });
-    expect(c.counted).toBe(true);
-    expect(run(c, { type: 'COUNTED' })).toBe(c);
-  });
 });

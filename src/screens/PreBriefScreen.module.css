@@ -11,7 +11,7 @@
 
 .questionText {
   margin-top: 2px;
-  font-size: 28px;
+  font-size: var(--fs-28);
 }
 
 .group {
@@ -59,7 +59,7 @@
 
 .option:has(input:checked) {
   border-color: var(--primary-400);
-  background: rgba(113, 55, 255, 0.16);
+  background: color-mix(in srgb, var(--primary-500) 16%, transparent);
 }
 
 .option:has(input:focus-visible) {
@@ -70,7 +70,7 @@
 .optionLabel {
   font-family: var(--font-display);
   font-weight: var(--weight-semibold);
-  font-size: 18px;
+  font-size: var(--fs-18);
 }
 
 .group:disabled .option {
@@ -95,14 +95,6 @@
 @media (min-width: 1024px) {
   .questionText {
     font-size: var(--text-h2);
-  }
-
-  .options {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .three {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   /* Directly under the choices, the full width of the column. */

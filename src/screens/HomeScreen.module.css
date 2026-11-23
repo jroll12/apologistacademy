@@ -15,7 +15,7 @@
 .tagline {
   max-width: 32em;
   color: var(--text-quiet);
-  font-size: 16px;
+  font-size: var(--fs-16);
   line-height: 1.5;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .featureQuestion {
-  font-size: 22px;
+  font-size: var(--fs-22);
   line-height: 1.2;
   text-wrap: balance;
 }
@@ -94,7 +94,7 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-full);
   color: var(--white);
-  font-size: 14px;
+  font-size: var(--fs-14);
   white-space: nowrap;
   text-decoration: none;
   transition: border-color var(--motion-instant) var(--ease-out);
@@ -163,7 +163,7 @@
   }
 
   .tagline {
-    font-size: 18px;
+    font-size: var(--fs-18);
   }
 
   .featureCard {
@@ -171,7 +171,7 @@
   }
 
   .featureQuestion {
-    font-size: 28px;
+    font-size: var(--fs-28);
   }
 
   .featureAction {

@@ -25,15 +25,19 @@
   color: var(--white);
   font-family: var(--font-display);
   font-weight: var(--weight-semibold);
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 
 .cardTitle {
   font-family: var(--font-display);
   font-weight: var(--weight-semibold);
-  font-size: 15px;
+  font-size: var(--fs-15);
 }
 
 .cardBody {
   margin-top: 4px;
+}
+
+.credit {
+  text-align: center;
 }

@@ -282,9 +282,12 @@ describe('settings', () => {
   });
 
   it('reads limits, falling back on bad values', () => {
-    expect(readLimits({})).toEqual({ perClient: 10, global: 500 });
+    expect(readLimits({})).toEqual({ perClient: Infinity, global: 500 });
     expect(readLimits({ LIVE_DAILY_LIMIT: '4', LIVE_GLOBAL_LIMIT: '90' })).toEqual({ perClient: 4, global: 90 });
-    expect(readLimits({ LIVE_DAILY_LIMIT: '-3', LIVE_GLOBAL_LIMIT: 'lots' })).toEqual({ perClient: 10, global: 500 });
+    expect(readLimits({ LIVE_DAILY_LIMIT: '-3', LIVE_GLOBAL_LIMIT: 'lots' })).toEqual({
+      perClient: Infinity,
+      global: 500,
+    });
   });
 
   it('labels clients without storing their address', async () => {

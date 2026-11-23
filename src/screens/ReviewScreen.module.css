@@ -13,7 +13,7 @@
 }
 
 .question {
-  font-size: 28px;
+  font-size: var(--fs-28);
 }
 
 .lead > .question {
@@ -21,7 +21,7 @@
 }
 
 .noteTitle {
-  font-size: 15px;
+  font-size: var(--fs-15);
   color: var(--primary-300);
 }
 
@@ -50,7 +50,7 @@
 .cite {
   display: block;
   margin-top: 4px;
-  font-size: 13px;
+  font-size: var(--fs-13);
   font-style: normal;
   color: var(--text-quiet);
 }
@@ -62,7 +62,7 @@
   margin: 2px 0 0;
   padding: 0;
   list-style: none;
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 
 .transcript {
@@ -79,7 +79,7 @@
   cursor: pointer;
   font-family: var(--font-display);
   font-weight: var(--weight-semibold);
-  font-size: 15px;
+  font-size: var(--fs-15);
   border-radius: var(--radius-xl);
 }
 

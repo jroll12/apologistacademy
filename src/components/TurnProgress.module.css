@@ -16,7 +16,7 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-full);
   color: var(--text-quiet);
-  font-size: 12px;
+  font-size: var(--fs-12);
   line-height: 1.4;
 }
 
@@ -57,4 +57,10 @@
   height: 6px;
   border-radius: var(--radius-full);
   background-image: var(--gradient-aurora);
+}
+
+@media (max-height: 560px) {
+  .turn {
+    padding-bottom: 4px;
+  }
 }

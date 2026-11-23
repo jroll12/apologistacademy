@@ -5,7 +5,6 @@ import { RouterProvider } from 'react-router/dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { routes } from '../App';
 import { createCannedProvider, INSTANT_TIMING } from '../conversation/cannedProvider';
-import { DAILY_LIMIT, used } from '../conversation/dailyLimit';
 import type { ConversationProvider } from '../conversation/provider';
 import { ProviderError } from '../conversation/provider';
 import { TAGLINE } from '../data/copy';
@@ -59,10 +58,8 @@ describe('a whole practice conversation', () => {
 
     expect(await screen.findByText(SCRIPTS.suffering.opening)).toBeInTheDocument();
     expect(screen.getByText('Turn 1 of 5')).toBeInTheDocument();
-    expect(used(storage, new Date())).toBe(0); // Opening a question does not count against the limit.
 
     await reply(user, 'First reply');
-    expect(used(storage, new Date())).toBe(1); // The first reply does.
     expect(await screen.findByText(SCRIPTS.suffering.replies[0])).toBeInTheDocument();
     expect(screen.getByText('Turn 2 of 5')).toBeInTheDocument();
 
@@ -70,7 +67,6 @@ describe('a whole practice conversation', () => {
       await reply(user, `Reply ${n}`);
       expect(await screen.findByText(SCRIPTS.suffering.replies[n - 1])).toBeInTheDocument();
     }
-    expect(used(storage, new Date())).toBe(1); // Later replies never count again.
     await reply(user, 'Reply 5');
 
     expect(await screen.findByRole('heading', { name: 'Coach review' })).toBeInTheDocument();
@@ -79,7 +75,8 @@ describe('a whole practice conversation', () => {
     expect(await screen.findByText(SCRIPTS.suffering.review.couldAdd)).toBeInTheDocument();
     // A scripted review never claims to know what the person covered.
     expect(screen.queryByText('What you covered')).not.toBeInTheDocument();
-    expect(screen.getByText('Sources to be added.')).toBeInTheDocument();
+    // No sources yet, so no empty Sources card.
+    expect(screen.queryByRole('heading', { name: 'Sources' })).not.toBeInTheDocument();
     expect(screen.getByText(/Psalm 34:18/)).toBeInTheDocument();
 
     const saved = Object.values(store.get().conversations);
@@ -159,19 +156,6 @@ describe('Coach', () => {
   });
 });
 
-describe('daily limit', () => {
-  it('blocks a new conversation at the limit and explains when it resets', async () => {
-    const now = new Date();
-    const day = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-    storage.setItem('ap.practice.daily', JSON.stringify({ day, count: DAILY_LIMIT }));
-    renderApp('/practice/suffering');
-
-    expect(await screen.findByRole('heading', { name: 'Daily limit reached' })).toBeInTheDocument();
-    expect(screen.getByText(/Resets at /)).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Start' })).not.toBeInTheDocument();
-  });
-});
-
 describe('library and history', () => {
   it('filters questions by search and by topic', async () => {
     const user = userEvent.setup();
@@ -222,12 +206,24 @@ describe('library and history', () => {
 });
 
 describe('first visit', () => {
-  it('shows How it works once', async () => {
+  it('does not cover the landing page, and shows How it works on the first Start only', async () => {
     const user = userEvent.setup();
     store.update((d) => ({ ...d, seenIntro: false }));
-    renderApp();
-    expect(screen.getByRole('heading', { name: 'How it works' })).toBeInTheDocument();
+    const router = renderApp('/practice/suffering');
+    expect(screen.queryByRole('heading', { name: 'How it works' })).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Start' }));
+    expect(await screen.findByRole('heading', { name: 'How it works' })).toBeInTheDocument();
+    expect(screen.getByText(/leave out names and private details/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'The Apologist Project' })).toHaveAttribute(
+      'href',
+      'https://apologistproject.org/',
+    );
     await user.click(screen.getByRole('button', { name: 'Got it' }));
+
+    // Closing it carries on into the conversation.
+    expect(await screen.findByText(SCRIPTS.suffering.opening)).toBeInTheDocument();
+    expect(router.state.location.pathname).toMatch(/^\/talk\//);
     expect(store.get().seenIntro).toBe(true);
   });
 });

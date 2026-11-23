@@ -1,7 +1,7 @@
 import { useApp } from '../app/AppContext';
 import { Button } from '../components/Button';
 import { Sheet } from '../components/Sheet';
-import { DAILY_LIMIT } from '../conversation/dailyLimit';
+import { APOLOGIST_PROJECT_URL } from '../data/copy';
 import { cx } from '../lib/cx';
 import ui from '../styles/ui.module.css';
 import s from './HowItWorksSheet.module.css';
@@ -9,23 +9,18 @@ import s from './HowItWorksSheet.module.css';
 const STEPS = [
   ['Pick a question', 'Start with a suggestion or browse.'],
   ['Talk for five turns', 'Speak or type. The skeptic pushes back.'],
-  ['Ask for help anytime', 'A nudge, then an outline, then a sample reply.'],
-  ['Read your review', 'What to add, one possible answer, and sources. No scores.'],
+  ['Ask for help anytime', 'A hint, then an outline, then a sample reply.'],
+  ['Read your review', 'What to add and one possible answer, with a verse. No scores.'],
 ] as const;
 
-/** Opens from any top bar, and once on a first visit. Holds the AI disclosure. */
+/** Opens from the menu, and once the first time someone presses Start. Holds the AI and privacy notes. */
 export function HowItWorksSheet() {
   const { howOpen, closeHow, mode } = useApp();
   return (
     <Sheet open={howOpen} onClose={closeHow} labelledBy="how-title">
-      <div className={cx(ui.row, ui.between)}>
-        <h2 id="how-title" className={ui.h2}>
-          How it works
-        </h2>
-        <Button variant="ghost" size="sm" onClick={closeHow}>
-          Close
-        </Button>
-      </div>
+      <h2 id="how-title" className={ui.h2}>
+        How it works
+      </h2>
       <ol className={s.steps}>
         {STEPS.map(([title, body], i) => (
           <li key={title} className={s.step}>
@@ -47,16 +42,20 @@ export function HowItWorksSheet() {
             ? 'The skeptic and Coach are both AI.'
             : 'In this version the skeptic and Coach follow a script. With live AI switched on, both are AI.'}
         </p>
-      </div>
-      <div className={ui.card}>
-        <h3 className={s.cardTitle}>Daily limit</h3>
         <p className={cx(ui.muted, s.cardBody)}>
-          You can begin {DAILY_LIMIT} new conversations a day. A conversation you have started is never cut off.
+          What you type is sent to the AI to write replies, so leave out names and private details. Your conversations
+          are saved only in this browser.
         </p>
       </div>
       <Button variant="primary" block onClick={closeHow}>
         Got it
       </Button>
+      <p className={cx(ui.small, s.credit)}>
+        Made by{' '}
+        <a className={ui.link} href={APOLOGIST_PROJECT_URL} target="_blank" rel="noreferrer">
+          The Apologist Project
+        </a>
+      </p>
     </Sheet>
   );
 }

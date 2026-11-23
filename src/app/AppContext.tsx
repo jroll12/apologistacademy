@@ -31,7 +31,8 @@ export interface AppValue {
   setSettings: (patch: Partial<Settings>) => void;
   clearHistory: () => void;
   howOpen: boolean;
-  openHow: () => void;
+  /** Open "How it works". `then` runs when it closes. */
+  openHow: (then?: () => void) => void;
   closeHow: () => void;
 }
 
@@ -84,12 +85,20 @@ export function AppProvider({ children, storage: storageProp, store: storeProp, 
 
   const provider = providerProp ?? (mode === 'live' ? liveProvider : canned);
 
-  // First visit: show "How it works" once.
-  const [howOpen, setHowOpen] = useState(() => !store.get().seenIntro);
-  const openHow = useCallback(() => setHowOpen(true), []);
+  // "How it works" opens from the menu, and once on its own: the first time someone presses Start.
+  // Whatever they were starting carries on when they close it.
+  const [howOpen, setHowOpen] = useState(false);
+  const afterHow = useRef<(() => void) | null>(null);
+  const openHow = useCallback((then?: () => void) => {
+    afterHow.current = then ?? null;
+    setHowOpen(true);
+  }, []);
   const closeHow = useCallback(() => {
     setHowOpen(false);
     store.update((d) => (d.seenIntro ? d : { ...d, seenIntro: true }));
+    const then = afterHow.current;
+    afterHow.current = null;
+    then?.();
   }, [store]);
 
   const dispatch = useCallback(

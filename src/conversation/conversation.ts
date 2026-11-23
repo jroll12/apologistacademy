@@ -35,7 +35,6 @@ export function createConversation(n: NewConversation): Conversation {
     coachStep: 1,
     coach: null,
     review: null,
-    counted: false,
     startedAt: n.now,
     updatedAt: n.now,
     endedAt: null,
@@ -47,7 +46,6 @@ export type Action =
   | { type: 'SKEPTIC'; text: string; now: number }
   | { type: 'FAIL'; message: string }
   | { type: 'RETRY' }
-  | { type: 'COUNTED' }
   | { type: 'COACH_LOADED'; coach: CoachContent; forReplies: number }
   | { type: 'COACH_STEP' }
   | { type: 'REVIEW_LOADED'; review: Review };
@@ -105,9 +103,6 @@ export function reduce(c: Conversation, a: Action): Conversation {
 
     case 'RETRY':
       return c.error ? { ...c, error: null } : c;
-
-    case 'COUNTED':
-      return c.counted ? c : { ...c, counted: true };
 
     case 'COACH_LOADED':
       // Drop help that arrives after the person has already moved on to the next reply.

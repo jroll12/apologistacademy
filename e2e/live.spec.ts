@@ -42,7 +42,7 @@ test.describe('live AI path (fake model)', () => {
     await expect(page.getByText('Mock: what you covered.')).toBeVisible();
     await expect(page.getByText('general notes for this question')).toHaveCount(0);
     // Sources still come only from the curated list, never from the model.
-    await expect(page.getByText('Sources to be added.')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Sources' })).toHaveCount(0);
   });
 
   test('the server rejects bad requests and enforces its own cap', async ({ request }) => {

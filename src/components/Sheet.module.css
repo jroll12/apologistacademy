@@ -13,7 +13,7 @@
 }
 
 .dialog::backdrop {
-  background: rgba(3, 7, 18, 0.65);
+  background: color-mix(in srgb, var(--gray-950) 65%, transparent);
   animation: fade-in var(--motion-base) var(--ease-standard) both;
 }
 
@@ -32,7 +32,7 @@
   padding: 0 16px calc(20px + env(safe-area-inset-bottom, 0px));
   overflow-y: auto;
   border-radius: var(--radius-3xl) var(--radius-3xl) 0 0;
-  background: rgba(17, 24, 39, 0.98);
+  background: color-mix(in srgb, var(--gray-900) 98%, transparent);
   box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.7);
   animation: sheet-in var(--motion-base) var(--ease-reveal) both;
   transition: transform var(--motion-fast) var(--ease-out);

@@ -75,8 +75,6 @@ export interface Conversation {
   coachStep: CoachStep;
   coach: CoachContent | null;
   review: Review | null;
-  /** Whether this conversation has been counted against the daily limit. */
-  counted: boolean;
   startedAt: number;
   updatedAt: number;
   endedAt: number | null;

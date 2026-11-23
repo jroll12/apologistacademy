@@ -19,6 +19,7 @@ export function HistoryScreen() {
   const { data, clearHistory } = useApp();
   const conversations = listConversations(data).filter((c) => c.messages.length > 0 && findQuestion(c.questionId));
   const practiced = practicedIds(data);
+  const inProgress = Object.values(data.conversations).filter((c) => c.status !== 'ended').length;
 
   // Clearing takes two taps. The second must come within a few seconds.
   const [confirming, setConfirming] = useState(false);
@@ -33,7 +34,8 @@ export function HistoryScreen() {
       <TopBar title="History" backTo="/" narrow />
       <main className={cx(ui.container, ui.page, ui.narrow)}>
         <p className={ui.muted}>
-          {practiced.size} of {QUESTIONS.length} questions practiced. Saved on this device only.
+          {inProgress > 0 && `${inProgress} in progress · `}
+          {practiced.size} of {QUESTIONS.length} finished. Saved on this device only.
         </p>
 
         {conversations.length === 0 ? (

@@ -18,7 +18,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 8px;
-  font-size: 13px;
+  font-size: var(--fs-13);
   line-height: 1.5;
   color: var(--text-quiet);
 }
@@ -29,7 +29,7 @@
   border-radius: var(--radius-full);
   font-family: var(--font-display);
   font-weight: var(--weight-semibold);
-  font-size: 12px;
+  font-size: var(--fs-12);
   color: var(--warning);
 }
 
@@ -61,7 +61,7 @@
 .title {
   font-family: var(--font-display);
   font-weight: var(--weight-semibold);
-  font-size: 22px;
+  font-size: var(--fs-22);
   line-height: 1.2;
 }
 

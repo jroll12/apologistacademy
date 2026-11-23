@@ -16,7 +16,7 @@ export const TOPICS: Topic[] = [
  * source text. The house translation is ESV; swap the wording here if the team prefers it.
  *
  * `sources` is empty on purpose. Sources are never invented: the team adds real titles and links,
- * and until then the review says "Sources to be added".
+ * and until then the review leaves out the Sources card.
  */
 export const QUESTIONS: Question[] = [
   {

@@ -10,7 +10,6 @@ import { Sheet } from '../components/Sheet';
 import { TopBar } from '../components/TopBar';
 import { TurnProgress } from '../components/TurnProgress';
 import { turnOf } from '../conversation/conversation';
-import { recordStart } from '../conversation/dailyLimit';
 import { findQuestion } from '../data/questions';
 import { useConversationRunner } from '../hooks/useConversationRunner';
 import { DESKTOP, useMediaQuery } from '../hooks/useMediaQuery';
@@ -24,7 +23,7 @@ import { NotFoundScreen } from './NotFoundScreen';
 
 export function ConversationScreen() {
   const { conversationId = '' } = useParams();
-  const { data, storage, provider, dispatch, setDraft, setSettings } = useApp();
+  const { data, provider, dispatch, setDraft, setSettings } = useApp();
   const conversation = data.conversations[conversationId];
   const question = findQuestion(conversation?.questionId);
 
@@ -65,11 +64,6 @@ export function ConversationScreen() {
   const id = conversation.id;
 
   const send = (text: string) => {
-    // The daily limit counts a conversation when the first reply goes out, not when it is opened.
-    if (!conversation.counted) {
-      recordStart(storage, new Date());
-      dispatch(id, { type: 'COUNTED' });
-    }
     speech.cancel();
     dispatch(id, { type: 'SEND', text, now: Date.now() });
     setDraft(id, '');
@@ -89,7 +83,7 @@ export function ConversationScreen() {
         <div className={s.main}>
           <TurnProgress
             turn={turnOf(conversation)}
-            tag="AI skeptic"
+            tag={provider.mode === 'live' ? 'AI skeptic' : 'Scripted skeptic'}
             action={
               speech.supported && (
                 <Button

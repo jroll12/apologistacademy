@@ -11,7 +11,7 @@
   color: var(--white);
   font-family: var(--font-display);
   font-weight: var(--weight-semibold);
-  font-size: 15px;
+  font-size: var(--fs-15);
   line-height: 1.2;
   text-decoration: none;
   transition:
@@ -74,7 +74,7 @@
 
 .sm {
   padding: 6px 14px;
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 
 .icon {

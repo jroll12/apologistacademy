@@ -1,4 +1,4 @@
-import type { z } from 'zod';
+import { z } from 'zod';
 import type { AiClient, TextRequest } from './ai';
 import { AiUnavailable } from './anthropicClient';
 
@@ -81,6 +81,13 @@ export function createChatCompletionsClient(opts: ChatCompletionsOptions): AiCli
       res = await send(body, signal);
       if (res.status === 401 || res.status === 403) auth = 'x-api-key';
     }
+    if (!res.ok) {
+      const detail = await res
+        .clone()
+        .text()
+        .catch(() => '');
+      console.error('[agent] request refused', res.status, detail.slice(0, 300));
+    }
     if (res.status === 401 || res.status === 403) throw new AiUnavailable('Live AI is not set up correctly.');
     if (res.status === 429) throw new AiUnavailable('The AI is busy right now. Try again in a moment.');
     if (!res.ok) throw new AiUnavailable('The AI service had a problem. Try again.');
@@ -127,9 +134,14 @@ export function createChatCompletionsClient(opts: ChatCompletionsOptions): AiCli
 
     async json<T>(req: TextRequest, schema: z.ZodType<T>) {
       // Plain JSON with our own check. Provider-enforced schemas were unreliable on this platform.
+      // The exact shape goes into the instructions, because the agent's own persona may otherwise
+      // answer in prose or with different field names.
+      const shape = JSON.stringify(z.toJSONSchema(schema));
+      const rule = `${JSON_RULE}\nThe object must match this JSON Schema exactly:\n${shape}`;
+      let hint = '';
       for (let attempt = 0; attempt < 2; attempt++) {
         const res = await post(
-          { stream: false, messages: messages(req, JSON_RULE), max_completion_tokens: req.maxTokens },
+          { stream: false, messages: messages(req, rule + hint), max_completion_tokens: req.maxTokens },
           req.signal,
         );
         const body = (await res.json().catch(() => null)) as {
@@ -137,8 +149,22 @@ export function createChatCompletionsClient(opts: ChatCompletionsOptions): AiCli
         } | null;
         const choice = body?.choices?.[0];
         if (choice?.finish_reason === 'content_filter') return null;
-        const parsed = schema.safeParse(extractJson(choice?.message?.content ?? ''));
+        const content = choice?.message?.content ?? '';
+        const found = extractJson(content);
+        const parsed = schema.safeParse(found);
         if (parsed.success) return parsed.data;
+        // Enough to diagnose from the server log, without writing anyone's words into it.
+        console.error(
+          '[agent] reply did not match the schema',
+          JSON.stringify({
+            attempt,
+            finish: choice?.finish_reason ?? null,
+            chars: content.length,
+            hadObject: found !== undefined,
+            problems: parsed.error.issues.slice(0, 5).map((i) => `${i.path.join('.') || '(root)'}: ${i.message}`),
+          }),
+        );
+        hint = '\nYour last reply was not valid. Reply again with only the JSON object, nothing else.';
       }
       throw new AiUnavailable('The AI service had a problem. Try again.');
     },

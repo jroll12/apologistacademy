@@ -104,6 +104,9 @@ describe('chat-completions client', () => {
     expect(await client().json(REQ, schema)).toEqual({ nudge: 'ask why' });
     expect(seen!.body.stream).toBe(false);
     expect(seen!.body.messages[0].content).toContain('one JSON object only');
+    // The exact shape is spelled out, so the agent does not have to guess field names.
+    expect(seen!.body.messages[0].content).toContain('"nudge"');
+    expect(seen!.body.messages[0].content).toContain('"required"');
   });
 
   it('retries once when the JSON does not match, then gives up safely', async () => {

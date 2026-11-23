@@ -2,11 +2,30 @@
   gap: 28px;
 }
 
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .headline {
   margin-top: 4px;
 }
 
-/* Resume and Suggested: stacked on a phone, side by side on desktop. One alone takes the full row. */
+.tagline {
+  max-width: 32em;
+  color: var(--text-quiet);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Resume and Suggested: stacked, in the right-hand column on desktop. */
 .featured {
   display: grid;
   gap: 20px;
@@ -143,10 +162,21 @@
     padding-top: 48px;
   }
 
+  /* Headline and tagline on the left, the card or cards on the right. */
+  .top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 64px;
+    /* Top-aligned, so the headline stays put whether or not there is a conversation to resume. */
+    align-items: start;
+  }
+
   .featured {
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(0, 1fr);
     gap: 24px;
+  }
+
+  .tagline {
+    font-size: 18px;
   }
 
   .featureCard {

@@ -8,6 +8,7 @@ import { createCannedProvider, INSTANT_TIMING } from '../conversation/cannedProv
 import { DAILY_LIMIT, used } from '../conversation/dailyLimit';
 import type { ConversationProvider } from '../conversation/provider';
 import { ProviderError } from '../conversation/provider';
+import { TAGLINE } from '../data/copy';
 import { CLOSING, SCRIPTS } from '../data/scripts';
 import { memoryStorage, type StorageLike } from '../store/storage';
 import { createStore, type Store } from '../store/store';
@@ -48,6 +49,7 @@ describe('a whole practice conversation', () => {
     const router = renderApp();
 
     expect(screen.getByRole('heading', { level: 1, name: 'Practice a hard talk' })).toBeInTheDocument();
+    expect(screen.getByText(TAGLINE)).toBeInTheDocument();
     await user.click(
       within(screen.getByRole('region', { name: 'Suggested to start' })).getByRole('link', { name: 'Start' }),
     );

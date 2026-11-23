@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { TAGLINE } from './copy';
 import { DIFFICULTIES, PERSONAS } from './personas';
 import { QUESTIONS, randomQuestion, searchQuestions, TOPICS } from './questions';
 import { CLOSING, SCRIPTS } from './scripts';
@@ -13,6 +14,7 @@ function allCopy(): Array<[where: string, text: string]> {
     out.push([`${id}.nudge`, s.coach.nudge], [`${id}.outline`, s.coach.outline], [`${id}.sample`, s.coach.sample]);
     out.push([`${id}.couldAdd`, s.review.couldAdd], [`${id}.possibleAnswer`, s.review.possibleAnswer]);
   }
+  out.push(['tagline', TAGLINE]);
   for (const p of PERSONAS) out.push([`persona.${p.id}`, `${p.label} ${p.blurb}`]);
   for (const d of DIFFICULTIES) out.push([`difficulty.${d.id}`, `${d.label} ${d.blurb}`]);
   return out;

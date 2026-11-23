@@ -1,14 +1,11 @@
 import s from './CoachFab.module.css';
 
-/**
- * Round "AI" button that opens Coach. The cross is a stand-in from the design board
- * until the logo file exists; swap the glyph for the mark then.
- */
+/** Round "AI" button that opens Coach, with the Apologist mark (the cross, from icon-square.svg). */
 export function CoachFab({ expanded, onClick }: { expanded: boolean; onClick: () => void }) {
   return (
     <button type="button" className={s.fab} aria-label="Ask Apologist AI" aria-expanded={expanded} onClick={onClick}>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6z" />
+      <svg width="26" height="26" viewBox="43 43 218 218" fill="currentColor" aria-hidden="true">
+        <path d="M95.56,144.05v-36.56h113.51v36.56h-113.51ZM131.49,261.05V43.58h41.66v217.46h-41.66Z" />
       </svg>
       <span>AI</span>
     </button>

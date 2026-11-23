@@ -111,7 +111,7 @@ sources: [{ title: 'Document title', publisher: 'Ministry partner', href: 'https
 
 - Conversations are saved in the browser on one device. There are no accounts and nothing syncs.
 - The scripted daily limit (3 a day, set in `src/conversation/dailyLimit.ts`) is kept in the browser, so clearing site data resets it. The live limits are enforced on the server and are approximate under heavy simultaneous use.
-- The wordmark is plain type and the Coach button uses a cross as a stand-in, because no logo file exists yet. Pass `src` to `Logo` when it does.
+- The Coach button uses the Apologist cross (from `icon-square.svg`). The wordmark is still plain type because no full logo file exists yet. Pass `src` to `Logo` when it does.
 
 ## Where things are
 

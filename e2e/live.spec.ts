@@ -12,10 +12,10 @@ test.describe('live AI path (fake model)', () => {
   test('the server reports live, and styles can be chosen', async ({ page, request }) => {
     expect(await (await request.get('/api/status')).json()).toEqual({ live: true });
     await page.goto('/practice/suffering');
-    await expect(page.getByRole('radio', { name: /Blunt/ })).toBeEnabled();
+    await expect(page.getByRole('radio', { name: /Hostile/ })).toBeEnabled();
     await expect(page.getByText('Styles need live AI')).toHaveCount(0);
-    await page.getByText('Blunt', { exact: true }).click();
-    await expect(page.getByRole('radio', { name: /Blunt/ })).toBeChecked();
+    await page.getByText('Hostile', { exact: true }).click();
+    await expect(page.getByRole('radio', { name: /Hostile/ })).toBeChecked();
   });
 
   test('replies stream in, Coach responds, and the review covers what was said', async ({ page }) => {

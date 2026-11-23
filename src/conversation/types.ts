@@ -54,7 +54,7 @@ export interface Review {
   possibleAnswer: string;
 }
 
-export type PersonaId = 'curious' | 'hurting' | 'analytical' | 'blunt';
+export type PersonaId = 'curious' | 'hostile' | 'balanced';
 export type Difficulty = 'gentle' | 'standard' | 'tough';
 export type ProviderMode = 'canned' | 'live';
 

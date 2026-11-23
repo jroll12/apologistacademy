@@ -14,12 +14,6 @@
   font-size: 28px;
 }
 
-.blurb {
-  color: var(--text-quiet);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
 .group {
   display: flex;
   flex-direction: column;

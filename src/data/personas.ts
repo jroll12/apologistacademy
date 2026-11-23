@@ -17,25 +17,18 @@ export const PERSONAS: Persona[] = [
       'Open-minded and sincerely curious. You are not trying to win. You ask honest follow-up questions and say so when something makes sense to you.',
   },
   {
-    id: 'hurting',
-    label: 'Hurting',
-    blurb: 'Asks from a place of personal pain.',
+    id: 'hostile',
+    label: 'Hostile',
+    blurb: 'Openly against it. Pushes hard, stays civil.',
     prompt:
-      'The question is personal for your character. Something painful sits behind it. Abstract arguments leave you cold, and you notice whether the other person listens before they explain.',
+      'Openly hostile to the argument and unconvinced. You say plainly when an answer sounds like a dodge, and you push hard on the reasoning. You never insult or demean the person, and you stay civil toward them.',
   },
   {
-    id: 'analytical',
-    label: 'Analytical',
-    blurb: 'Wants evidence and clear reasoning.',
+    id: 'balanced',
+    label: 'Balanced',
+    blurb: 'Fair-minded. Weighs both sides.',
     prompt:
-      'Careful and evidence-minded. You ask what a claim rests on, point out gaps in reasoning, and are not moved by feelings or by appeals to authority.',
-  },
-  {
-    id: 'blunt',
-    label: 'Blunt',
-    blurb: 'Direct and unconvinced. Pushes hard, stays civil.',
-    prompt:
-      'Direct and unconvinced. You say plainly when an answer sounds like a dodge. You push hard on the argument and stay civil toward the person.',
+      'Fair-minded and undecided. You weigh both sides, grant good points, and press where an answer is thin. You want the best case, not a fight.',
   },
 ];
 

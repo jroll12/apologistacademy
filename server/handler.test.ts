@@ -165,11 +165,11 @@ describe('skeptic', () => {
     const streamText = vi.fn(async (_req: TextRequest, _onText: (delta: string) => void) => ({ refused: false }));
     const ai: AiClient = { streamText, json: async () => null };
     await (
-      await handle(post('/api/skeptic', body(thread(1), { persona: 'blunt', difficulty: 'tough' })), deps({ ai }))
+      await handle(post('/api/skeptic', body(thread(1), { persona: 'hostile', difficulty: 'tough' })), deps({ ai }))
     ).text();
     const req = streamText.mock.calls[0][0];
     expect(req.system).toContain('Why does God allow suffering?');
-    expect(req.system).toContain('Direct and unconvinced');
+    expect(req.system).toContain('Openly hostile');
     expect(req.system).toContain('Press on the weakest part');
     expect(req.turns.map((t) => t.role)).toEqual(['user', 'assistant', 'user']);
     expect(req.effort).toBe('low');
@@ -232,7 +232,7 @@ describe('prompts', () => {
   const question = findQuestion('suffering')!;
   const ctx = (userReplies: number): PromptContext => ({
     question,
-    persona: 'hurting',
+    persona: 'balanced',
     difficulty: 'gentle',
     userReplies,
     messages: thread(userReplies).map((m, i) => ({ id: String(i), ...m })),

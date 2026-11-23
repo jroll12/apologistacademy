@@ -99,7 +99,6 @@ export function PreBriefScreen() {
                   </label>
                 ))}
               </div>
-              {live && <p className={s.blurb}>{PERSONAS.find((p) => p.id === persona)?.blurb}</p>}
             </fieldset>
 
             <fieldset className={s.group} disabled={!live}>
@@ -119,7 +118,6 @@ export function PreBriefScreen() {
                   </label>
                 ))}
               </div>
-              {live && <p className={s.blurb}>{DIFFICULTIES.find((d) => d.id === difficulty)?.blurb}</p>}
             </fieldset>
 
             {!live && isDraft(question.id) && <DraftNote />}

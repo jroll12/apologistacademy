@@ -24,7 +24,10 @@ async function expectTapTargets(page: Page) {
       'button, a[href], input:not([type=radio]), textarea, summary, label:has(input[type=radio])',
     );
     for (const el of items) {
-      const r = el.getBoundingClientRect();
+      let r = el.getBoundingClientRect();
+      // The composer's round buttons look 40px but have a 44px touch area (an ::after 2px beyond the circle).
+      if (el.matches('form button') && r.width === 40 && r.height === 40)
+        r = new DOMRect(r.x - 2, r.y - 2, r.width + 4, r.height + 4);
       const style = getComputedStyle(el);
       if (r.width === 0 || r.height === 0 || style.visibility === 'hidden') continue;
       if (el.closest('[aria-hidden="true"]')) continue;

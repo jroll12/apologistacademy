@@ -107,7 +107,7 @@ export function Composer({ value, onChange, onSend, disabled, placeholder }: Pro
           <Button
             variant={speech.listening ? 'primary' : 'secondary'}
             size="icon"
-            className={cx(speech.listening && s.listening)}
+            className={cx(s.action, speech.listening && s.listening)}
             aria-label={speech.listening ? 'Stop listening' : 'Speak your reply'}
             aria-pressed={speech.listening}
             disabled={disabled}
@@ -116,7 +116,7 @@ export function Composer({ value, onChange, onSend, disabled, placeholder }: Pro
             {speech.listening ? <StopIcon aria-hidden="true" /> : <MicrophoneIcon aria-hidden="true" />}
           </Button>
         ) : null}
-        <Button variant="primary" size="icon" type="submit" aria-label="Send" disabled={!canSend}>
+        <Button variant="primary" size="icon" type="submit" aria-label="Send" disabled={!canSend} className={s.action}>
           <PaperAirplaneIcon aria-hidden="true" />
         </Button>
       </div>

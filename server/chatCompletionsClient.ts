@@ -17,8 +17,17 @@ export interface ChatCompletionsOptions {
   apiKey: string;
   /** Optional. Leave unset to use the agent's configured model. */
   model?: string;
+  /** Optional. Asks the agent to think less, which makes replies faster. Left out when unset. */
+  reasoningEffort?: 'low' | 'medium' | 'high';
   fetch?: typeof fetch;
+  now?: () => number;
 }
+
+/**
+ * Netlify stops a function after about 10 seconds. If the first try for a structured reply took
+ * longer than this, a second try would be cut off too, so it is not attempted.
+ */
+export const RETRY_BUDGET_MS = 4000;
 
 interface Message {
   role: 'system' | 'user' | 'assistant';
@@ -62,6 +71,7 @@ export function createChatCompletionsClient(opts: ChatCompletionsOptions): AiCli
         headers,
         body: JSON.stringify({
           ...(opts.model ? { model: opts.model } : {}),
+          ...(opts.reasoningEffort ? { reasoning_effort: opts.reasoningEffort } : {}),
           // No sign-in, and no memory carried over between people or conversations.
           metadata: { anonymous: true, language: 'en', max_memories: 0 },
           ...body,
@@ -139,6 +149,8 @@ export function createChatCompletionsClient(opts: ChatCompletionsOptions): AiCli
       const shape = JSON.stringify(z.toJSONSchema(schema));
       const rule = `${JSON_RULE}\nThe object must match this JSON Schema exactly:\n${shape}`;
       let hint = '';
+      const now = opts.now ?? Date.now;
+      const started = now();
       for (let attempt = 0; attempt < 2; attempt++) {
         const res = await post(
           { stream: false, messages: messages(req, rule + hint), max_completion_tokens: req.maxTokens },
@@ -158,12 +170,14 @@ export function createChatCompletionsClient(opts: ChatCompletionsOptions): AiCli
           '[agent] reply did not match the schema',
           JSON.stringify({
             attempt,
+            ms: now() - started,
             finish: choice?.finish_reason ?? null,
             chars: content.length,
             hadObject: found !== undefined,
             problems: parsed.error.issues.slice(0, 5).map((i) => `${i.path.join('.') || '(root)'}: ${i.message}`),
           }),
         );
+        if (now() - started > RETRY_BUDGET_MS) break;
         hint = '\nYour last reply was not valid. Reply again with only the JSON object, nothing else.';
       }
       throw new AiUnavailable('The AI service had a problem. Try again.');

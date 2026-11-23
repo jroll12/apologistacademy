@@ -124,6 +124,32 @@ describe('chat-completions client', () => {
     expect(calls).toBe(2);
   });
 
+  it('skips the second try when the first was already slow', async () => {
+    const schema = z.object({ nudge: z.string() });
+    let calls = 0;
+    let t = 0;
+    respond = () => {
+      calls++;
+      t += 6000; // each call "takes" 6 seconds
+      return {
+        status: 200,
+        type: 'application/json',
+        body: JSON.stringify({ choices: [{ message: { content: 'not json' } }] }),
+      };
+    };
+    const slow = createChatCompletionsClient({ url, apiKey: 'k', now: () => t });
+    await expect(slow.json(REQ, schema)).rejects.toBeInstanceOf(AiUnavailable);
+    expect(calls).toBe(1);
+  });
+
+  it('sends reasoning_effort only when asked', async () => {
+    respond = () => ({ status: 200, type: 'text/event-stream', body: sse('ok') });
+    await client().streamText(REQ, () => {});
+    expect(seen!.body.reasoning_effort).toBeUndefined();
+    await createChatCompletionsClient({ url, apiKey: 'k', reasoningEffort: 'low' }).streamText(REQ, () => {});
+    expect(seen!.body.reasoning_effort).toBe('low');
+  });
+
   it.each([
     [401, 'not set up correctly'],
     [429, 'busy'],

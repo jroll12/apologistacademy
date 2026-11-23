@@ -25,6 +25,7 @@ const positive = (value: string | undefined, fallback: number) => {
  *   APOLOGIST_AGENT_DOMAIN  or just the domain, e.g. apologist-academy.apologist.ai (no : or /)
  *   APOLOGIST_API_KEY     the agent's key
  *   APOLOGIST_MODEL       optional model override
+ *   APOLOGIST_REASONING_EFFORT  optional low | medium | high; "low" makes replies faster
  * If both sets are present, the Apologist agent is used unless AI_PROVIDER=anthropic.
  */
 /**
@@ -47,6 +48,7 @@ export function createAi(env: Env): AiClient | null {
       url: agentUrl,
       apiKey: env.APOLOGIST_API_KEY,
       model: env.APOLOGIST_MODEL || undefined,
+      reasoningEffort: (['low', 'medium', 'high'] as const).find((e) => e === env.APOLOGIST_REASONING_EFFORT),
     });
   }
   if (!env.ANTHROPIC_API_KEY) return null;

@@ -2,8 +2,6 @@ import type { Message } from '../conversation/types';
 import { cx } from '../lib/cx';
 import s from './ChatBubble.module.css';
 
-const SKEPTIC = 'Simulated skeptic';
-
 export function ChatBubble({ message, still }: { message: Pick<Message, 'from' | 'text'>; still?: boolean }) {
   if (message.from === 'me') {
     return (
@@ -14,9 +12,9 @@ export function ChatBubble({ message, still }: { message: Pick<Message, 'from' |
     );
   }
   return (
-    <div className={cx(s.group, !still && s.enter)}>
-      <span className={s.who}>{SKEPTIC}</span>
-      <div className={cx(s.bubble, s.skeptic)}>{message.text}</div>
+    <div className={cx(s.bubble, s.skeptic, !still && s.enter)}>
+      <span className="sr-only">Skeptic: </span>
+      {message.text}
     </div>
   );
 }
@@ -25,7 +23,6 @@ export function ChatBubble({ message, still }: { message: Pick<Message, 'from' |
 export function PendingBubble({ text }: { text: string }) {
   return (
     <div className={cx(s.group, s.enter)}>
-      <span className={s.who}>{SKEPTIC}</span>
       {text ? (
         // Hidden from screen readers while it streams. The finished message is announced once.
         <div className={cx(s.bubble, s.skeptic)} aria-hidden="true">

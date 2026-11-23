@@ -1,11 +1,28 @@
 .review {
-  gap: 12px;
+  gap: 16px;
   padding-top: 8px;
 }
 
+.lead,
+.main,
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
 .question {
-  font-size: 18px;
-  line-height: 1.3;
+  font-size: 28px;
+}
+
+.lead > .question {
+  margin-top: -6px;
+}
+
+.noteTitle {
+  font-size: 15px;
+  color: var(--primary-300);
 }
 
 .notes {
@@ -81,11 +98,44 @@
 }
 
 @media (min-width: 1024px) {
-  .question {
-    font-size: 22px;
+  /* Notes on the left, Scripture and sources beside them, the transcript and actions underneath. */
+  .review {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    grid-template-areas:
+      'lead lead'
+      'main side'
+      'transcript transcript'
+      'actions actions';
+    column-gap: 32px;
+    row-gap: 24px;
+    align-items: start;
+  }
+
+  .lead {
+    grid-area: lead;
+  }
+
+  .main {
+    grid-area: main;
+  }
+
+  .side {
+    grid-area: side;
+    padding-top: 42px;
+  }
+
+  .transcript {
+    grid-area: transcript;
   }
 
   .actions {
+    grid-area: actions;
     flex-direction: row;
+    max-width: 640px;
+  }
+
+  .question {
+    font-size: var(--text-h2);
   }
 }

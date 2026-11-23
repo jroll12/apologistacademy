@@ -10,7 +10,7 @@ interface Props {
  * Wordmark holder, from the Apologist design system. No logo file exists yet, so this
  * sets the name as plain display type and never draws or approximates the mark.
  */
-export function Logo({ src, label = 'Apologist' }: Props) {
+export function Logo({ src, label = 'Apologist Academy' }: Props) {
   if (src) return <img className={s.image} src={src} alt={label} />;
   return (
     <span className={s.wordmark} data-logo-placeholder="true">

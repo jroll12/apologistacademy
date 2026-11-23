@@ -10,7 +10,7 @@ import ui from '../styles/ui.module.css';
 export function NotFoundScreen({ what = 'page' }: { what?: 'page' | 'question' | 'conversation' }) {
   return (
     <div className={ui.screen}>
-      <TopBar title="Not found" backTo="/" />
+      <TopBar title="Not found" backTo="/" narrow />
       <main className={cx(ui.container, ui.page, ui.narrow)}>
         <StateCard
           icon={<MagnifyingGlassIcon />}

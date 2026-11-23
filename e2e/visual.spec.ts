@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { finishConversation, reply, skipIntro, startQuestion } from './helpers';
+import { finishConversation, openHowItWorks, reply, skipIntro, startQuestion } from './helpers';
 
 const SUFFERING = /Why does God allow suffering/;
 
@@ -21,9 +21,9 @@ test.describe('screens look as expected', () => {
     await expect(page).toHaveScreenshot('library.png');
   });
 
-  test('Get ready', async ({ page }) => {
+  test('Question page', async ({ page }) => {
     await page.goto('/practice/suffering');
-    await expect(page).toHaveScreenshot('get-ready.png');
+    await expect(page).toHaveScreenshot('question.png');
   });
 
   test('Conversation and Coach', async ({ page }) => {
@@ -45,8 +45,7 @@ test.describe('screens look as expected', () => {
 
   test('How it works', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('button', { name: 'How it works' }).click();
-    await expect(page.getByRole('dialog', { name: 'How it works' })).toBeVisible();
+    await openHowItWorks(page);
     await expect(page).toHaveScreenshot('how-it-works.png');
   });
 });

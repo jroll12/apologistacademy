@@ -1,12 +1,23 @@
 .turn {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-block: 8px 12px;
+  gap: 4px;
+  padding-block: 0 10px;
 }
 
-.label {
-  font-size: 15px;
+.top {
+  min-height: var(--tap-min);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  color: var(--text-quiet);
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .right {

@@ -84,13 +84,13 @@ export function ConversationScreen() {
 
   return (
     <div className={cx(ui.screen, s.screen)}>
-      <TopBar title={question.text} backTo="/questions" />
+      <TopBar title={question.text} backTo="/questions" narrow />
       <div className={s.layout}>
         <div className={s.main}>
           <TurnProgress
             turn={turnOf(conversation)}
-            status="Practice only"
-            badge="Simulated skeptic. Not a real person."
+            tag="AI skeptic"
+            narrow
             action={
               speech.supported && (
                 <Button

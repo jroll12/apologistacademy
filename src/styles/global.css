@@ -19,6 +19,8 @@
   --line: var(--gray-500);
   --content-max: 640px;
   --content-max-wide: 1120px;
+  /* The reading column on desktop: question page, conversation, review. */
+  --column: 720px;
 }
 
 /* The app is dark-first and its components assume a dark ground. A host page (the claude.ai viewer,

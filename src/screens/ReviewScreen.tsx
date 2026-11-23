@@ -5,11 +5,10 @@ import { Button, ButtonLink } from '../components/Button';
 import { ChatBubble } from '../components/ChatBubble';
 import { DraftNote } from '../components/Notice';
 import { TopBar } from '../components/TopBar';
-import { TurnProgress } from '../components/TurnProgress';
 import { contextOf, describeError } from '../conversation/provider';
-import { TOTAL_TURNS } from '../conversation/types';
 import { findQuestion } from '../data/questions';
 import { isDraft } from '../data/scripts';
+import { usePageTitle } from '../hooks/usePageTitle';
 import { cx } from '../lib/cx';
 import ui from '../styles/ui.module.css';
 import { NotFoundScreen } from './NotFoundScreen';
@@ -18,7 +17,7 @@ import s from './ReviewScreen.module.css';
 function Note({ label, children }: { label: string; children: string }) {
   return (
     <section className={cx(ui.card, s.note)}>
-      <h3 className={ui.eyebrow}>{label}</h3>
+      <h3 className={cx(ui.h3, s.noteTitle)}>{label}</h3>
       <p className={cx(ui.text, s.noteText)}>{children}</p>
     </section>
   );
@@ -32,6 +31,7 @@ export function ReviewScreen() {
   const question = findQuestion(conversation?.questionId);
   const [error, setError] = useState<string | null>(null);
   const [attempt, setAttempt] = useState(0);
+  usePageTitle(question ? `Review: ${question.text}` : 'Review');
 
   const id = conversation?.id;
   const needsReview = !!conversation && conversation.status === 'ended' && !conversation.review;
@@ -60,70 +60,75 @@ export function ReviewScreen() {
 
   return (
     <div className={ui.screen}>
-      <TopBar title="Conversation ended" backTo="/" />
-      <TurnProgress turn={TOTAL_TURNS} status="Ended" complete narrow />
-      <main className={cx(ui.container, ui.page, ui.narrow, s.review)}>
-        <p className={cx(ui.display, s.question)}>{question.text}</p>
-        {closing && <ChatBubble message={closing} still />}
-
-        <div>
-          <h2 className={ui.h2}>Coach review</h2>
-          <p className={ui.muted}>Notes for next time. No scores.</p>
+      <TopBar backTo="/" />
+      <main className={cx(ui.container, ui.page, s.review)}>
+        <div className={s.lead}>
+          <span className={ui.eyebrow}>Review</span>
+          <h1 className={cx(ui.h1, s.question)} tabIndex={-1}>
+            {question.text}
+          </h1>
+          {closing && <ChatBubble message={closing} still />}
         </div>
 
-        {review ? (
-          <div className={cx(s.notes, ui.rise)}>
-            {review.covered && <Note label="What you covered">{review.covered}</Note>}
-            <Note label="What you could add">{review.couldAdd}</Note>
-            <Note label="One possible answer">{review.possibleAnswer}</Note>
-            {!review.personalized && (
-              <p className={ui.small}>
-                These are general notes for this question. With live AI, the review responds to what you said.
-              </p>
-            )}
-            {!review.personalized && isDraft(question.id) && <DraftNote />}
-          </div>
-        ) : error ? (
-          <div className={cx(ui.card, s.note)} role="alert">
-            <p className={ui.text}>The review could not be loaded. {error}</p>
-            <Button variant="secondary" size="sm" className={s.retry} onClick={() => setAttempt((n) => n + 1)}>
-              Try again
-            </Button>
-          </div>
-        ) : (
-          <div className={s.notes} role="status" aria-label="Coach is writing your review">
-            <div className={ui.skeleton} />
-            <div className={ui.skeleton} />
-          </div>
-        )}
+        <div className={s.main}>
+          <h2 className={ui.h2}>Coach review</h2>
 
-        <section className={cx(ui.card, s.note)}>
-          <h3 className={ui.eyebrow}>Scripture</h3>
-          <blockquote className={s.verse}>
-            <p className={ui.text}>{question.verse.text}</p>
-            <cite className={s.cite}>
-              {question.verse.ref} ({question.verse.translation})
-            </cite>
-          </blockquote>
-        </section>
-
-        <section className={cx(ui.card, s.note)}>
-          <h3 className={ui.eyebrow}>Sources</h3>
-          {question.sources.length > 0 ? (
-            <ul className={s.sources}>
-              {question.sources.map((src) => (
-                <li key={src.href}>
-                  <a className={ui.link} href={src.href} target="_blank" rel="noreferrer">
-                    {src.title}
-                  </a>
-                  <span className={ui.small}> · {src.publisher}</span>
-                </li>
-              ))}
-            </ul>
+          {review ? (
+            <div className={cx(s.notes, ui.rise)}>
+              {review.covered && <Note label="What you covered">{review.covered}</Note>}
+              <Note label="What you could add">{review.couldAdd}</Note>
+              <Note label="One possible answer">{review.possibleAnswer}</Note>
+              {!review.personalized && (
+                <p className={ui.small}>
+                  These are general notes for this question. With live AI, the review responds to what you said.
+                </p>
+              )}
+              {!review.personalized && isDraft(question.id) && <DraftNote />}
+            </div>
+          ) : error ? (
+            <div className={cx(ui.card, s.note)} role="alert">
+              <p className={ui.text}>The review could not be loaded. {error}</p>
+              <Button variant="secondary" size="sm" className={s.retry} onClick={() => setAttempt((n) => n + 1)}>
+                Try again
+              </Button>
+            </div>
           ) : (
-            <p className={cx(ui.muted, s.noteText)}>Sources to be added.</p>
+            <div className={s.notes} role="status" aria-label="Coach is writing your review">
+              <div className={ui.skeleton} />
+              <div className={ui.skeleton} />
+            </div>
           )}
-        </section>
+        </div>
+
+        <aside className={s.side} aria-label="Scripture and sources">
+          <section className={cx(ui.card, s.note)}>
+            <h3 className={cx(ui.h3, s.noteTitle)}>Scripture</h3>
+            <blockquote className={s.verse}>
+              <p className={ui.text}>{question.verse.text}</p>
+              <cite className={s.cite}>
+                {question.verse.ref} ({question.verse.translation})
+              </cite>
+            </blockquote>
+          </section>
+
+          <section className={cx(ui.card, s.note)}>
+            <h3 className={cx(ui.h3, s.noteTitle)}>Sources</h3>
+            {question.sources.length > 0 ? (
+              <ul className={s.sources}>
+                {question.sources.map((src) => (
+                  <li key={src.href}>
+                    <a className={ui.link} href={src.href} target="_blank" rel="noreferrer">
+                      {src.title}
+                    </a>
+                    <span className={ui.small}> · {src.publisher}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className={cx(ui.muted, s.noteText)}>Sources to be added.</p>
+            )}
+          </section>
+        </aside>
 
         <details className={s.transcript}>
           <summary className={s.summary}>Your conversation</summary>

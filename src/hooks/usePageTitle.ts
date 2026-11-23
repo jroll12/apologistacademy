@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const SITE = 'Apologist practice';
+const SITE = 'Apologist Academy';
 
 /** Sets the browser tab title for the current screen. */
 export function usePageTitle(title?: string) {

@@ -24,13 +24,32 @@
   text-decoration: none;
 }
 
-/* On a phone, Back takes the wordmark's place. */
-.brandWide {
-  display: none;
+/* Quiet Back: an arrow and a word, no border. The tap area stays 44px. */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  margin-inline-start: -6px;
+  padding-inline: 4px 8px;
+  border-radius: var(--radius-full);
+  color: var(--text-quiet);
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 15px;
+  text-decoration: none;
+  flex: none;
 }
 
-.nav {
-  display: none;
+.back svg {
+  width: 20px;
+  height: 20px;
+}
+
+.back:hover {
+  color: var(--white);
+  text-decoration: none;
 }
 
 .title {
@@ -48,71 +67,136 @@
   flex: 1;
 }
 
-.how {
+.menuButton,
+.menuClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
   flex: none;
+  margin-inline-end: -10px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--white);
+}
+
+.menuButton svg,
+.menuClose svg {
+  width: 24px;
+  height: 24px;
+}
+
+.menu {
+  inset: 8px 8px auto auto;
+  margin: 0;
+  width: min(280px, calc(100vw - 16px));
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  background: var(--gray-800);
+  color: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+
+.menu::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.menuPanel {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 8px 8px;
+}
+
+.menuClose {
+  align-self: flex-end;
+  margin: 0;
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding-inline: 12px;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 17px;
+  text-align: start;
+  text-decoration: none;
+}
+
+.menuLink:hover,
+.menuLink:focus-visible {
+  background: var(--gray-700);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 4px;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: 14px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-quiet);
+  font-size: 15px;
+  text-decoration: none;
+  transition: color var(--motion-instant) var(--ease-out);
+}
+
+.navLink:hover,
+.navActive {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.headRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  max-width: var(--content-max-wide);
+  margin-inline: auto;
+  padding: 0 var(--gutter-desktop) 12px;
+}
+
+.headNarrow {
+  max-width: calc(var(--column) + 2 * var(--gutter-desktop));
 }
 
 @media (min-width: 1024px) {
   .inner {
-    display: grid;
-    grid-template-columns: auto auto 1fr auto;
-    grid-template-areas:
-      'brand nav . how'
-      'back title title title';
-    column-gap: 24px;
-    row-gap: 4px;
     max-width: var(--content-max-wide);
     padding: 14px var(--gutter-desktop) 12px;
   }
 
-  .brand,
-  .brandWide {
-    display: inline-flex;
-    grid-area: brand;
+  .navLink:last-child {
+    color: var(--primary-300);
   }
 
-  .nav {
-    grid-area: nav;
-    display: flex;
-    gap: 4px;
+  .navLink:last-child:hover {
+    color: var(--primary-200, var(--white));
   }
 
-  .navLink {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--tap-min);
-    padding-inline: 12px;
-    border-radius: var(--radius-full);
-    color: var(--text-quiet);
-    font-size: 15px;
-    text-decoration: none;
-    transition: color var(--motion-instant) var(--ease-out);
-  }
-
-  .navLink:hover,
-  .navActive {
-    color: var(--white);
-  }
-
-  .how {
-    grid-area: how;
-  }
-
-  .back {
-    grid-area: back;
-    justify-self: start;
-  }
-
-  .title {
-    grid-area: title;
+  .headRow .title {
     text-align: start;
-    font-size: 28px;
+    font-size: var(--text-h3);
     line-height: 1.15;
     letter-spacing: -0.01em;
-    padding-block: 8px 4px;
-  }
-
-  .spacer {
-    display: none;
   }
 }

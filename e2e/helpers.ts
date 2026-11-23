@@ -32,3 +32,30 @@ export async function finishConversation(page: Page, question: RegExp) {
   for (let n = 1; n <= 5; n++) await reply(page, `Reply ${n}`);
   await expect(page.getByRole('heading', { name: 'Coach review' })).toBeVisible();
 }
+
+/**
+ * Open "How it works". On a phone it sits in the menu; on desktop it is in the top bar.
+ * Returns the control that focus should come back to when the sheet closes.
+ */
+export async function openHowItWorks(page: Page, how: 'click' | 'keyboard' = 'click') {
+  const menu = page.getByRole('button', { name: 'Menu' });
+  const onPhone = await menu.isVisible();
+  const opener = onPhone ? menu : page.getByRole('button', { name: 'How it works' });
+  if (how === 'keyboard') {
+    await opener.focus();
+    await page.keyboard.press('Enter');
+  } else {
+    await opener.click();
+  }
+  if (onPhone) {
+    const item = page.getByRole('dialog', { name: 'Menu' }).getByRole('button', { name: 'How it works' });
+    if (how === 'keyboard') {
+      await item.focus();
+      await page.keyboard.press('Enter');
+    } else {
+      await item.click();
+    }
+  }
+  await expect(page.getByRole('dialog', { name: 'How it works' })).toBeVisible();
+  return opener;
+}

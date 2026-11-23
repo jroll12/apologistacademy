@@ -19,8 +19,8 @@ export function Segments({ total, on }: { total: number; on: number }) {
 
 interface Props {
   turn: number;
-  status: string;
-  badge?: string;
+  /** A quiet tag on the left, such as "AI skeptic". */
+  tag?: string;
   /** Shows one continuous gradient bar: the conversation is finished. */
   complete?: boolean;
   /** Extra control on the right, such as the read-aloud toggle. */
@@ -29,24 +29,22 @@ interface Props {
   narrow?: boolean;
 }
 
-export function TurnProgress({ turn, status, badge, complete, action, narrow }: Props) {
+/** The turn bar. The count is for screen readers; sighted people see the segments fill. */
+export function TurnProgress({ turn, tag, complete, action, narrow }: Props) {
   return (
     <div className={cx(ui.container, narrow && ui.narrow, s.turn)}>
-      <div className={cx(ui.row, ui.between)}>
-        <span className={cx(ui.display, s.label)}>
+      <div className={cx(ui.row, ui.between, s.top)}>
+        {tag ? <span className={s.tag}>{tag}</span> : <span />}
+        <span className="sr-only">
           Turn {turn} of {TOTAL_TURNS}
         </span>
-        <span className={s.right}>
-          <span className={ui.small}>{status}</span>
-          {action}
-        </span>
+        <span className={s.right}>{action}</span>
       </div>
       {complete ? (
         <div className={cx(s.complete, 'ap-gradient-animate')} aria-hidden="true" />
       ) : (
         <Segments total={TOTAL_TURNS} on={turn} />
       )}
-      {badge && <span className={ui.small}>{badge}</span>}
     </div>
   );
 }

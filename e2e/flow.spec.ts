@@ -23,7 +23,7 @@ test.describe('practice', () => {
   test('a full conversation: five turns, then a review with no scores', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('region', { name: 'Suggested to start' }).getByRole('link', { name: 'Start' }).click();
-    await expect(page.getByRole('heading', { level: 2, name: SUFFERING })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: SUFFERING })).toBeVisible();
     await page.getByRole('button', { name: 'Start', exact: true }).click();
 
     await expect(page.getByText('If God is good and strong, why is there so much pain?')).toBeVisible();

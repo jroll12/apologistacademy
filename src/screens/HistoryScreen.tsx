@@ -6,8 +6,6 @@ import { Button, ButtonLink } from '../components/Button';
 import { StateCard } from '../components/Notice';
 import { TopBar } from '../components/TopBar';
 import { TopicTile } from '../components/TopicTile';
-import { turnOf } from '../conversation/conversation';
-import { TOTAL_TURNS } from '../conversation/types';
 import { findQuestion, QUESTIONS } from '../data/questions';
 import { cx } from '../lib/cx';
 import { listConversations, practicedIds } from '../store/store';
@@ -32,7 +30,7 @@ export function HistoryScreen() {
 
   return (
     <div className={ui.screen}>
-      <TopBar title="History" backTo="/" />
+      <TopBar title="History" backTo="/" narrow />
       <main className={cx(ui.container, ui.page, ui.narrow)}>
         <p className={ui.muted}>
           {practiced.size} of {QUESTIONS.length} questions practiced. Saved on this device only.
@@ -63,7 +61,7 @@ export function HistoryScreen() {
                       <span className={s.body}>
                         <span className={s.question}>{question.text}</span>
                         <span className={ui.small}>
-                          {formatDate(c.updatedAt)} · {ended ? 'Ended' : `Turn ${turnOf(c)} of ${TOTAL_TURNS}`}
+                          {formatDate(c.updatedAt)} · {ended ? 'Ended' : 'In progress'}
                         </span>
                       </span>
                       <span className={s.go} aria-hidden="true">

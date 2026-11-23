@@ -28,7 +28,7 @@ test.describe('live AI path (fake model)', () => {
     await expect(page.getByText('AI help in steps.')).toBeVisible();
     await expect(page.getByText('Mock nudge.')).toBeVisible();
     await page.getByRole('button', { name: 'Close' }).click();
-    await expect(page.getByRole('dialog')).toBeHidden();
+    await expect(page.locator('dialog[open]')).toHaveCount(0);
 
     for (let n = 1; n <= 5; n++) {
       await reply(page, `Live reply ${n}`);

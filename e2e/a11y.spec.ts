@@ -1,6 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
-import { finishConversation, reply, skipIntro, startQuestion } from './helpers';
+import { finishConversation, openHowItWorks, reply, skipIntro, startQuestion } from './helpers';
 
 const SUFFERING = /Why does God allow suffering/;
 
@@ -55,7 +55,7 @@ test.describe('accessibility', () => {
     await expectTapTargets(page);
   });
 
-  test('Get ready', async ({ page }) => {
+  test('Question page', async ({ page }) => {
     await page.goto('/practice/suffering');
     await expectNoViolations(page);
     await expectTapTargets(page);
@@ -92,8 +92,7 @@ test.describe('accessibility', () => {
 
   test('How it works', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('button', { name: 'How it works' }).click();
-    await expect(page.getByRole('dialog', { name: 'How it works' })).toBeVisible();
+    await openHowItWorks(page);
     await expectNoViolations(page);
     await expectTapTargets(page);
   });
@@ -104,11 +103,8 @@ test.describe('keyboard and focus', () => {
 
   test('the sheet traps focus, closes on Escape, and returns focus to what opened it', async ({ page }) => {
     await page.goto('/');
-    const opener = page.getByRole('button', { name: 'How it works' });
-    await opener.focus();
-    await page.keyboard.press('Enter');
+    const opener = await openHowItWorks(page, 'keyboard');
     const dialog = page.getByRole('dialog', { name: 'How it works' });
-    await expect(dialog).toBeVisible();
 
     for (let i = 0; i < 8; i++) {
       await page.keyboard.press('Tab');
@@ -127,9 +123,8 @@ test.describe('keyboard and focus', () => {
 
   test('tapping outside the sheet closes it', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('button', { name: 'How it works' }).click();
+    await openHowItWorks(page);
     const dialog = page.getByRole('dialog', { name: 'How it works' });
-    await expect(dialog).toBeVisible();
     await page.mouse.click(8, 8);
     await expect(dialog).toBeHidden();
   });
@@ -138,9 +133,10 @@ test.describe('keyboard and focus', () => {
     await page.goto('/');
     await page.getByRole('link', { name: 'Browse all' }).click();
     await expect(page.getByRole('heading', { level: 1, name: 'All questions' })).toBeFocused();
-    await expect(page).toHaveTitle('All questions · Apologist practice');
+    await expect(page).toHaveTitle('All questions · Apologist Academy');
     await page.getByRole('link', { name: SUFFERING }).click();
-    await expect(page.getByRole('heading', { level: 1, name: 'Get ready' })).toBeFocused();
+    await expect(page.getByRole('heading', { level: 1, name: SUFFERING })).toBeFocused();
+    await expect(page).toHaveTitle('Why does God allow suffering? · Apologist Academy');
   });
 
   test('a whole turn can be taken with the keyboard alone', async ({ page }) => {

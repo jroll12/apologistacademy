@@ -14,8 +14,8 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  /* A reading-width column on wide screens. */
-  --content-max-wide: 760px;
+  /* The reading column on wide screens, lined up with the heading row. */
+  --content-max-wide: calc(var(--column) + 2 * var(--gutter-desktop));
 }
 
 .threadWrap {

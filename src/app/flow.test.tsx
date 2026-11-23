@@ -52,7 +52,7 @@ describe('a whole practice conversation', () => {
       within(screen.getByRole('region', { name: 'Suggested to start' })).getByRole('link', { name: 'Start' }),
     );
 
-    expect(await screen.findByRole('heading', { level: 2, name: 'Why does God allow suffering?' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'Why does God allow suffering?' })).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Start' }));
 
     expect(await screen.findByText(SCRIPTS.suffering.opening)).toBeInTheDocument();
@@ -101,7 +101,6 @@ describe('a whole practice conversation', () => {
     renderApp('/');
     const resume = await screen.findByRole('region', { name: 'Pick up where you left off' });
     expect(within(resume).getByText('Can I trust the Bible?')).toBeInTheDocument();
-    expect(within(resume).getByText('Turn 2 of 5')).toBeInTheDocument();
     await user.click(within(resume).getByRole('link', { name: 'Resume' }));
 
     expect(await screen.findByText('A reply before leaving')).toBeInTheDocument();

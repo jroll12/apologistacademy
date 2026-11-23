@@ -22,15 +22,29 @@ const positive = (value: string | undefined, fallback: number) => {
  *
  * Or, to use an Apologist agent (chat-completions endpoint, x-api-key header) instead of Claude:
  *   APOLOGIST_API_URL     the full endpoint, e.g. https://<agent>/api/v1/chat/completions
+ *   APOLOGIST_AGENT_DOMAIN  or just the domain, e.g. apologist-academy.apologist.ai (no : or /)
  *   APOLOGIST_API_KEY     the agent's key
  *   APOLOGIST_MODEL       optional model override
  * If both sets are present, the Apologist agent is used unless AI_PROVIDER=anthropic.
  */
+/**
+ * The agent endpoint, from either the full URL or just the domain. The domain form exists
+ * because some settings screens will not take a value with ":" or "/" in it.
+ */
+export function agentEndpoint(env: Env): string | null {
+  if (env.APOLOGIST_API_URL) return env.APOLOGIST_API_URL;
+  const domain = env.APOLOGIST_AGENT_DOMAIN?.trim()
+    .replace(/^https?:\/\//, '')
+    .replace(/\/.*$/, '');
+  return domain ? `https://${domain}/api/v1/chat/completions` : null;
+}
+
 export function createAi(env: Env): AiClient | null {
   if (env.MOCK_AI === '1') return createMockClient();
-  if (env.APOLOGIST_API_URL && env.APOLOGIST_API_KEY && env.AI_PROVIDER !== 'anthropic') {
+  const agentUrl = agentEndpoint(env);
+  if (agentUrl && env.APOLOGIST_API_KEY && env.AI_PROVIDER !== 'anthropic') {
     return createChatCompletionsClient({
-      url: env.APOLOGIST_API_URL,
+      url: agentUrl,
       apiKey: env.APOLOGIST_API_KEY,
       model: env.APOLOGIST_MODEL || undefined,
     });

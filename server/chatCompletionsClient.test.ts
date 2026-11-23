@@ -4,7 +4,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import { AiUnavailable } from './anthropicClient';
 import { createChatCompletionsClient, extractJson } from './chatCompletionsClient';
-import { createAi } from './deps';
+import { agentEndpoint, createAi } from './deps';
 
 const REQ = {
   system: 'Be a skeptic.',
@@ -143,5 +143,19 @@ describe('provider choice', () => {
     expect(createAi({ APOLOGIST_API_URL: url })).toBeNull();
     expect(createAi({ ...base, AI_PROVIDER: 'anthropic' })).not.toBeNull();
     expect(createAi({})).toBeNull();
+  });
+
+  it('builds the endpoint from just the domain', () => {
+    expect(agentEndpoint({ APOLOGIST_AGENT_DOMAIN: 'apologist-academy.apologist.ai' })).toBe(
+      'https://apologist-academy.apologist.ai/api/v1/chat/completions',
+    );
+    expect(agentEndpoint({ APOLOGIST_AGENT_DOMAIN: ' https://x.example/path ' })).toBe(
+      'https://x.example/api/v1/chat/completions',
+    );
+    expect(agentEndpoint({ APOLOGIST_API_URL: 'https://full/url', APOLOGIST_AGENT_DOMAIN: 'd.example' })).toBe(
+      'https://full/url',
+    );
+    expect(agentEndpoint({})).toBeNull();
+    expect(createAi({ APOLOGIST_AGENT_DOMAIN: 'd.example', APOLOGIST_API_KEY: 'k' })).not.toBeNull();
   });
 });

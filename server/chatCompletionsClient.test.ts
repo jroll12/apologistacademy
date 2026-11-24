@@ -3,7 +3,7 @@ import type { AddressInfo } from 'node:net';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import { AiUnavailable } from './anthropicClient';
-import { createChatCompletionsClient, extractJson } from './chatCompletionsClient';
+import { createChatCompletionsClient, extractJson, parseLabelled } from './chatCompletionsClient';
 import { agentEndpoint, createAi } from './deps';
 
 const REQ = {
@@ -150,6 +150,47 @@ describe('chat-completions client', () => {
     expect(seen!.body.reasoning_effort).toBe('low');
   });
 
+  it('asks for labelled text when given labels, and reads it back', async () => {
+    const schema = z.object({ covered: z.string(), couldAdd: z.string() });
+    const labels = { covered: 'What you covered', couldAdd: 'What you could add' };
+    respond = () => ({
+      status: 200,
+      type: 'application/json',
+      body: JSON.stringify({
+        choices: [
+          {
+            message: {
+              content: '**What you covered:** You named the pain.\n\nWhat you could add: Ask a question back.',
+            },
+          },
+        ],
+      }),
+    });
+    expect(await client().json({ ...REQ, labels }, schema)).toEqual({
+      covered: 'You named the pain.',
+      couldAdd: 'Ask a question back.',
+    });
+    expect(seen!.body.messages[0].content).toContain('What you covered: ...');
+    expect(seen!.body.messages[0].content).not.toContain('JSON Schema');
+  });
+
+  it('stops waiting at the deadline and says so', async () => {
+    const schema = z.object({ nudge: z.string() });
+    const slow = createChatCompletionsClient({
+      url,
+      apiKey: 'k',
+      fetch: (_u, init) =>
+        new Promise((_ok, fail) =>
+          init!.signal!.addEventListener('abort', () =>
+            fail(Object.assign(new Error('aborted'), { name: 'TimeoutError' })),
+          ),
+        ),
+    });
+    const t0 = Date.now();
+    await expect(slow.json({ ...REQ, deadlineMs: 150 }, schema)).rejects.toThrow('took too long');
+    expect(Date.now() - t0).toBeLessThan(1000);
+  });
+
   it.each([
     [401, 'not set up correctly'],
     [429, 'busy'],
@@ -157,6 +198,13 @@ describe('chat-completions client', () => {
   ])('maps HTTP %i to a safe message', async (status, text) => {
     respond = () => ({ status, type: 'application/json', body: '{"secret":"internal detail"}' });
     await expect(client().streamText(REQ, () => {})).rejects.toThrow(text);
+  });
+
+  it('parseLabelled needs every label, in any order', () => {
+    const labels = { a: 'First', b: 'Second' };
+    expect(parseLabelled('Second: two\nFirst: one', labels)).toEqual({ a: 'one', b: 'two' });
+    expect(parseLabelled('First: one', labels)).toBeUndefined();
+    expect(parseLabelled('First:\nSecond: two', labels)).toBeUndefined();
   });
 
   it('extractJson ignores text with no object', () => {

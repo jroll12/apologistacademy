@@ -7,7 +7,7 @@ import { DraftNote } from '../components/Notice';
 import { TopBar } from '../components/TopBar';
 import { contextOf, describeError } from '../conversation/provider';
 import { findQuestion } from '../data/questions';
-import { isDraft } from '../data/scripts';
+import { isDraft, SCRIPTS } from '../data/scripts';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { cx } from '../lib/cx';
 import ui from '../styles/ui.module.css';
@@ -56,6 +56,7 @@ export function ReviewScreen() {
   if (conversation.status !== 'ended') return <Navigate to={`/talk/${conversation.id}`} replace />;
 
   const { review, messages } = conversation;
+  const general = SCRIPTS[question.id]?.review;
   const closing = [...messages].reverse().find((m) => m.from === 'skeptic');
 
   return (
@@ -86,11 +87,20 @@ export function ReviewScreen() {
               {!review.personalized && isDraft(question.id) && <DraftNote />}
             </div>
           ) : error ? (
-            <div className={cx(ui.card, s.note)} role="alert">
-              <p className={ui.text}>The review could not be loaded. {error}</p>
-              <Button variant="secondary" size="sm" className={s.retry} onClick={() => setAttempt((n) => n + 1)}>
-                Try again
-              </Button>
+            // Never a dead end: general notes for this question, and a way to try for the personal review.
+            <div className={cx(s.notes, ui.rise)}>
+              <div className={cx(ui.card, s.note)} role="alert">
+                <p className={ui.text}>Coach couldn't write a personal review this time. Here are general notes.</p>
+                <Button variant="secondary" size="sm" className={s.retry} onClick={() => setAttempt((n) => n + 1)}>
+                  Try again
+                </Button>
+              </div>
+              {general && (
+                <>
+                  <Note label="What you could add">{general.couldAdd}</Note>
+                  <Note label="One possible answer">{general.possibleAnswer}</Note>
+                </>
+              )}
             </div>
           ) : (
             <div className={s.notes} role="status" aria-label="Coach is writing your review">

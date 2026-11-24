@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { MAX_REPLY_CHARS } from '../src/conversation/types';
 import { reply, skipIntro } from './helpers';
 
 /**
@@ -55,7 +56,7 @@ test.describe('live AI path (fake model)', () => {
     ).toBe(400);
     const tooLong = [
       { from: 'skeptic', text: 'a' },
-      { from: 'me', text: 'x'.repeat(601) },
+      { from: 'me', text: 'x'.repeat(MAX_REPLY_CHARS + 1) },
     ];
     expect((await request.post('/api/skeptic', { data: { ...base, messages: tooLong } })).status()).toBe(400);
     expect((await request.get('/api/coach')).status()).toBe(405);

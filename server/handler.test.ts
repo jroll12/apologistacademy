@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import { MAX_REPLY_CHARS } from '../src/conversation/types';
 import type { AiClient, TextRequest } from './ai';
 import { AiUnavailable } from './anthropicClient';
 import { createAi, readLimits } from './deps';
@@ -104,7 +105,7 @@ describe('skeptic', () => {
       'a reply over the length limit',
       body([
         { from: 'skeptic', text: 'a' },
-        { from: 'me', text: 'x'.repeat(601) },
+        { from: 'me', text: 'x'.repeat(MAX_REPLY_CHARS + 1) },
       ]),
     ],
     ['an empty message', body([{ from: 'skeptic', text: '' }])],

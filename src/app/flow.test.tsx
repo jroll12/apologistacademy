@@ -156,6 +156,30 @@ describe('Coach', () => {
   });
 });
 
+describe('review', () => {
+  it('shows general notes and a way to retry when the personal review fails', async () => {
+    const user = userEvent.setup();
+    const canned = createCannedProvider(INSTANT_TIMING);
+    let fail = true;
+    const provider: ConversationProvider = {
+      ...canned,
+      review: (ctx, opts) =>
+        fail ? Promise.reject(new ProviderError('Coach took too long.', 'unavailable')) : canned.review(ctx, opts),
+    };
+    renderApp('/practice/suffering', provider);
+    await user.click(await screen.findByRole('button', { name: 'Start' }));
+    for (let n = 1; n <= 5; n++) await reply(user, `Reply ${n}`);
+
+    expect(await screen.findByText(/couldn't write a personal review/)).toBeInTheDocument();
+    expect(screen.getByText(SCRIPTS.suffering.review.couldAdd)).toBeInTheDocument();
+    expect(screen.getByText(SCRIPTS.suffering.review.possibleAnswer)).toBeInTheDocument();
+
+    fail = false;
+    await user.click(screen.getByRole('button', { name: 'Try again' }));
+    await waitFor(() => expect(screen.queryByText(/couldn't write a personal review/)).not.toBeInTheDocument());
+  });
+});
+
 describe('library and history', () => {
   it('filters questions by search and by topic', async () => {
     const user = userEvent.setup();

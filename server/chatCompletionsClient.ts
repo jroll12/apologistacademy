@@ -42,6 +42,28 @@ function messages(req: TextRequest, extraSystem?: string): Message[] {
   return [{ role: 'system', content: system }, ...req.turns];
 }
 
+function labelledRule(labels: Record<string, string>): string {
+  const lines = Object.values(labels).map((l) => `${l}: ...`);
+  return `Reply in plain text using exactly these labels, each at the start of a line, in this order. No other headings, no markdown, no JSON.\n${lines.join('\n')}`;
+}
+
+/** Read "Label: text" sections into an object keyed like `labels`. Tolerates markdown bold and extra spacing. */
+export function parseLabelled(text: string, labels: Record<string, string>): Record<string, string> | undefined {
+  const clean = text.replace(/\*\*|__|^#+\s*/gm, '');
+  const keys = Object.keys(labels);
+  const at = keys.map((k) => {
+    const m = new RegExp(`(^|\\n)\\s*${labels[k].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*:`, 'i').exec(clean);
+    return m ? { k, start: m.index + m[0].length, from: m.index } : null;
+  });
+  if (at.some((x) => !x)) return undefined;
+  const found = (at as { k: string; start: number; from: number }[]).sort((a, b) => a.from - b.from);
+  const out: Record<string, string> = {};
+  found.forEach((f, i) => {
+    out[f.k] = clean.slice(f.start, i + 1 < found.length ? found[i + 1].from : undefined).trim();
+  });
+  return Object.values(out).every((v) => v) ? out : undefined;
+}
+
 /** Pull the first JSON object out of a reply, tolerating code fences and stray text. */
 export function extractJson(text: string): unknown {
   const start = text.indexOf('{');
@@ -143,42 +165,60 @@ export function createChatCompletionsClient(opts: ChatCompletionsOptions): AiCli
     },
 
     async json<T>(req: TextRequest, schema: z.ZodType<T>) {
-      // Plain JSON with our own check. Provider-enforced schemas were unreliable on this platform.
-      // The exact shape goes into the instructions, because the agent's own persona may otherwise
-      // answer in prose or with different field names.
-      const shape = JSON.stringify(z.toJSONSchema(schema));
-      const rule = `${JSON_RULE}\nThe object must match this JSON Schema exactly:\n${shape}`;
+      // Our own check either way. Provider-enforced schemas were unreliable on this platform.
+      // With labels, ask for plain labelled text, which agents follow more reliably than JSON.
+      // Without, spell out the exact JSON shape so the agent doesn't guess field names.
+      const rule = req.labels
+        ? labelledRule(req.labels)
+        : `${JSON_RULE}\nThe object must match this JSON Schema exactly:\n${JSON.stringify(z.toJSONSchema(schema))}`;
+      const read = (content: string) => (req.labels ? parseLabelled(content, req.labels) : extractJson(content));
       let hint = '';
       const now = opts.now ?? Date.now;
       const started = now();
-      for (let attempt = 0; attempt < 2; attempt++) {
-        const res = await post(
-          { stream: false, messages: messages(req, rule + hint), max_completion_tokens: req.maxTokens },
-          req.signal,
-        );
-        const body = (await res.json().catch(() => null)) as {
-          choices?: { message?: { content?: string }; finish_reason?: string }[];
-        } | null;
-        const choice = body?.choices?.[0];
-        if (choice?.finish_reason === 'content_filter') return null;
-        const content = choice?.message?.content ?? '';
-        const found = extractJson(content);
-        const parsed = schema.safeParse(found);
-        if (parsed.success) return parsed.data;
-        // Enough to diagnose from the server log, without writing anyone's words into it.
-        console.error(
-          '[agent] reply did not match the schema',
-          JSON.stringify({
-            attempt,
-            ms: now() - started,
-            finish: choice?.finish_reason ?? null,
-            chars: content.length,
-            hadObject: found !== undefined,
-            problems: parsed.error.issues.slice(0, 5).map((i) => `${i.path.join('.') || '(root)'}: ${i.message}`),
-          }),
-        );
-        if (now() - started > RETRY_BUDGET_MS) break;
-        hint = '\nYour last reply was not valid. Reply again with only the JSON object, nothing else.';
+      const deadline = req.deadlineMs ? AbortSignal.timeout(req.deadlineMs) : undefined;
+      const signal = deadline && req.signal ? AbortSignal.any([req.signal, deadline]) : (deadline ?? req.signal);
+      try {
+        for (let attempt = 0; attempt < 2; attempt++) {
+          const res = await post(
+            { stream: false, messages: messages(req, rule + hint), max_completion_tokens: req.maxTokens },
+            signal,
+          );
+          const body = (await res.json().catch((err: unknown) => {
+            if (deadline?.aborted) throw err;
+            return null;
+          })) as {
+            choices?: { message?: { content?: string }; finish_reason?: string }[];
+          } | null;
+          const choice = body?.choices?.[0];
+          if (choice?.finish_reason === 'content_filter') return null;
+          const content = choice?.message?.content ?? '';
+          const found = read(content);
+          const parsed = schema.safeParse(found);
+          if (parsed.success) return parsed.data;
+          // Enough to diagnose from the server log, without writing anyone's words into it.
+          console.error(
+            '[agent] reply did not match the expected shape',
+            JSON.stringify({
+              attempt,
+              ms: now() - started,
+              labelled: !!req.labels,
+              finish: choice?.finish_reason ?? null,
+              chars: content.length,
+              hadObject: found !== undefined,
+              problems: parsed.error.issues.slice(0, 5).map((i) => `${i.path.join('.') || '(root)'}: ${i.message}`),
+            }),
+          );
+          if (now() - started > RETRY_BUDGET_MS) break;
+          hint = req.labels
+            ? '\nYour last reply did not use the labels. Reply again using exactly the labels, nothing else.'
+            : '\nYour last reply was not valid. Reply again with only the JSON object, nothing else.';
+        }
+      } catch (err) {
+        if (deadline?.aborted) {
+          console.error('[agent] timed out', JSON.stringify({ ms: now() - started, limitMs: req.deadlineMs }));
+          throw new AiUnavailable('Coach took too long. Try again.');
+        }
+        throw err;
       }
       throw new AiUnavailable('The AI service had a problem. Try again.');
     },

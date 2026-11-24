@@ -9,6 +9,13 @@ export interface TextRequest {
   effort: Effort;
   maxTokens: number;
   signal?: AbortSignal;
+  /** Stop waiting after this many ms, so the server answers before the host cuts it off. */
+  deadlineMs?: number;
+  /**
+   * For json(): a label per field. A client that can't rely on structured output may ask for
+   * plain text with these labels instead, and parse it. The Claude client ignores this.
+   */
+  labels?: Record<string, string>;
 }
 
 /**

@@ -54,6 +54,11 @@ const Body = z.object({
 
 const CoachOut = z.object({ nudge: z.string(), outline: z.string(), sample: z.string() });
 const ReviewOut = z.object({ covered: z.string(), couldAdd: z.string(), possibleAnswer: z.string() });
+const REVIEW_LABELS = {
+  covered: 'What you covered',
+  couldAdd: 'What you could add',
+  possibleAnswer: 'One possible answer',
+};
 
 /** Check the request and turn it into what the prompts need. A string result is the reason it was rejected. */
 async function readContext(req: Request): Promise<PromptContext | string> {
@@ -153,7 +158,16 @@ async function review(req: Request, ai: AiClient): Promise<Response> {
   if (typeof ctx === 'string') return fail(400, 'bad_request', ctx);
   if (ctx.userReplies < 1) return fail(400, 'bad_request', 'There is nothing to review yet.');
   const out = await ai.json(
-    { system: reviewSystem(ctx), turns: reviewTurns(ctx), effort: 'medium', maxTokens: 8000, signal: req.signal },
+    {
+      system: reviewSystem(ctx),
+      turns: reviewTurns(ctx),
+      effort: 'low',
+      // A short review is faster, and Netlify stops a function at about 10 seconds.
+      maxTokens: 1200,
+      deadlineMs: 8500,
+      labels: REVIEW_LABELS,
+      signal: req.signal,
+    },
     ReviewOut,
   );
   if (!out) return fail(503, 'unavailable', 'The review could not be written. Try again.');

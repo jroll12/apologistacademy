@@ -23,7 +23,7 @@ export function NotFoundScreen({ what = 'page' }: { what?: 'page' | 'question' |
         >
           <p className={ui.text}>
             {what === 'conversation'
-              ? 'Conversations are saved on the device where they happened. This one is not on this device.'
+              ? 'Conversations are saved in the browser where they started, so this link only opens there. You can start a new one here.'
               : 'The link may be old or mistyped.'}
           </p>
         </StateCard>

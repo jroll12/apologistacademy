@@ -73,7 +73,7 @@ describe('skeptic', () => {
   });
 
   it('accepts a reply of exactly the maximum length, in the skeptic, Coach and review routes', async () => {
-    const full = [
+    const full: Msg[] = [
       { from: 'skeptic', text: 'a' },
       { from: 'me', text: 'x'.repeat(MAX_REPLY_CHARS) },
     ];

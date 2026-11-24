@@ -1,0 +1,12 @@
+# Cloudflare Pages settings. The site builds with `npm run build` and serves `dist`;
+# everything under /api/* runs functions/api/[[path]].ts.
+name = "apologistacademy"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Optional: keep the daily usage counter across requests. Create a KV namespace in the
+# Cloudflare dashboard, then uncomment and paste its id. Without it, counts live in memory.
+# [[kv_namespaces]]
+# binding = "USAGE"
+# id = "paste-the-namespace-id-here"

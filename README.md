@@ -31,9 +31,24 @@ The browser tests need Chromium once: `npx playwright install chromium`.
 
 **Live AI.** With a key, a server function calls Claude. The skeptic responds to what you actually say and streams in, Coach helps with each reply, the review is personal, and skeptic styles work. The app asks the server which mode it is in. Nothing needs changing in the code.
 
+## Hosting
+
+The site runs on **Cloudflare Pages** (free) or **Netlify**. Both serve the same build and run the same server code (`server/handler.ts`).
+
+**Cloudflare Pages.** Settings live in `wrangler.toml`; the API is `functions/api/[[path]].ts`.
+
+1. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**, pick this repository and the `main` branch.
+2. Build command `npm run build`, output directory `dist`. Under the build's environment variables, set `NODE_VERSION` to `22`.
+3. Add the AI variables below under **Settings → Variables and Secrets** (mark the key as a secret), then redeploy.
+4. Optional: create a KV namespace, bind it as `USAGE` (Settings → Bindings), so the overall daily cap survives between requests. Without it the count is kept in memory.
+
+Cloudflare has no 10-second function limit, so the review waits up to 25 seconds for the model there (8.5 seconds on Netlify). `REVIEW_DEADLINE_MS` overrides either. To try the Cloudflare runtime locally: `npm run build`, then `npx wrangler pages dev dist --binding MOCK_AI=1`.
+
+**Netlify.** Settings live in `netlify.toml`; the API is `netlify/functions/api.mts`.
+
 ### Switch live AI on
 
-In Netlify, under **Site configuration → Environment variables**, add:
+In your host's environment variables (Cloudflare: **Settings → Variables and Secrets**; Netlify: **Site configuration → Environment variables**), add:
 
 | Variable            | Needed | What it does                                                                               |
 | ------------------- | ------ | ------------------------------------------------------------------------------------------ |

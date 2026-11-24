@@ -17,5 +17,5 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["vite/client", "node"]
   },
-  "include": ["src", "server", "netlify", "e2e", "vite.config.ts", "playwright.config.ts"]
+  "include": ["src", "server", "netlify", "functions", "e2e", "vite.config.ts", "playwright.config.ts"]
 }

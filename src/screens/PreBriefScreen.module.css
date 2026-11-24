@@ -105,3 +105,14 @@
     background: none;
   }
 }
+
+/* Small phones: labels such as "Balanced" and "Standard" need room inside the three-across buttons. */
+@media (max-width: 400px) {
+  .option {
+    padding-inline: 6px;
+  }
+
+  .optionLabel {
+    font-size: var(--fs-16);
+  }
+}

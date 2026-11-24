@@ -19,6 +19,7 @@ const positive = (value: string | undefined, fallback: number) => {
  *   LIVE_DAILY_LIMIT      conversations per person per day (default: no per-person limit)
  *   LIVE_GLOBAL_LIMIT     conversations for everyone per day (default 500)
  *   MOCK_AI=1             use the built-in fake model (tests, local runs without a key)
+ *   REVIEW_DEADLINE_MS    how long the review waits for the model (default 8500 on Netlify, 25000 on Cloudflare)
  *
  * Or, to use an Apologist agent (chat-completions endpoint, x-api-key header) instead of Claude:
  *   APOLOGIST_API_URL     the full endpoint, e.g. https://<agent>/api/v1/chat/completions
@@ -59,6 +60,19 @@ export function readLimits(env: Env): Limits {
   return { perClient: positive(env.LIVE_DAILY_LIMIT, Infinity), global: positive(env.LIVE_GLOBAL_LIMIT, 500) };
 }
 
-export function createDeps(env: Env, usage: UsageStore, ip: string): Deps {
-  return { ai: createAi(env), usage, limits: readLimits(env), ip, now: () => new Date() };
+export function createDeps(
+  env: Env,
+  usage: UsageStore,
+  ip: string,
+  defaults: { reviewDeadlineMs?: number } = {},
+): Deps {
+  return {
+    ai: createAi(env),
+    usage,
+    limits: readLimits(env),
+    ip,
+    now: () => new Date(),
+    // REVIEW_DEADLINE_MS overrides the host's default.
+    reviewDeadlineMs: env.REVIEW_DEADLINE_MS ? positive(env.REVIEW_DEADLINE_MS, 8500) : defaults.reviewDeadlineMs,
+  };
 }

@@ -30,6 +30,8 @@ export interface Deps {
   /** The caller's IP address, for the per-client cap. */
   ip: string;
   now: () => Date;
+  /** How long the review may wait for the model. Set per host: Netlify stops a function at about 10s. */
+  reviewDeadlineMs?: number;
 }
 
 type ErrorCode = 'limit' | 'unavailable' | 'bad_request';
@@ -54,6 +56,9 @@ const Body = z.object({
 
 const CoachOut = z.object({ nudge: z.string(), outline: z.string(), sample: z.string() });
 const ReviewOut = z.object({ covered: z.string(), couldAdd: z.string(), possibleAnswer: z.string() });
+/** Inside Netlify's ~10 second function limit. Cloudflare has no such limit and allows more. */
+export const DEFAULT_REVIEW_DEADLINE_MS = 8500;
+
 const REVIEW_LABELS = {
   covered: 'What you covered',
   couldAdd: 'What you could add',
@@ -153,7 +158,7 @@ async function coach(req: Request, ai: AiClient): Promise<Response> {
   return json(out);
 }
 
-async function review(req: Request, ai: AiClient): Promise<Response> {
+async function review(req: Request, deps: Deps, ai: AiClient): Promise<Response> {
   const ctx = await readContext(req);
   if (typeof ctx === 'string') return fail(400, 'bad_request', ctx);
   if (ctx.userReplies < 1) return fail(400, 'bad_request', 'There is nothing to review yet.');
@@ -164,7 +169,7 @@ async function review(req: Request, ai: AiClient): Promise<Response> {
       effort: 'low',
       // A short review is faster, and Netlify stops a function at about 10 seconds.
       maxTokens: 1200,
-      deadlineMs: 8500,
+      deadlineMs: deps.reviewDeadlineMs ?? DEFAULT_REVIEW_DEADLINE_MS,
       labels: REVIEW_LABELS,
       signal: req.signal,
     },
@@ -183,7 +188,7 @@ export async function handle(req: Request, deps: Deps): Promise<Response> {
   const routes: Record<string, (ai: AiClient) => Promise<Response>> = {
     '/api/skeptic': (ai) => skeptic(req, deps, ai),
     '/api/coach': (ai) => coach(req, ai),
-    '/api/review': (ai) => review(req, ai),
+    '/api/review': (ai) => review(req, deps, ai),
   };
   const route = routes[path];
   if (!route) return fail(404, 'bad_request', 'Not found.');

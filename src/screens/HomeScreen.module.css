@@ -69,16 +69,15 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  /* Line the first action's text up with the heading above it. */
+  margin-inline-start: -12px;
 }
 
-/* Topics as links into the full list, filtered. */
+/* Topics as links into the full list, filtered. They wrap, so none is cut off at the edge. */
 .topics {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  margin-inline: calc(-1 * var(--gutter-mobile));
-  padding-inline: var(--gutter-mobile);
-  overflow-x: auto;
-  scrollbar-width: none;
 }
 
 .topics::-webkit-scrollbar {
@@ -178,13 +177,6 @@
     width: auto;
     min-width: 200px;
     align-self: flex-start;
-  }
-
-  .topics {
-    flex-wrap: wrap;
-    margin-inline: 0;
-    padding-inline: 0;
-    overflow: visible;
   }
 
   .picks {

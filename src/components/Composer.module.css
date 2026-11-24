@@ -101,3 +101,11 @@
   width: 18px;
   height: 18px;
 }
+
+/* Phones: extra room below the reply bar, so a host's floating badge or the browser's own bar
+   can't sit on top of the send button. */
+@media (max-width: 1023px) {
+  .dock {
+    padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));
+  }
+}

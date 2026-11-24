@@ -72,6 +72,17 @@ describe('skeptic', () => {
     expect((await res.text()).trim()).toBe('Mock skeptic message 1.');
   });
 
+  it('accepts a reply of exactly the maximum length, in the skeptic, Coach and review routes', async () => {
+    const full = [
+      { from: 'skeptic', text: 'a' },
+      { from: 'me', text: 'x'.repeat(MAX_REPLY_CHARS) },
+    ];
+    for (const path of ['/api/skeptic', '/api/coach', '/api/review']) {
+      const res = await handle(post(path, body(full)), deps());
+      expect(res.status, path).toBe(200);
+    }
+  });
+
   it('streams a reply after the practicer speaks', async () => {
     const res = await handle(post('/api/skeptic', body(thread(2))), deps());
     expect((await res.text()).trim()).toBe('Mock skeptic message 3.');

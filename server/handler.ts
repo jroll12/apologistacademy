@@ -48,7 +48,7 @@ const Body = z.object({
   persona: z.enum(PERSONAS.map((p) => p.id) as [string, ...string[]]),
   difficulty: z.enum(DIFFICULTIES.map((d) => d.id) as [string, ...string[]]),
   messages: z
-    .array(z.object({ from: z.enum(['skeptic', 'me']), text: z.string().min(1).max(2000) }))
+    .array(z.object({ from: z.enum(['skeptic', 'me']), text: z.string().min(1).max(MAX_REPLY_CHARS) }))
     .max(TOTAL_TURNS * 2 + 1),
 });
 

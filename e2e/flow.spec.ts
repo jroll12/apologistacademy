@@ -203,3 +203,18 @@ test.describe('layout', () => {
     expect(sideways).toBeLessThanOrEqual(0);
   });
 });
+
+test.describe('long replies', () => {
+  test.beforeEach(async ({ page }) => skipIntro(page));
+
+  test('a 4,200-character reply is accepted, sent, and the conversation carries on', async ({ page }) => {
+    await startQuestion(page, SUFFERING);
+    const long = 'word '.repeat(850).trim();
+    await expect(replyBox(page)).toBeEnabled();
+    await replyBox(page).fill(long);
+    await expect(page.getByText(/\d+ left/)).toBeVisible();
+    await page.getByRole('button', { name: 'Send' }).click();
+    await expect(page.getByText('That does not explain a child who gets sick.')).toBeVisible();
+    await expect(page.getByText(/word word word word/).first()).toBeVisible();
+  });
+});

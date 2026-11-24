@@ -1,6 +1,6 @@
 export const TOTAL_TURNS = 5;
 /** Longest reply a person can send. Enforced in the composer and again on the server. */
-export const MAX_REPLY_CHARS = 1500;
+export const MAX_REPLY_CHARS = 5000;
 
 export type TopicId = 'suffering' | 'bible' | 'jesus' | 'science' | 'god' | 'morality' | 'faiths' | 'church';
 

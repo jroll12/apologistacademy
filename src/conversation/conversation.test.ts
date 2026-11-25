@@ -99,8 +99,16 @@ describe('conversation reducer', () => {
     expect(run(c, { type: 'COACH_LOADED', coach, forReplies: 1 }).coach).toEqual(coach);
   });
 
-  it('accepts a review only once the conversation has ended', () => {
+  it('ignores a review before all five replies are in, and accepts it from the fifth reply on', () => {
     const review = { personalized: false, covered: null, couldAdd: 'a', possibleAnswer: 'b' };
     expect(run(fresh(), { type: 'REVIEW_LOADED', review }).review).toBeNull();
+    // After the fifth reply the skeptic's closing line is still being written, and the review may arrive first.
+    let c = run(fresh(), { type: 'SKEPTIC', text: 'opening', now: 0 });
+    for (let i = 1; i <= 5; i++) {
+      c = run(c, { type: 'SEND', text: `reply ${i}`, now: i });
+      if (i < 5) c = run(c, { type: 'SKEPTIC', text: `skeptic ${i}`, now: i });
+    }
+    expect(c.status).toBe('active');
+    expect(run(c, { type: 'REVIEW_LOADED', review }).review).toEqual(review);
   });
 });

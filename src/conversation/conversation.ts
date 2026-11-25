@@ -112,6 +112,7 @@ export function reduce(c: Conversation, a: Action): Conversation {
       return { ...c, coachStep: Math.min(c.coachStep + 1, 3) as CoachStep };
 
     case 'REVIEW_LOADED':
-      return c.status === 'ended' ? { ...c, review: a.review } : c;
+      // It can arrive just before the skeptic's closing line, once all the replies are in.
+      return c.status === 'ended' || c.userReplies >= TOTAL_TURNS ? { ...c, review: a.review } : c;
   }
 }

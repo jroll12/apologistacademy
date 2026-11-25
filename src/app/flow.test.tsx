@@ -180,6 +180,34 @@ describe('review', () => {
   });
 });
 
+describe('early review', () => {
+  it('starts the review on the fifth reply and does not ask a second time on the review page', async () => {
+    const user = userEvent.setup();
+    const canned = createCannedProvider(INSTANT_TIMING);
+    const review = vi.fn(canned.review);
+    const provider: ConversationProvider = { ...canned, mode: 'live', review };
+    renderApp('/practice/suffering', provider);
+    await user.click(await screen.findByRole('button', { name: 'Start' }));
+    for (let n = 1; n <= 5; n++) await reply(user, `Reply ${n}`);
+    expect(await screen.findByRole('heading', { name: 'Coach review' })).toBeInTheDocument();
+    await screen.findByText(SCRIPTS.suffering.review.couldAdd);
+    expect(review).toHaveBeenCalledTimes(1);
+  });
+
+  it('asks again on the review page when the early try failed, and shows why if that fails too', async () => {
+    const user = userEvent.setup();
+    const canned = createCannedProvider(INSTANT_TIMING);
+    const review = vi.fn(() => Promise.reject(new ProviderError('Coach took too long. Try again.', 'timeout')));
+    const provider: ConversationProvider = { ...canned, mode: 'live', review };
+    renderApp('/practice/suffering', provider);
+    await user.click(await screen.findByRole('button', { name: 'Start' }));
+    for (let n = 1; n <= 5; n++) await reply(user, `Reply ${n}`);
+    expect(await screen.findByText(/couldn't write a personal review/)).toBeInTheDocument();
+    expect(screen.getByText(/Reason: Coach took too long/)).toBeInTheDocument();
+    expect(review.mock.calls.length).toBeGreaterThanOrEqual(2); // the early try, then a fresh one
+  });
+});
+
 describe('library and history', () => {
   it('filters questions by search and by topic', async () => {
     const user = userEvent.setup();

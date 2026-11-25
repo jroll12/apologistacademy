@@ -7,6 +7,7 @@ import { ChatBubble } from '../components/ChatBubble';
 import { DraftNote } from '../components/Notice';
 import { TopBar } from '../components/TopBar';
 import { contextOf, describeError } from '../conversation/provider';
+import { pendingReview } from '../conversation/reviewPrefetch';
 import { findQuestion } from '../data/questions';
 import { isDraft, SCRIPTS } from '../data/scripts';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -28,6 +29,8 @@ function Note({ label, children }: { label: string; children: string }) {
 export function ReviewScreen() {
   const { conversationId = '' } = useParams();
   const { data, provider, mode, dispatch } = useApp();
+  const latest = useRef(data);
+  latest.current = data;
   const conversation = data.conversations[conversationId];
   const question = findQuestion(conversation?.questionId);
   const [error, setError] = useState<string | null>(null);
@@ -54,10 +57,22 @@ export function ReviewScreen() {
     let cancelled = false;
     const ctrl = new AbortController();
     setError(null);
-    provider
-      .review(contextOf(conversation), { signal: ctrl.signal })
-      .then((review) => !cancelled && dispatch(conversation.id, { type: 'REVIEW_LOADED', review }))
-      .catch((err: unknown) => !cancelled && setError(describeError(err)));
+    const fetchNow = () =>
+      provider
+        .review(contextOf(conversation), { signal: ctrl.signal })
+        .then((review) => !cancelled && dispatch(conversation.id, { type: 'REVIEW_LOADED', review }))
+        .catch((err: unknown) => !cancelled && setError(describeError(err)));
+    // An early request may still be running (started on the fifth reply). Wait for it. If it saved
+    // the review, there is nothing more to do; if it failed, make a fresh request now.
+    const early = attempt === 0 ? pendingReview(conversation.id) : undefined;
+    if (early) {
+      void early.then(() => {
+        if (cancelled) return;
+        if (!latest.current.conversations[conversation.id]?.review) void fetchNow();
+      });
+    } else {
+      void fetchNow();
+    }
     return () => {
       cancelled = true;
       ctrl.abort();
@@ -104,6 +119,7 @@ export function ReviewScreen() {
             <div className={cx(s.notes, ui.rise)}>
               <div className={cx(ui.card, s.note)} role="alert">
                 <p className={ui.text}>Coach couldn't write a personal review this time. Here are general notes.</p>
+                <p className={ui.small}>Reason: {error}</p>
                 <Button variant="secondary" size="sm" className={s.retry} onClick={() => setAttempt((n) => n + 1)}>
                   Try again
                 </Button>

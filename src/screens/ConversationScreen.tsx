@@ -10,6 +10,9 @@ import { Sheet } from '../components/Sheet';
 import { TopBar } from '../components/TopBar';
 import { TurnProgress } from '../components/TurnProgress';
 import { turnOf } from '../conversation/conversation';
+import { contextOf } from '../conversation/provider';
+import { prefetchReview } from '../conversation/reviewPrefetch';
+import { TOTAL_TURNS } from '../conversation/types';
 import { findQuestion } from '../data/questions';
 import { useConversationRunner } from '../hooks/useConversationRunner';
 import { DESKTOP, useMediaQuery } from '../hooks/useMediaQuery';
@@ -38,6 +41,17 @@ export function ConversationScreen() {
   const awaiting = conversation?.awaiting ?? false;
   const lastSkeptic = [...messages].reverse().find((m) => m.from === 'skeptic');
   const readAloud = data.settings.readAloud;
+
+  // After the fifth reply, start the review straight away, alongside the skeptic's closing line.
+  const allReplies = !!conversation && conversation.status === 'active' && conversation.userReplies >= TOTAL_TURNS;
+  useEffect(() => {
+    if (!conversation || !allReplies || provider.mode !== 'live') return;
+    prefetchReview(conversation.id, provider, contextOf(conversation), (review) =>
+      dispatch(conversation.id, { type: 'REVIEW_LOADED', review }),
+    );
+    // Only the moment the fifth reply lands matters.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allReplies, conversation?.id]);
 
   // Keep the newest message in view.
   useEffect(() => {

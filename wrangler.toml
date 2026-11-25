@@ -5,6 +5,10 @@ pages_build_output_dir = "dist"
 compatibility_date = "2026-11-01"
 compatibility_flags = ["nodejs_compat"]
 
+[vars]
+APOLOGIST_AGENT_DOMAIN = "apologist-academy.apologist.ai"
+APOLOGIST_REASONING_EFFORT = "low"
+
 # Optional: keep the daily usage counter across requests. Create a KV namespace in the
 # Cloudflare dashboard, then uncomment and paste its id. Without it, counts live in memory.
 # [[kv_namespaces]]

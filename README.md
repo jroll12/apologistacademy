@@ -33,7 +33,7 @@ The browser tests need Chromium once: `npx playwright install chromium`.
 
 ## Hosting
 
-The site runs on **Cloudflare Pages** (free) or **Netlify**. Both serve the same build and run the same server code (`server/handler.ts`).
+The site is live on **Cloudflare Pages** (free) at https://apologistacademy.pages.dev/, and can also run on **Netlify**. Both serve the same build and run the same server code (`server/handler.ts`).
 
 **Cloudflare Pages.** Settings live in `wrangler.toml`; the API is `functions/api/[[path]].ts`.
 

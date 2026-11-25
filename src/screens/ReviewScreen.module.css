@@ -106,7 +106,8 @@
       'lead lead'
       'main side'
       'transcript transcript'
-      'actions actions';
+      'actions actions'
+      'print print';
     column-gap: 32px;
     row-gap: 24px;
     align-items: start;
@@ -137,5 +138,40 @@
 
   .question {
     font-size: var(--text-h2);
+  }
+}
+
+.print {
+  align-self: flex-start;
+}
+
+@media (min-width: 1024px) {
+  .print {
+    grid-area: print;
+  }
+}
+
+/* Paper: no dark background, light borders instead of filled cards, actions left out. */
+@media print {
+  .review {
+    display: flex;
+    padding: 0;
+  }
+
+  .note,
+  .transcript {
+    border: 1px solid #c8c8c8;
+    break-inside: avoid;
+  }
+
+  .summary {
+    min-height: 0;
+    padding-block: 8px;
+  }
+
+  .actions,
+  .print,
+  .retry {
+    display: none;
   }
 }

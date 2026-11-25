@@ -5,7 +5,15 @@ import { AiUnavailable } from './anthropicClient';
 import { createAi, readLimits } from './deps';
 import { handle, type Deps } from './handler';
 import { createMockClient } from './mockClient';
-import { coachSystem, reviewSystem, skepticSystem, skepticTurns, type PromptContext } from './prompts';
+import {
+  coachSystem,
+  reviewSystem,
+  reviewTurns,
+  shortenForReview,
+  skepticSystem,
+  skepticTurns,
+  type PromptContext,
+} from './prompts';
 import { clientKey, memoryUsage } from './usage';
 import { findQuestion } from '../src/data/questions';
 
@@ -283,6 +291,45 @@ describe('prompts', () => {
       expect(prompt).toContain('Do not name books, authors, websites or studies');
     }
     expect(reviewSystem(ctx(5))).toContain('No scores, grades, ratings');
+  });
+});
+
+describe('listening and long replies', () => {
+  const ctx = (messages: PromptContext['messages']): PromptContext => ({
+    question: findQuestion('suffering')!,
+    persona: 'curious',
+    difficulty: 'standard',
+    messages,
+    userReplies: messages.filter((m) => m.from === 'me').length,
+  });
+
+  it('tells the skeptic to answer the strongest point, not repeat itself, and answer personal questions', () => {
+    const sys = skepticSystem(ctx([]));
+    expect(sys).toContain('strongest point in their latest reply');
+    expect(sys).toContain('Never repeat an objection');
+    expect(sys).toContain('ask about you personally');
+    expect(sys).not.toContain('If their reply wanders, bring it back');
+  });
+
+  it('tells Coach what to do when the skeptic keeps repeating itself', () => {
+    expect(coachSystem(ctx([{ id: '0', from: 'skeptic', text: 'a' }]))).toContain('fine not to win the point');
+  });
+
+  it('shortens long replies for the review only, keeping the start and the end', () => {
+    const long = 'A'.repeat(700) + 'MIDDLE' + 'Z'.repeat(700);
+    expect(shortenForReview('short')).toBe('short');
+    const cut = shortenForReview(long);
+    expect(cut.startsWith('A'.repeat(600))).toBe(true);
+    expect(cut.endsWith('Z'.repeat(600))).toBe(true);
+    expect(cut).toContain('[…]');
+    expect(cut).not.toContain('MIDDLE');
+
+    const five = Array.from({ length: 5 }, (_, i) => [
+      { id: `s${i}`, from: 'skeptic' as const, text: 'Why?' },
+      { id: `m${i}`, from: 'me' as const, text: 'x'.repeat(4900) },
+    ]).flat();
+    const sent = reviewTurns(ctx(five))[0].content;
+    expect(sent.length).toBeLessThan(7000);
   });
 });
 

@@ -164,3 +164,42 @@ button:disabled {
 .skip-link:focus {
   transform: none;
 }
+
+/* Printing (the review, mainly): black on white, and no screen-only controls. */
+@media print {
+  :root,
+  :root[data-theme],
+  :root[data-theme='light'] {
+    color-scheme: light;
+    --surface-base: #fff;
+    --surface-card: #fff;
+    --surface-raised: #fff;
+    --surface-inset: #fff;
+    --text-primary: #000;
+    --text-soft: #111;
+    --text-quiet: #444;
+    --text-secondary: #333;
+    --white: #000;
+    --gray-700: #eee;
+    --line: #c8c8c8;
+    --primary-300: #4a1fb8;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  header,
+  dialog,
+  form,
+  .skip-link,
+  [aria-label='Ask Apologist AI'] {
+    display: none !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    animation: none !important;
+  }
+}

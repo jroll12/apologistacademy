@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { PrinterIcon } from '@heroicons/react/24/outline';
+import { useEffect, useRef, useState } from 'react';
 import { Navigate, useParams } from 'react-router';
 import { useApp } from '../app/AppContext';
 import { Button, ButtonLink } from '../components/Button';
@@ -32,6 +33,18 @@ export function ReviewScreen() {
   const [error, setError] = useState<string | null>(null);
   const [attempt, setAttempt] = useState(0);
   usePageTitle(question ? `Review: ${question.text}` : 'Review');
+
+  // Printing always includes the whole conversation, however it was printed (button or browser menu).
+  const transcript = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const open = () => transcript.current?.setAttribute('open', '');
+    window.addEventListener('beforeprint', open);
+    return () => window.removeEventListener('beforeprint', open);
+  }, []);
+  const print = () => {
+    transcript.current?.setAttribute('open', '');
+    window.print();
+  };
 
   const id = conversation?.id;
   const needsReview = !!conversation && conversation.status === 'ended' && !conversation.review;
@@ -139,7 +152,7 @@ export function ReviewScreen() {
           )}
         </aside>
 
-        <details className={s.transcript}>
+        <details className={s.transcript} ref={transcript}>
           <summary className={s.summary}>Your conversation</summary>
           <div className={s.transcriptBody}>
             {messages.map((m) => (
@@ -156,6 +169,10 @@ export function ReviewScreen() {
             Try this question again
           </ButtonLink>
         </div>
+        <Button variant="ghost" size="sm" className={s.print} onClick={print}>
+          <PrinterIcon aria-hidden="true" />
+          Print or save as PDF
+        </Button>
       </main>
     </div>
   );

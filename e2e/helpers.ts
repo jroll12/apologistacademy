@@ -5,7 +5,8 @@ const STORE_KEY = 'ap.practice.v1';
 /** Start each test as someone who has already seen the first-run intro. */
 export async function skipIntro(page: Page) {
   await page.addInitScript((key) => {
-    if (!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify({ v: 1, seenIntro: true }));
+    if (!localStorage.getItem(key))
+      localStorage.setItem(key, JSON.stringify({ v: 1, seenIntro: true, suggestedId: 'suffering' }));
   }, STORE_KEY);
 }
 

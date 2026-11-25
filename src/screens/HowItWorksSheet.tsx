@@ -8,7 +8,10 @@ import s from './HowItWorksSheet.module.css';
 
 const STEPS = [
   ['Pick a question', 'Start with a suggestion or browse.'],
-  ['Talk for five turns', 'Speak or type. The skeptic pushes back.'],
+  [
+    'Talk for five turns',
+    "Speak or type. The skeptic pushes back and won't be converted. Aim for a good conversation, not a win.",
+  ],
   ['Ask for help anytime', 'A hint, then an outline, then a sample reply.'],
   ['Read your review', 'What to add and one possible answer, with a verse. No scores.'],
 ] as const;

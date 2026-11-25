@@ -10,6 +10,7 @@ import {
   practicedIds,
   resumable,
   STORE_KEY,
+  suggestedQuestionId,
 } from './store';
 
 const convo = (id: string, now: number, patch: Partial<Conversation> = {}): Conversation => ({
@@ -119,5 +120,22 @@ describe('selectors', () => {
 
   it('counts a question as practiced only when finished', () => {
     expect([...practicedIds(data)]).toEqual(['bible']);
+  });
+});
+
+describe('suggested question', () => {
+  const ids = ['a', 'b', 'c'];
+  const ended = (questionId: string) =>
+    ({ id: questionId + '1', questionId, status: 'ended', messages: [], updatedAt: 1 }) as unknown as Conversation;
+
+  it("keeps the visitor's own suggestion until it is practiced, then moves to the next", () => {
+    const data = { ...emptyData, suggestedId: 'b' };
+    expect(suggestedQuestionId(data, ids)).toBe('b');
+    expect(suggestedQuestionId({ ...data, conversations: { b1: ended('b') } }, ids)).toBe('c');
+    expect(suggestedQuestionId({ ...data, conversations: { b1: ended('b'), c1: ended('c') } }, ids)).toBe('a');
+  });
+
+  it('never suggests the question already offered for Resume', () => {
+    expect(suggestedQuestionId({ ...emptyData, suggestedId: 'b' }, ids, 'b')).toBe('c');
   });
 });

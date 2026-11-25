@@ -15,6 +15,7 @@ import { liveAvailable, liveProvider } from '../conversation/liveProvider';
 import type { ConversationProvider } from '../conversation/provider';
 import type { Difficulty, PersonaId, ProviderMode } from '../conversation/types';
 import { defaultStorage, type StorageLike } from '../store/storage';
+import { randomQuestion } from '../data/questions';
 import { createStore, type AppData, type Settings, type Store } from '../store/store';
 
 export interface AppValue {
@@ -65,6 +66,14 @@ interface Props {
 export function AppProvider({ children, storage: storageProp, store: storeProp, provider: providerProp }: Props) {
   const storage = useMemo(() => storageProp ?? defaultStorage(), [storageProp]);
   const store = useMemo(() => storeProp ?? createStore(storage), [storeProp, storage]);
+
+  // First visit: pick the suggested question at random, before the first render, so it never flickers.
+  useState(() => {
+    if (!store.get().suggestedId) {
+      const id = randomQuestion().id;
+      store.update((d) => (d.suggestedId ? d : { ...d, suggestedId: id }));
+    }
+  });
   const data = useSyncExternalStore(store.subscribe, store.get);
 
   const canned = useMemo(() => createCannedProvider(timing), []);

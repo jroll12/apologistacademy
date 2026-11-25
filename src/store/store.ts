@@ -18,6 +18,8 @@ export interface AppData {
   settings: Settings;
   /** The first-run "How it works" intro has been shown. */
   seenIntro: boolean;
+  /** The question Home suggests, picked at random on a first visit so visitors don't all see the same one. */
+  suggestedId?: string;
 }
 
 export const emptyData: AppData = {
@@ -106,4 +108,19 @@ export function practicedIds(data: AppData): Set<string> {
       .filter((c) => c.status === 'ended')
       .map((c) => c.questionId),
   );
+}
+
+/**
+ * The question Home suggests. It stays the same for a visitor until they practice it (or it is the
+ * one already offered for Resume); then it moves to the next one not yet practiced, in list order.
+ */
+export function suggestedQuestionId(data: AppData, ids: string[], exclude?: string): string {
+  const practiced = practicedIds(data);
+  const open = (id: string) => !practiced.has(id) && id !== exclude;
+  const start = Math.max(0, ids.indexOf(data.suggestedId ?? ''));
+  for (let i = 0; i < ids.length; i++) {
+    const id = ids[(start + i) % ids.length];
+    if (open(id)) return id;
+  }
+  return ids.find((id) => id !== exclude) ?? ids[0];
 }

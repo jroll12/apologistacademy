@@ -6,9 +6,9 @@ import { Blob } from '../components/Notice';
 import { QuestionCard } from '../components/QuestionCard';
 import { TopBar } from '../components/TopBar';
 import { TAGLINE } from '../data/copy';
-import { findQuestion, QUESTIONS, randomQuestion, SUGGESTED_ID, TOPICS } from '../data/questions';
+import { findQuestion, QUESTIONS, randomQuestion, TOPICS } from '../data/questions';
 import { cx } from '../lib/cx';
-import { practicedIds, resumable } from '../store/store';
+import { practicedIds, resumable, suggestedQuestionId } from '../store/store';
 import ui from '../styles/ui.module.css';
 import s from './HomeScreen.module.css';
 
@@ -20,10 +20,15 @@ export function HomeScreen() {
   const resume = resumable(data);
   const resumeQuestion = findQuestion(resume?.questionId);
 
-  // Suggest the first question not practiced yet, so the suggestion moves on as the person does.
+  // Each visitor gets their own suggestion (picked at random on the first visit); it moves on once practiced.
   // Never the question already offered for Resume.
-  const suggested =
-    QUESTIONS.find((q) => !practiced.has(q.id) && q.id !== resumeQuestion?.id) ?? findQuestion(SUGGESTED_ID)!;
+  const suggested = findQuestion(
+    suggestedQuestionId(
+      data,
+      QUESTIONS.map((q) => q.id),
+      resumeQuestion?.id,
+    ),
+  )!;
   const others = QUESTIONS.filter((q) => q.id !== suggested.id && q.id !== resumeQuestion?.id)
     .sort((a, b) => Number(practiced.has(a.id)) - Number(practiced.has(b.id)))
     .slice(0, 6);

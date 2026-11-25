@@ -37,7 +37,7 @@ beforeEach(() => {
   storage = memoryStorage();
   store = createStore(storage);
   // Skip the first-run intro unless a test is about it.
-  store.update((d) => ({ ...d, seenIntro: true }));
+  store.update((d) => ({ ...d, seenIntro: true, suggestedId: 'suffering' }));
 });
 
 afterEach(cleanup);

@@ -91,3 +91,10 @@
   font-size: var(--fs-13);
   color: var(--text-quiet);
 }
+
+/* On paper the skeptic's lines get a border, so the two sides stay easy to tell apart. */
+@media print {
+  .skeptic {
+    border: 1px solid #c8c8c8;
+  }
+}

@@ -14,6 +14,8 @@ AI for Church hackathon. Deadline: **November 27, 2026, 11:59 PM ET**.
 | `screenshots/5-review.png`                  | The Coach review with Scripture                                                                                                                    |
 | `../../public/apple-touch-icon.png`         | Logo (optional field)                                                                                                                              |
 
+**Scripts.** The short timed script is below. The longer script for recording yourself (about 4.5 minutes, with on-screen actions) is in `script-long.md`.
+
 **About the footage.** The conversation in the video and screenshots was pre-written for the demo and fed to the app in place of the AI, because the live AI can't be reached from where it was recorded. The app, screens and flow are real. The video's closing card says so. To show real AI replies instead, re-record with the shot list below.
 
 ## Voiceover script (optional)

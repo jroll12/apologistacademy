@@ -1,28 +1,20 @@
-import {
-  BeakerIcon,
-  BookOpenIcon,
-  BuildingLibraryIcon,
-  GlobeAltIcon,
-  HeartIcon,
-  ScaleIcon,
-  SunIcon,
-  UsersIcon,
-} from '@heroicons/react/24/outline';
+import { BeakerIcon, BookOpenIcon, GlobeAltIcon, HeartIcon, ScaleIcon, SunIcon } from '@heroicons/react/24/outline';
 import type { ComponentType, SVGProps } from 'react';
 import type { TopicId } from '../conversation/types';
 import { cx } from '../lib/cx';
+import { ChurchIcon, CrossIcon } from './icons';
 import s from './TopicTile.module.css';
 
-/** Heroicons outline, one per topic. No crosses: the design system keeps them out of decoration. */
+/** One icon per topic: Heroicons outline, plus the cross and church drawn to match (see icons.tsx). */
 const ICONS: Record<TopicId, ComponentType<SVGProps<SVGSVGElement>>> = {
   suffering: HeartIcon,
   bible: BookOpenIcon,
-  jesus: SunIcon,
+  jesus: CrossIcon,
   science: BeakerIcon,
-  god: GlobeAltIcon,
+  god: SunIcon,
   morality: ScaleIcon,
-  faiths: UsersIcon,
-  church: BuildingLibraryIcon,
+  faiths: GlobeAltIcon,
+  church: ChurchIcon,
 };
 
 /** Violet icon tile with a white glyph, as the design system specifies. */

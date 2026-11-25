@@ -9,7 +9,7 @@ import { TopBar } from '../components/TopBar';
 import type { TopicId } from '../conversation/types';
 import { searchQuestions, TOPICS } from '../data/questions';
 import { useChipPeek } from '../hooks/useChipPeek';
-import { PHONE, useMediaQuery } from '../hooks/useMediaQuery';
+import { NARROW, useMediaQuery } from '../hooks/useMediaQuery';
 import { cx } from '../lib/cx';
 import { practicedIds } from '../store/store';
 import ui from '../styles/ui.module.css';
@@ -36,7 +36,7 @@ export function LibraryScreen() {
   };
 
   const chips = useRef<HTMLDivElement>(null);
-  useChipPeek(chips, useMediaQuery(PHONE));
+  useChipPeek(chips, useMediaQuery(NARROW));
 
   const results = searchQuestions(topic, query);
   const practiced = practicedIds(data);

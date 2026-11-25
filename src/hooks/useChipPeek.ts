@@ -25,7 +25,8 @@ export function useChipPeek(ref: RefObject<HTMLElement | null>, active: boolean)
         if (px === 0) row.style.removeProperty('--chip-shift');
         else row.style.setProperty('--chip-shift', `${px}px`);
       };
-      const width = row.clientWidth;
+      // The visible right edge is the page's, which leaves out a scrollbar on a narrow desktop window.
+      const width = Math.min(row.clientWidth, document.documentElement.clientWidth - row.getBoundingClientRect().left);
       const chips = [...row.children] as HTMLElement[];
       if (!active || !chips.length || row.scrollWidth - current <= width + 1) return set(0);
       // Where each chip is with no nudge applied.
@@ -46,7 +47,9 @@ export function useChipPeek(ref: RefObject<HTMLElement | null>, active: boolean)
     // Where ResizeObserver is missing (very old browsers, the unit tests' simulated browser), the row just isn't nudged.
     if (typeof ResizeObserver === 'undefined') return;
     const observer = new ResizeObserver(fit);
-    observer.observe(row);
+    // The whole outer width, not the inside: the row's padding grows as the screen does, so on a tablet
+    // the inside width stays the same while the screen changes size.
+    observer.observe(row, { box: 'border-box' });
     return () => observer.disconnect();
   }, [ref, active]);
 }

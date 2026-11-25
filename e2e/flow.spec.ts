@@ -228,8 +228,10 @@ test.describe('topic chips', () => {
   ] as const;
 
   for (const [path, label] of rows) {
-    test(`${path}: a swipeable row on phones, with a chip cut off at the right edge`, async ({ page }) => {
-      for (const width of [320, 360, 390, 414, 430, 600]) {
+    test(`${path}: a swipeable row below the desktop width, with a chip cut off at the right edge`, async ({
+      page,
+    }) => {
+      for (const width of [320, 360, 390, 414, 430, 600, 700, 768, 820, 900, 1000]) {
         await page.setViewportSize({ width, height: 800 });
         await page.goto(path);
         const row = page.getByRole('group', { name: label });
@@ -253,6 +255,27 @@ test.describe('topic chips', () => {
       }
     });
 
+    test(`${path}: still has a chip cut off after the window is resized`, async ({ page }) => {
+      await page.setViewportSize({ width: 700, height: 800 });
+      await page.goto(path);
+      const row = page.getByRole('group', { name: label });
+      await expect(row).toBeVisible();
+      for (const width of [800, 650, 880, 390, 960]) {
+        await page.setViewportSize({ width, height: 800 });
+        await expect
+          .poll(() =>
+            row.evaluate((el) => {
+              const edge = document.documentElement.clientWidth;
+              return [...el.children].some((c) => {
+                const r = c.getBoundingClientRect();
+                return r.left <= edge - 20 && r.right >= edge + 12;
+              });
+            }),
+          )
+          .toBe(true);
+      }
+    });
+
     test(`${path}: the row scrolls sideways`, async ({ page }) => {
       await page.setViewportSize({ width: 390, height: 800 });
       await page.goto(path);
@@ -262,8 +285,8 @@ test.describe('topic chips', () => {
       await expect.poll(() => row.evaluate((el) => el.scrollLeft)).toBeGreaterThan(100);
     });
 
-    test(`${path}: wraps instead of scrolling once there is room`, async ({ page }) => {
-      for (const width of [640, 768, 1440]) {
+    test(`${path}: wraps instead of scrolling on desktop`, async ({ page }) => {
+      for (const width of [1024, 1280, 1440]) {
         await page.setViewportSize({ width, height: 800 });
         await page.goto(path);
         const row = page.getByRole('group', { name: label });

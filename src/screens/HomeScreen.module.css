@@ -79,9 +79,12 @@
   gap: 8px;
   /* Swipe sideways. The row runs to the screen edge, so the last chip you can see is cut off,
      which tells people there is more to swipe to. */
-  margin-inline: calc(-1 * var(--gutter-mobile));
+  /* Run to both edges of the screen, whatever the width of the page column: a negative margin
+     the size of the space beside the column, and the same space as padding, so the first chip
+     still lines up with the page. */
+  margin-inline: calc(50% - 50vw);
   position: relative;
-  padding-inline: calc(var(--gutter-mobile) + var(--chip-shift, 0px)) var(--gutter-mobile);
+  padding-inline: calc(50vw - 50% + var(--chip-shift, 0px)) calc(50vw - 50%);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
@@ -161,16 +164,14 @@
   border-radius: var(--radius-full);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .topics {
     flex-wrap: wrap;
     margin-inline: 0;
     padding-inline: 0;
     overflow: visible;
   }
-}
 
-@media (min-width: 1024px) {
   .home {
     gap: 48px;
     padding-top: 48px;

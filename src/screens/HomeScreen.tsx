@@ -9,7 +9,7 @@ import { TopBar } from '../components/TopBar';
 import { TAGLINE } from '../data/copy';
 import { findQuestion, QUESTIONS, randomQuestion, TOPICS } from '../data/questions';
 import { useChipPeek } from '../hooks/useChipPeek';
-import { PHONE, useMediaQuery } from '../hooks/useMediaQuery';
+import { NARROW, useMediaQuery } from '../hooks/useMediaQuery';
 import { cx } from '../lib/cx';
 import { practicedIds, resumable, suggestedQuestionId } from '../store/store';
 import ui from '../styles/ui.module.css';
@@ -37,7 +37,7 @@ export function HomeScreen() {
     .slice(0, 6);
 
   const topics = useRef<HTMLDivElement>(null);
-  useChipPeek(topics, useMediaQuery(PHONE));
+  useChipPeek(topics, useMediaQuery(NARROW));
 
   const surprise = () => navigate(`/practice/${randomQuestion([suggested.id]).id}`, { viewTransition: true });
 

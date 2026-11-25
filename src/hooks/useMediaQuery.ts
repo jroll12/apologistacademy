@@ -17,5 +17,5 @@ export function useMediaQuery(query: string): boolean {
 /** The width at which the layout switches from phone to desktop. Keep in step with the CSS. */
 export const DESKTOP = '(min-width: 1024px)';
 
-/** Below this width the topic chips are a swipeable row; from here up they wrap. Keep in step with the CSS. */
-export const PHONE = '(max-width: 639px)';
+/** Below the desktop width the topic chips are a swipeable row (phones and tablets); from there up they wrap. Keep in step with the CSS. */
+export const NARROW = '(max-width: 1023px)';

@@ -133,6 +133,7 @@ export function ReviewScreen() {
             </div>
           ) : (
             <div className={s.notes} role="status" aria-label="Coach is writing your review">
+              <p className={ui.muted}>Coach is writing your review. This takes about 15 seconds.</p>
               <div className={ui.skeleton} />
               <div className={ui.skeleton} />
             </div>

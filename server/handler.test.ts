@@ -306,7 +306,8 @@ describe('listening and long replies', () => {
   it('tells the skeptic to answer the strongest point, not repeat itself, and answer personal questions', () => {
     const sys = skepticSystem(ctx([]));
     expect(sys).toContain('strongest point in their latest reply');
-    expect(sys).toContain('Never repeat an objection');
+    expect(sys).toContain('Never repeat an objection in the same words');
+    expect(sys).toContain("You haven't answered X");
     expect(sys).toContain('ask about you personally');
     expect(sys).not.toContain('If their reply wanders, bring it back');
   });

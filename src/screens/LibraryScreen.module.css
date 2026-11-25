@@ -42,12 +42,24 @@
   box-shadow: inset 0 0 0 2px var(--primary-500);
 }
 
-/* Chips wrap onto more rows, so none is cut off at the screen edge. */
+/* A swipeable row on phones (a wrapping grid on desktop, below). */
 .chips {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
+  /* Swipe sideways. The row runs to the screen edge, so the last chip you can see is cut off,
+     which tells people there is more to swipe to. */
+  margin-inline: calc(-1 * var(--gutter-mobile));
+  position: relative;
+  padding-inline: calc(var(--gutter-mobile) + var(--chip-shift, 0px)) var(--gutter-mobile);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   padding-block: 2px;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
 }
 
 .chips::-webkit-scrollbar {
@@ -88,6 +100,15 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+@media (min-width: 640px) {
+  .chips {
+    flex-wrap: wrap;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
 }
 
 @media (min-width: 1024px) {

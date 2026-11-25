@@ -218,3 +218,58 @@ test.describe('long replies', () => {
     await expect(page.getByText(/word word word word/).first()).toBeVisible();
   });
 });
+
+test.describe('topic chips', () => {
+  test.beforeEach(async ({ page }) => skipIntro(page));
+
+  const rows = [
+    ['/', 'Browse by topic'],
+    ['/questions', 'Filter by topic'],
+  ] as const;
+
+  for (const [path, label] of rows) {
+    test(`${path}: a swipeable row on phones, with a chip cut off at the right edge`, async ({ page }) => {
+      for (const width of [320, 360, 390, 414, 430, 600]) {
+        await page.setViewportSize({ width, height: 800 });
+        await page.goto(path);
+        const row = page.getByRole('group', { name: label });
+        await expect(row).toBeVisible();
+        // The chips run past the edge of the screen and can be scrolled sideways...
+        await expect.poll(() => row.evaluate((el) => el.scrollWidth > el.clientWidth + 1)).toBe(true);
+        // ...and one of them is cut off by the right edge, so it is clear there is more.
+        await expect
+          .poll(() =>
+            row.evaluate((el) => {
+              const edge = document.documentElement.clientWidth;
+              return [...el.children].some((c) => {
+                const r = c.getBoundingClientRect();
+                return r.left <= edge - 20 && r.right >= edge + 12;
+              });
+            }),
+          )
+          .toBe(true);
+        // The page itself never scrolls sideways.
+        expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
+      }
+    });
+
+    test(`${path}: the row scrolls sideways`, async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 800 });
+      await page.goto(path);
+      const row = page.getByRole('group', { name: label });
+      await expect(row).toBeVisible();
+      await row.evaluate((el) => el.scrollTo({ left: 200 }));
+      await expect.poll(() => row.evaluate((el) => el.scrollLeft)).toBeGreaterThan(100);
+    });
+
+    test(`${path}: wraps instead of scrolling once there is room`, async ({ page }) => {
+      for (const width of [640, 768, 1440]) {
+        await page.setViewportSize({ width, height: 800 });
+        await page.goto(path);
+        const row = page.getByRole('group', { name: label });
+        await expect(row).toBeVisible();
+        expect(await row.evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+      }
+    });
+  }
+});

@@ -1,4 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { useRef } from 'react';
 import { useSearchParams } from 'react-router';
 import { useApp } from '../app/AppContext';
 import { Button } from '../components/Button';
@@ -7,6 +8,8 @@ import { QuestionCard } from '../components/QuestionCard';
 import { TopBar } from '../components/TopBar';
 import type { TopicId } from '../conversation/types';
 import { searchQuestions, TOPICS } from '../data/questions';
+import { useChipPeek } from '../hooks/useChipPeek';
+import { PHONE, useMediaQuery } from '../hooks/useMediaQuery';
 import { cx } from '../lib/cx';
 import { practicedIds } from '../store/store';
 import ui from '../styles/ui.module.css';
@@ -32,6 +35,9 @@ export function LibraryScreen() {
     setParams(out, { replace: true });
   };
 
+  const chips = useRef<HTMLDivElement>(null);
+  useChipPeek(chips, useMediaQuery(PHONE));
+
   const results = searchQuestions(topic, query);
   const practiced = practicedIds(data);
   const filtered = query !== '' || topic !== 'all';
@@ -56,7 +62,7 @@ export function LibraryScreen() {
           />
         </div>
 
-        <div className={s.chips} role="group" aria-label="Filter by topic">
+        <div ref={chips} className={s.chips} role="group" aria-label="Filter by topic">
           {[{ id: 'all' as const, label: 'All' }, ...TOPICS].map((t) => (
             <button
               key={t.id}

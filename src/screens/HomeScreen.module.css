@@ -73,11 +73,23 @@
   margin-inline-start: -12px;
 }
 
-/* Topics as links into the full list, filtered. They wrap, so none is cut off at the edge. */
+/* Topics as links into the full list, filtered. A swipeable row on phones (a wrapping grid on desktop, below). */
 .topics {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
+  /* Swipe sideways. The row runs to the screen edge, so the last chip you can see is cut off,
+     which tells people there is more to swipe to. */
+  margin-inline: calc(-1 * var(--gutter-mobile));
+  position: relative;
+  padding-inline: calc(var(--gutter-mobile) + var(--chip-shift, 0px)) var(--gutter-mobile);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.topics::-webkit-scrollbar {
+  display: none;
 }
 
 .topics::-webkit-scrollbar {
@@ -147,6 +159,15 @@
 .bar::-moz-progress-bar {
   background: var(--primary-400);
   border-radius: var(--radius-full);
+}
+
+@media (min-width: 640px) {
+  .topics {
+    flex-wrap: wrap;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
 }
 
 @media (min-width: 1024px) {

@@ -1,4 +1,5 @@
 import { ArrowPathRoundedSquareIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { useApp } from '../app/AppContext';
 import { Button, ButtonLink } from '../components/Button';
@@ -7,6 +8,8 @@ import { QuestionCard } from '../components/QuestionCard';
 import { TopBar } from '../components/TopBar';
 import { TAGLINE } from '../data/copy';
 import { findQuestion, QUESTIONS, randomQuestion, TOPICS } from '../data/questions';
+import { useChipPeek } from '../hooks/useChipPeek';
+import { PHONE, useMediaQuery } from '../hooks/useMediaQuery';
 import { cx } from '../lib/cx';
 import { practicedIds, resumable, suggestedQuestionId } from '../store/store';
 import ui from '../styles/ui.module.css';
@@ -32,6 +35,9 @@ export function HomeScreen() {
   const others = QUESTIONS.filter((q) => q.id !== suggested.id && q.id !== resumeQuestion?.id)
     .sort((a, b) => Number(practiced.has(a.id)) - Number(practiced.has(b.id)))
     .slice(0, 6);
+
+  const topics = useRef<HTMLDivElement>(null);
+  useChipPeek(topics, useMediaQuery(PHONE));
 
   const surprise = () => navigate(`/practice/${randomQuestion([suggested.id]).id}`, { viewTransition: true });
 
@@ -97,7 +103,7 @@ export function HomeScreen() {
             </div>
           </div>
 
-          <div className={s.topics} role="group" aria-label="Browse by topic">
+          <div ref={topics} className={s.topics} role="group" aria-label="Browse by topic">
             {TOPICS.map((t) => (
               <Link key={t.id} to={`/questions?topic=${t.id}`} viewTransition className={s.topic}>
                 {t.label}

@@ -2,21 +2,27 @@
 """Builds an OBS Studio scene collection for the Apologist Academy demo.
 
   python3 make_collection.py [path/to/slides.html]
+  python3 make_collection.py --portable   (no paths; this is what "Import this into OBS.json" is)
 
 Writes "Apologist Academy demo.json" next to this script, with full paths filled in for
 this computer. In OBS: Scene Collection > Import, choose that file, then switch to it.
 The slides default to ../slides/slides.html; pass a path if you saved the file elsewhere.
 """
-import json, sys
+import base64, json, sys
 from pathlib import Path
+
+PORTABLE = "--portable" in sys.argv
+sys.argv = [a for a in sys.argv if a != "--portable"]
 
 here = Path(__file__).resolve().parent
 slides = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else (here / "../slides/slides.html").resolve()
+if PORTABLE:
+    slides = Path("slides.html")  # placeholder; pick the real file inside OBS (see the README)
 assets = here / "assets"
 APP = "https://apologistacademy.pages.dev/"
 W, H = 1920, 1080
 
-if not slides.exists():
+if not PORTABLE and not slides.exists():
     sys.exit(f"Can't find the slides at {slides}. Pass the path: python3 make_collection.py /path/to/slides.html")
 
 def src(name, kind, settings):
@@ -26,7 +32,13 @@ def src(name, kind, settings):
             "deinterlace_mode": 0, "deinterlace_field_order": 0, "monitoring_type": 0, "private_settings": {}}
 
 def image(name, file):
-    return src(name, "image_source", {"file": file.as_posix()})
+    if not PORTABLE:
+        return src(name, "image_source", {"file": file.as_posix()})
+    # The picture is inside the source itself, so the file can be imported on any computer.
+    b64 = base64.b64encode(file.read_bytes()).decode()
+    page = f'<html><body style="margin:0;background:transparent"><img src="data:image/png;base64,{b64}" style="display:block;width:1920px;height:1080px"></body></html>'
+    url = "data:text/html;base64," + base64.b64encode(page.encode()).decode()
+    return src(name, "browser_source", {"url": url, "width": 1920, "height": 1080, "fps": 30, "css": "body { background-color: rgba(0, 0, 0, 0); margin: 0; overflow: hidden; }", "shutdown": False, "restart_when_active": False, "reroute_audio": False})
 
 def browser(name, **kw):
     return src(name, "browser_source", {"css": "body { background-color: rgba(0, 0, 0, 0); margin: 0 auto; overflow: hidden; }",
@@ -74,6 +86,6 @@ out = {
     "preview_locked": False, "scaling_enabled": False, "scaling_level": 0, "scaling_off_x": 0.0, "scaling_off_y": 0.0,
     "modules": {}, "version": 2,
 }
-target = here / "Apologist Academy demo.json"
+target = here / ("Import this into OBS.json" if PORTABLE else "Apologist Academy demo.json")
 target.write_text(json.dumps(out, indent=2))
 print("Wrote", target)

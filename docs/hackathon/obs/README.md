@@ -4,14 +4,14 @@ Five scenes and five overlay images for recording the demo in OBS Studio (free, 
 
 ## Set up (about 5 minutes, no terminal)
 
-1. Unzip `apologist-obs-kit.zip` and keep the unzipped folder somewhere permanent, like Documents. It has two folders: `obs` and `slides`.
-2. Open `obs/setup.html` (double-click it; it opens in your browser). Follow the page: it asks you to copy and paste the location of the `obs` folder, then saves a file called `Apologist Academy demo.json`.
-3. In OBS: **Scene Collection > Import**, choose that file, then **Scene Collection > Apologist Academy demo**.
+1. Unzip `apologist-obs-kit.zip` and keep the unzipped folder somewhere permanent, like Documents.
+2. In OBS: **Scene Collection > Import**. Click the **…** button, open the `obs` folder, choose **Import this into OBS.json**, and press **Import**. Then open **Scene Collection** again and choose **Apologist Academy demo**.
+3. **Point the slides at the file (one time).** In the Sources box, click **Slides (slides.html)**, then press **Properties** (or double-click it). Make sure **Local file** is ticked, press **Browse**, and choose `slides/slides.html` from the unzipped folder. Press OK.
 4. **Settings > Video**: set Base and Output resolution to 1920×1080, 30 FPS.
-5. **Settings > Output > Recording**: pick a folder, and MP4 or MKV. (MKV survives a crash; convert afterwards with File > Remux Recordings.)
+5. **Settings > Output > Recording**: pick a folder, and MP4 or MKV.
 6. Audio: in Settings > Audio, pick your microphone as Mic/Auxiliary Audio. Speak and check the meter moves.
 
-If you move the folder later, run `setup.html` again and re-import. (`make_collection.py` does the same thing for people who use a terminal.)
+The overlay images are stored inside the import file, so they need no setup. Only the slides need step 3, because OBS has to know where that file is on your computer. (`setup.html` and `make_collection.py` are older ways to do step 2 and 3 together; you don't need them.)
 
 ## The scenes
 

@@ -24,7 +24,7 @@ The `Lower third` ("Jarret / Apologist Academy · AI for Church hackathon") and 
 
 ## Use
 
-- **Click the slides once** in the preview (right-click the preview, then Interact is not needed). To move slides while OBS is recording, right-click the `Slides` source > **Interact**, and the arrow keys work in the window that opens. Or use **Scene 1 + the Interact window** side by side.
+- **Moving slides:** right-click the `Slides (slides.html)` source and choose **Interact**. A small window opens; click in it and the arrow keys move the slides, which show in the recording. Leave that window open beside OBS.
 - The **live site** sources are real: right-click `App (desktop)` or `App (phone)` > **Interact** to type and tap in them. This is how you do the demo itself.
 - **Hotkeys:** Settings > Hotkeys > Switch to scene "…" gives each scene a key, e.g. F1 to F5. Set them before you record so you can switch without the mouse.
 - If a source looks blank, right-click it > **Refresh cache of current page**.

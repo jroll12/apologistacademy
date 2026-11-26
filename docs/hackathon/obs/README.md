@@ -2,13 +2,16 @@
 
 Five scenes and five overlay images for recording the demo in OBS Studio (free, obsproject.com). The scenes use the slides and the live site as **browser sources**, so there is no window capturing to set up and it works the same on Mac, Windows and Linux.
 
-## Set up (about 5 minutes)
+## Set up (about 5 minutes, no terminal)
 
-1. Open a terminal in this folder and run `python3 make_collection.py`. If you saved `slides.html` somewhere else, add its path: `python3 make_collection.py ~/Downloads/slides.html`. This writes `Apologist Academy demo.json` with the right file paths for your computer.
-2. In OBS: **Scene Collection > Import**, choose that file, then **Scene Collection > Apologist Academy demo**.
-3. **Settings > Video**: set Base and Output resolution to 1920×1080, 30 FPS.
-4. **Settings > Output > Recording**: pick a folder, and MP4 or MKV. (MKV survives a crash; convert afterwards with File > Remux Recordings.)
-5. Audio: in Settings > Audio, pick your microphone as Mic/Auxiliary Audio. Speak and check the meter moves. Add a Desktop Audio device only if you want system sound.
+1. Unzip `apologist-obs-kit.zip` and keep the unzipped folder somewhere permanent, like Documents. It has two folders: `obs` and `slides`.
+2. Open `obs/setup.html` (double-click it; it opens in your browser). Follow the page: it asks you to copy and paste the location of the `obs` folder, then saves a file called `Apologist Academy demo.json`.
+3. In OBS: **Scene Collection > Import**, choose that file, then **Scene Collection > Apologist Academy demo**.
+4. **Settings > Video**: set Base and Output resolution to 1920×1080, 30 FPS.
+5. **Settings > Output > Recording**: pick a folder, and MP4 or MKV. (MKV survives a crash; convert afterwards with File > Remux Recordings.)
+6. Audio: in Settings > Audio, pick your microphone as Mic/Auxiliary Audio. Speak and check the meter moves.
+
+If you move the folder later, run `setup.html` again and re-import. (`make_collection.py` does the same thing for people who use a terminal.)
 
 ## The scenes
 

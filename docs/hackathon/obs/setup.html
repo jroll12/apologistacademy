@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Apologist Academy: OBS setup</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #111827; color: #fff; font: 18px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { font-size: 34px; margin: 0 0 8px; }
+  h2 { font-size: 22px; margin: 36px 0 8px; color: #b191ff; }
+  p, li { color: #d1d5db; }
+  li { margin: 8px 0; }
+  b { color: #fff; }
+  code { background: #1f2937; padding: 2px 8px; border-radius: 6px; font-size: 16px; }
+  input { width: 100%; padding: 14px 16px; border-radius: 12px; border: 2px solid #4b5563; background: #0b0f19; color: #fff; font: 16px ui-monospace, Menlo, Consolas, monospace; }
+  input:focus { outline: none; border-color: #8f61ff; }
+  button { margin-top: 14px; padding: 14px 28px; border: 0; border-radius: 999px; background: #7137ff; color: #fff; font: 600 18px inherit; cursor: pointer; }
+  button:hover { background: #8f61ff; }
+  .msg { margin-top: 14px; min-height: 1.5em; }
+  .bad { color: #fca5a5; } .ok { color: #86efac; }
+  .box { background: #1f2937; border-radius: 14px; padding: 4px 22px 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>OBS setup, no terminal</h1>
+  <p>This page makes the scene file for OBS Studio. It works offline and sends nothing anywhere.</p>
+
+  <h2>1. Where is the kit folder?</h2>
+  <p>Unzip <code>apologist-obs-kit.zip</code> and put the unzipped folder somewhere you'll keep it, like Documents. Inside it are two folders, <b>obs</b> and <b>slides</b>. Copy the location of the <b>obs</b> folder:</p>
+  <div class="box">
+    <ul>
+      <li><b>Mac:</b> in Finder, hold the <b>Option</b> key, right-click the <b>obs</b> folder, and choose <b>Copy "obs" as Pathname</b>.</li>
+      <li><b>Windows:</b> in File Explorer, hold <b>Shift</b>, right-click the <b>obs</b> folder, and choose <b>Copy as path</b>.</li>
+    </ul>
+  </div>
+
+  <h2>2. Paste it here</h2>
+  <input id="path" placeholder="Paste the location here, e.g. /Users/you/Documents/apologist-obs-kit/obs" autocomplete="off" spellcheck="false" />
+  <button id="go" type="button">Make my scene file</button>
+  <p class="msg" id="msg" role="status"></p>
+
+  <h2>3. Load it into OBS</h2>
+  <ol>
+    <li>In OBS, open the menu <b>Scene Collection</b>, then <b>Import</b>. Click the <b>…</b> button to find the file <b>Apologist Academy demo.json</b> that just downloaded, then press <b>Import</b>.</li>
+    <li>Open <b>Scene Collection</b> again and choose <b>Apologist Academy demo</b>.</li>
+    <li>Open <b>Settings</b>, then <b>Video</b>. Set both resolutions to <b>1920x1080</b>.</li>
+  </ol>
+  <p>The five scenes appear in the Scenes box. If you move the folder later, make the file again.</p>
+</main>
+
+<script>
+const APP = 'https://apologistacademy.pages.dev/';
+const W = 1920;
+
+function parse(raw) {
+  // Remove quotes and the file:// start; use forward slashes, which OBS accepts on every system.
+  let p = raw.trim().replace(/^["']|["']$/g, '').replace(/^file:\/\/\/?/, '');
+  if (/^[A-Za-z]:/.test(p) === false && !p.startsWith('/') && !p.startsWith('~')) return null;
+  if (p.startsWith('~')) return null;
+  p = p.replace(/\\/g, '/').replace(/\/+$/, '');
+  const parts = p.split('/');
+  // The pasted folder should be "obs". If it is the kit folder itself, use it as is.
+  const base = parts[parts.length - 1].toLowerCase() === 'obs' ? parts.slice(0, -1).join('/') : p;
+  return base;
+}
+
+function build(base) {
+  const src = (name, id, settings) => ({ name, id, versioned_id: id, settings, mixers: 255, sync: 0, flags: 0, volume: 1.0, balance: 0.5,
+    enabled: true, muted: false, 'push-to-mute': false, 'push-to-mute-delay': 0, 'push-to-talk': false, 'push-to-talk-delay': 0,
+    hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} });
+  const image = (name, f) => src(name, 'image_source', { file: `${base}/obs/assets/${f}` });
+  const browser = (name, extra) => src(name, 'browser_source', { css: 'body { background-color: rgba(0, 0, 0, 0); margin: 0 auto; overflow: hidden; }',
+    shutdown: false, restart_when_active: false, reroute_audio: false, ...extra });
+  const item = (id, name, x = 0, y = 0, sx = 1, sy = 1, visible = true) => ({ name, visible, locked: false, pos: { x, y }, scale: { x: sx, y: sy },
+    rot: 0, align: 5, bounds_type: 0, bounds_align: 0, bounds: { x: 0, y: 0 }, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0,
+    scale_filter: 'disable', blend_method: 'default', blend_type: 'normal', show_transition: { duration: 0 }, hide_transition: { duration: 0 },
+    private_settings: {}, id, group_item_backup: false });
+  const scene = (name, items) => src(name, 'scene', { items, id_counter: items.length });
+
+  const PS = 1000 / 844;
+  const sources = [
+    browser('Slides (slides.html)', { is_local_file: true, local_file: `${base}/slides/slides.html`, url: '', width: 1920, height: 1080, fps: 30 }),
+    browser('App (desktop)', { url: APP, width: 1920, height: 1080, fps: 30 }),
+    browser('App (phone)', { url: APP, width: 390, height: 844, fps: 30 }),
+    image('Backdrop', 'backdrop.png'), image('Phone backdrop', 'phone-backdrop.png'), image('Lower third', 'lower-third.png'),
+    image('URL bug', 'url-bug.png'), image('Camera ring', 'cam-frame.png'),
+  ];
+  const scenes = [
+    scene('1 Slides', [item(1, 'Slides (slides.html)'), item(2, 'URL bug', 0, 0, 1, 1, false)]),
+    scene('2 App (desktop)', [item(1, 'App (desktop)'), item(2, 'Lower third', 0, 0, 1, 1, false), item(3, 'URL bug', 0, 0, 1, 1, false)]),
+    scene('3 App (phone)', [item(1, 'Phone backdrop'), item(2, 'App (phone)', (W - 390 * PS) / 2, 40, PS, PS), item(3, 'URL bug', 0, 0, 1, 1, false)]),
+    scene('4 Slides + camera', [item(1, 'Slides (slides.html)'), item(2, 'Camera ring')]),
+    scene('5 Closing', [item(1, 'Slides (slides.html)'), item(2, 'URL bug')]),
+  ];
+  return { current_scene: '1 Slides', current_program_scene: '1 Slides', scene_order: scenes.map((s) => ({ name: s.name })),
+    name: 'Apologist Academy demo', sources: [...scenes, ...sources], groups: [], quick_transitions: [], transitions: [], saved_projectors: [],
+    current_transition: 'Fade', transition_duration: 300, preview_locked: false, scaling_enabled: false, scaling_level: 0,
+    scaling_off_x: 0.0, scaling_off_y: 0.0, modules: {}, version: 2 };
+}
+
+document.getElementById('go').addEventListener('click', () => {
+  const msg = document.getElementById('msg');
+  const base = parse(document.getElementById('path').value);
+  if (!base) { msg.className = 'msg bad'; msg.textContent = 'That does not look like a folder location. It should start with / (Mac) or a drive letter such as C:\\ (Windows). Copy it again using the steps above.'; return; }
+  const blob = new Blob([JSON.stringify(build(base), null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'Apologist Academy demo.json'; document.body.append(a); a.click(); a.remove();
+  msg.className = 'msg ok'; msg.textContent = 'Done. "Apologist Academy demo.json" was saved to your Downloads folder. Now do step 3.';
+});
+document.getElementById('path').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('go').click(); });
+</script>
+</body>
+</html>

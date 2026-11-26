@@ -13,10 +13,13 @@ AI for Church hackathon. Deadline: **November 27, 2026, 11:59 PM ET**.
 | `screenshots/4-phone-conversation.png`      | The conversation on a phone                                                                                                                        |
 | `screenshots/5-review.png`                  | The Coach review with Scripture                                                                                                                    |
 | `../../public/apple-touch-icon.png`         | Logo (optional field)                                                                                                                              |
+| `slides/slides.html`                        | Slides for recording the demo yourself. One file: open it in a browser, arrow keys to move, F for full screen. Cues are in `script-long.md`.       |
+| `slides/png/`                               | Each slide as a 1920×1080 image.                                                                                                                   |
+| `screenshots/phone-*.png`                   | Home, a conversation, Coach and the review on a phone.                                                                                             |
 
-**Scripts.** The short timed script is below. The longer script for recording yourself (about 4.5 minutes, with on-screen actions) is in `script-long.md`.
+**Scripts.** The short timed script is below. The longer script for recording yourself with the slides (about 4 minutes 45 seconds, with a cue for every slide and app switch) is in `script-long.md`.
 
-**About the footage.** The conversation in the video and screenshots was pre-written for the demo and fed to the app in place of the AI, because the live AI can't be reached from where it was recorded. The app, screens and flow are real. The video's closing card says so. To show real AI replies instead, re-record with the shot list below.
+**About the footage.** The conversation in the video, the screenshots, the phone screens on the slides and the backup slides was pre-written for the demo and fed to the app in place of the AI, because the live AI can't be reached from where it was recorded. The app, screens and flow are real. The video's closing card says so. To show real AI replies instead, re-record with the shot list below.
 
 ## Voiceover script (optional)
 

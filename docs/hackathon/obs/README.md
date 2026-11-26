@@ -2,16 +2,14 @@
 
 Five scenes and five overlay images for recording the demo in OBS Studio (free, obsproject.com). The scenes use the slides and the live site as **browser sources**, so there is no window capturing to set up and it works the same on Mac, Windows and Linux.
 
-## Set up (about 5 minutes, no terminal)
+## Set up (about 3 minutes, no terminal, no files to find)
 
-1. Unzip `apologist-obs-kit.zip` and keep the unzipped folder somewhere permanent, like Documents.
-2. In OBS: **Scene Collection > Import**. Click the **…** button, open the `obs` folder, choose **Import this into OBS.json**, and press **Import**. Then open **Scene Collection** again and choose **Apologist Academy demo**.
-3. **Point the slides at the file (one time).** In the Sources box, click **Slides (slides.html)**, then press **Properties** (or double-click it). Make sure **Local file** is ticked, press **Browse**, and choose `slides/slides.html` from the unzipped folder. Press OK.
-4. **Settings > Video**: set Base and Output resolution to 1920×1080, 30 FPS.
-5. **Settings > Output > Recording**: pick a folder, and MP4 or MKV.
-6. Audio: in Settings > Audio, pick your microphone as Mic/Auxiliary Audio. Speak and check the meter moves.
+1. In OBS: **Scene Collection > Import**. Click the **…** button, choose **Import this into OBS.json**, and press **Import**. Then open **Scene Collection** again and choose **Apologist Academy demo**.
+2. **Settings > Video**: set Base and Output resolution to 1920×1080, 30 FPS.
+3. **Settings > Output > Recording**: pick a folder, and MP4 or MKV.
+4. Audio: in Settings > Audio, pick your microphone as Mic/Auxiliary Audio. Speak and check the meter moves.
 
-The overlay images are stored inside the import file, so they need no setup. Only the slides need step 3, because OBS has to know where that file is on your computer. (`setup.html` and `make_collection.py` are older ways to do step 2 and 3 together; you don't need them.)
+The overlay images are stored inside the import file, and the slides load from the site at https://apologistacademy.pages.dev/deck/, so there is nothing to locate. It needs internet, and the site must have the `/deck` page live. (`setup.html` and `make_collection.py` are older ways to do this and are not needed.)
 
 ## The scenes
 

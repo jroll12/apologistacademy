@@ -17,7 +17,7 @@ sys.argv = [a for a in sys.argv if a != "--portable"]
 here = Path(__file__).resolve().parent
 slides = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else (here / "../slides/slides.html").resolve()
 if PORTABLE:
-    slides = Path("slides.html")  # placeholder; pick the real file inside OBS (see the README)
+    slides = None  # the slides are loaded from the site, at /deck/
 assets = here / "assets"
 APP = "https://apologistacademy.pages.dev/"
 W, H = 1920, 1080
@@ -57,7 +57,10 @@ def scene(name, items):
     return s
 
 # Sources
-slides_src = browser("Slides (slides.html)", is_local_file=True, local_file=slides.as_posix(), url="", width=W, height=H, fps=30)
+if PORTABLE:
+    slides_src = browser("Slides (slides.html)", url=APP + "deck/", width=W, height=H, fps=30)
+else:
+    slides_src = browser("Slides (slides.html)", is_local_file=True, local_file=slides.as_posix(), url="", width=W, height=H, fps=30)
 app_desktop = browser("App (desktop)", url=APP, width=W, height=H, fps=30)
 # 390 x 844 is a phone screen. Scaled by 1.185 it is 462 x 1000, centred in the phone frame.
 PS = 1000 / 844

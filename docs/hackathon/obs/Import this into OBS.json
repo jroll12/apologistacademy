@@ -603,9 +603,7 @@
         "shutdown": false,
         "restart_when_active": false,
         "reroute_audio": false,
-        "is_local_file": true,
-        "local_file": "slides.html",
-        "url": "",
+        "url": "https://apologistacademy.pages.dev/deck/",
         "width": 1920,
         "height": 1080,
         "fps": 30

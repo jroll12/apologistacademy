@@ -74,26 +74,29 @@ const loc = (id, x) => r3(x - cut[id]);
 // ── cold open (and the bookend reuses its phone) ──────────────────────────────────────────────────────────────
 const cold = {};
 cold.msg = 0.35;
-cold.draftA = L.L2.end + 0.25; // after "What do you type back?" the reader starts a reply, and deletes it
-cold.draftB = cold.draftA + 2.0;
-cold.blank = Math.min(cold.draftB + 1.7, L.L3.start - 0.05);
+cold.draftA = L.L2.end + 0.35; // after "What do you type back?" the reader starts a reply, and deletes it
+cold.draftB = cold.draftA + 1.75;
+cold.blank = cold.draftB + 0.98;
 cold.pull = W("L3", "freeze") - 0.35;
 cold.freeze = W("L3", "freeze");
 cold.practiced = W("L3", "practiced");
 cold.pushes = W("L3", "pushes");
-cold.exit = cut.gap - 0.3;
+cold.toBar = L.L2.end - 0.15; // the camera reaches the reply field as the first draft starts
+cold.exit = cut.gap - 0.2;
 for (const k in cold) cold[k] = loc("cold", cold[k]);
+const coldDraft = { A: "Well, everything happens for a reason", B: "God has a plan, and" };
+const COLD_DUR = { typeA: 1.0, delAt: 1.25, delA: 0.35, typeB: 0.55, delBt: 0.7, delB: 0.25 };
 
 const gap = {
   pilots: W("L4", "Pilots"), sim: W("L4", "simulators"), surgeons: W("L4", "Surgeons"), models: W("L4", "models"),
-  christians: W("L4", "Christians"), q: W("L4", "faith"), exit: cut.verse - 0.3,
+  christians: W("L4", "Christians"), q: W("L4", "practice", 2), exit: cut.verse - 0.1,
 };
 for (const k in gap) gap[k] = loc("gap", gap[k]);
 
 const verseWords = L.L5.words.slice(2).map((w) => loc("verse", w.start)); // "Peter wrote," is not on screen
-const verse = { words: verseWords, peter: loc("verse", L.L5.start), ref: loc("verse", WE("L5", "respect")) , out: loc("verse", L.L6.start - 0.35), prepared: loc("verse", L.L6.start), practice: loc("verse", W("L6", "practice")), exit: loc("verse", cut.title - 0.3) };
+const verse = { words: verseWords, peter: loc("verse", L.L5.start), ref: loc("verse", WE("L5", "respect")) , out: loc("verse", L.L6.start - 0.35), prepared: loc("verse", L.L6.start), practice: loc("verse", W("L6", "practice")), exit: loc("verse", cut.title - 0.2) };
 
-const title = { mark: 0.25, name: loc("title", W("L7", "Apologist")), safe: loc("title", W("L7", "safe")), real: loc("title", W("L7", "real")), exit: loc("title", cut.demo - 0.3) };
+const title = { so: loc("title", L.L7.start), built: loc("title", W("L7", "built")), name: loc("title", W("L7", "Apologist")), safe: loc("title", W("L7", "safe")), real: loc("title", W("L7", "real")), exit: loc("title", cut.demo - 0.4) };
 
 // ── demo: one continuous phone, footage cut into segments with their own speeds ───────────────────────────────
 const D0 = cut.demo;
@@ -107,29 +110,29 @@ at = seg(ph.coach - 0.1, ph.reply2 - 0.05, at, TK.coach.end + 0.35 - D0 - at);
 at = seg(ph.reply2 - 0.05, ph.skeptic2 + 0.1, at, (ph.skeptic2 + 0.15 - ph.reply2) / E1_RATE);
 at = seg(ph.skeptic2 + 0.1, ph.skeptic2 + S2_READ, at, (S2_READ - 0.1) / S2_RATE);
 at = seg(ph.skeptic2 + S2_READ, ph.fast - 0.2, at, TK.review.start - 0.4 - D0 - at);
-at = seg(ph["review-wait"] - 0.1, ph.end - 0.05, at, cut.screens - D0 - at);
+const PH_HANDOFF = ph.end - 1.3; // the screens scene's phone carries on playing from here (match cut)
+at = seg(ph["review-wait"] - 0.1, PH_HANDOFF, at, cut.screens - D0 - at);
 const m2l = (mt) => { for (const s of segs) if (mt >= s.from - 1e-6 && mt <= s.to + 1e-6) return s.at + (mt - s.from) / s.rate; throw new Error(`media ${mt} not in any segment`); };
 // camera: [local time, focus x, focus y (app pixels on the 390 x 844 screen), scale, move seconds]
+const dl = (x) => r3(x - D0);
+const FIN = dl(cut.screens) - 0.8; // back to the full phone for the match cut into the three screens
 const cam = [
   [0, 195, 430, 1.0, 0.01],
   [m2l(ph.chips) - 0.4, 195, 430, 1.06, 2.6],
-  [m2l(ph.prebrief) + 0.15, 195, 285, 1.62, 0.6],
-  [m2l(ph.start) - 0.1, 195, 470, 1.12, 0.55],
-  [m2l(ph.talk) + 0.5, 195, 215, 1.78, 0.6],
-  [m2l(ph.reply1) - 0.25, 195, 690, 1.72, 0.55],
-  [m2l(ph.skeptic1) + 0.3, 195, 430, 1.62, 0.6],
-  [m2l(ph.coach) + 0.25, 195, 430, 1.42, 0.6],
-  [m2l(ph.outline) + 0.2, 195, 560, 1.5, 0.55],
-  [m2l(ph.sample) + 0.2, 195, 640, 1.5, 0.55],
-  [m2l(ph.back) + 0.1, 195, 470, 1.15, 0.55],
-  [m2l(ph.reply2) + 0.1, 195, 700, 1.7, 0.55, 960],
-  [m2l(ph.skeptic2) + 0.35, 195, 540, 1.8, 0.7, 960],
-  [m2l(ph.skeptic2 + S2_READ), 195, 540, 1.8, 0.6],
-  [m2l(ph["review-wait"]) + 0.02, 195, 430, 1.08, 0.5],
-  [m2l(ph.review) + 1.3, 195, 330, 1.45, 0.7],
-  [m2l(ph.conversation) - 0.6, 195, 560, 1.3, 0.7],
+  [m2l(ph.prebrief) + 0.15, 195, 300, 1.45, 0.6],
+  [m2l(ph.start) - 0.1, 195, 430, 1.2, 0.55],
+  [m2l(ph.talk) + 0.5, 195, 260, 1.45, 0.6],
+  [m2l(ph.reply1) - 0.25, 195, 620, 1.45, 0.6],
+  [m2l(ph.skeptic1) + 0.3, 195, 470, 1.4, 0.6],
+  [m2l(ph.coach) + 0.25, 195, 520, 1.3, 0.6],
+  [m2l(ph.back) + 0.1, 195, 470, 1.2, 0.55],
+  [m2l(ph.reply2) + 0.1, 195, 650, 1.5, 0.55, 960],
+  [m2l(ph.skeptic2) + 0.35, 195, 520, 1.5, 0.7, 960],
+  [m2l(ph["review-wait"]) + 0.02, 195, 430, 1.08, 0.6],
+  [m2l(ph.review) + 1.3, 195, 330, 1.35, 0.7],
+  [m2l(ph.conversation) - 0.6, 195, 560, 1.25, 0.7],
+  [FIN, 195, 430, 1.0, 0.7],
 ].map((c) => c.map(r3));
-const dl = (x) => r3(x - D0);
 const demo = {
   cam,
   pickIn: dl(L.L8.start), q16: dl(W("L8", "sixteen")), t8: dl(W("L8", "eight")), noAcct: dl(W("L8", "No", 1)), install: dl(W("L8", "install")),
@@ -144,20 +147,22 @@ const demo = {
   personalOut: dl(TK.review.start - 0.45),
   review: dl(L.L14.start), covered: dl(W("L14", "covered")), add: dl(W("L14", "add")), verseW: dl(W("L14", "verse")), scores: dl(W("L14", "scores")),
   print: dl(W("L15", "Print")), replace: dl(W("L15", "replace")), ready: dl(W("L15", "ready")),
-  exit: dl(cut.screens - 0.3),
+  exit: dl(cut.screens - 0.3), fin: FIN,
+  open: r3(Math.max(m2l(ph.talk + 2.6), dl(W("L10", "five")) + 0.9)), script: dl(L.L11.start), coachTap: r3(m2l(ph.coach)),
 };
 demo.quote = r3(demo.quote);
 const clipTags = segs.map((s, i) => `        <video id="dm-v${i + 1}" class="clip" src="assets/clips/phone.mp4" data-start="${r3(s.at)}" data-duration="${r3(s.dur)}" data-media-start="${r3(s.from)}" data-playback-rate="${r3(s.rate)}" muted playsinline></video>`).join("\n");
 
-const screens = { title: loc("screens", L.L16.start), exit: loc("screens", cut.safe - 0.3) };
+const screens = { title: loc("screens", L.L16.start), exit: loc("screens", cut.safe - 0.2) };
 const lap = M.laptop, tab = M.tablet;
-screens.lapMedia = r3(lap.talk + 0.3);
+screens.lapMedia = r3(lap.coach - 1.0);
 screens.tabMedia = r3(tab.home + 0.2);
-screens.phoneMedia = r3(ph.review + 0.2);
+screens.phoneMedia = r3(PH_HANDOFF);
+screens.carry = 0.9; // the phone travels from the demo framing to its place in the trio
 
-const safe = { kick: loc("safe", L.L17.start), labeled: loc("safe", W("L17", "labeled")), converted: loc("safe", W("L17", "converted")), insults: loc("safe", W("L17", "insults")), crisis: loc("safe", W("L18", "crisis")), help: loc("safe", W("L18", "help")), verse: loc("safe", W("L18", "verse")), sources: loc("safe", W("L18", "sources")), exit: loc("safe", cut.hood - 0.3) };
-const hood = { browser: loc("hood", L.L19.start), server: loc("hood", W("L19", "server")), five: loc("hood", W("L19", "five")), instr: loc("hood", W("L19", "instructions")), limit: loc("hood", W("L19", "limit")), platform: loc("hood", W("L19", "Apologist")), skeptic: loc("hood", W("L19", "plays")), coach: loc("hood", W("L19", "Coach")), memory: loc("hood", W("L19", "memory")), exit: loc("hood", cut.who - 0.3) };
-const who = { groups: loc("who", W("L20", "groups")), students: loc("who", W("L20", "students")), believers: loc("who", W("L20", "believers")), leaders: loc("who", W("L20", "leaders")), exit: loc("who", cut.close - 0.3) };
+const safe = { kick: loc("safe", L.L17.start), labeled: loc("safe", W("L17", "labeled")), converted: loc("safe", W("L17", "converted")), insults: loc("safe", W("L17", "insults")), crisis: loc("safe", W("L18", "crisis")), help: loc("safe", W("L18", "help")), verse: loc("safe", W("L18", "verse")), sources: loc("safe", W("L18", "sources")), exit: loc("safe", cut.hood - 0.2) };
+const hood = { browser: loc("hood", L.L19.start), server: loc("hood", W("L19", "server")), five: loc("hood", W("L19", "five")), instr: loc("hood", W("L19", "instructions")), limit: loc("hood", W("L19", "limit")), platform: loc("hood", W("L19", "Apologist")), skeptic: loc("hood", W("L19", "plays")), coach: loc("hood", W("L19", "Coach")), memory: loc("hood", W("L19", "memory")), exit: loc("hood", cut.who - 0.2) };
+const who = { groups: loc("who", W("L20", "groups")), students: loc("who", W("L20", "students")), believers: loc("who", W("L20", "believers")), leaders: loc("who", W("L20", "leaders")), exit: loc("who", cut.close - 0.1) };
 const close = {
   phone: 0.0, type: loc("close", L.L21.start - 0.5), send: loc("close", W("L21", "freeze") + 0.35), respect: loc("close", W("L21", "respect")),
   card: loc("close", L.L22.start - 0.35), url: loc("close", W("L22", "Try")), qr: loc("close", W("L22", "Try") + 0.5),
@@ -185,16 +190,37 @@ const capTags = caps.map((c, i) => `      <div id="cap-${i + 1}" class="clip cap
 
 // ── sound effects (mixed by tools/mix.py, not by the renderer) ───────────────────────────────────────────────
 const sfx = [];
-const fx = (f, at, vol) => sfx.push({ f, at: r3(at), vol });
+const fx = (f, at, vol, align) => sfx.push(align ? { f, at: r3(at), vol, align } : { f, at: r3(at), vol });
+// soft key ticks while text is typed (about 11 a second, a little uneven), and delete ticks while it is erased
+const JIT = [0, 0.018, -0.012, 0.025, -0.02, 0.008, -0.006, 0.02];
+const ticks = (t0, dur, rate, name, vol) => {
+  const n = Math.max(2, Math.round(dur * rate));
+  for (let k = 0; k < n; k++) fx(name === "key" ? `key-${1 + (k % 3)}` : name, t0 + (k / n) * dur + JIT[k % JIT.length], vol);
+};
 fx("notification", cold.msg, 0.32);
-for (const k of ["gap", "verse", "title", "demo", "screens", "safe", "hood", "who"]) fx("whoosh-short", cut[k] - 0.12, 0.13);
+ticks(cold.draftA, COLD_DUR.typeA, 11, "key", 0.1);
+ticks(cold.draftA + COLD_DUR.delAt, COLD_DUR.delA, 14, "delete", 0.09);
+ticks(cold.draftB, COLD_DUR.typeB, 11, "key", 0.1);
+ticks(cold.draftB + COLD_DUR.delBt, COLD_DUR.delB, 14, "delete", 0.09);
+// cuts: three whoosh takes in rotation on the moves that carry; dip cuts (verse, bookend) stay dry
+fx("whoosh-a", cut.gap - 0.12, 0.12);
+fx("riser", cut.title + Math.max(0.4, title.so - 0.12) + 0.12, 0.16, "peak"); // swells into the ? becoming the mark
+fx("impact", cut.title + Math.max(0.4, title.so - 0.12) + 0.12, 0.2, "peak");
+fx("whoosh-b", cut.demo + 0.05, 0.12);
+fx("whoosh-c", cut.screens + 0.05, 0.13);
+fx("whoosh-a", cut.safe - 0.12, 0.11);
+fx("whoosh-b", cut.hood + 0.05, 0.1);
+fx("whoosh-c", cut.who - 0.12, 0.11);
 for (const k of ["tap-topic", "tap-question", "start", "coach", "outline", "sample", "back"]) fx("click-soft", D0 + m2l(ph[k] + 0.36), 0.3);
 fx("click-soft", D0 + m2l(ph.reply1 + 0.36), 0.22);
 fx("pop-lo", D0 + demo.q16, 0.1);
 fx("pop-lo", cut.gap + gap.q, 0.12);
-fx("pop", cut.close + close.send + 0.05, 0.22);
-fx("whoosh", cut.close + close.card, 0.14);
-
+for (const k of ["five", "instr", "limit"]) fx("pop-lo", cut.hood + hood[k] - 0.1, 0.08);
+// the bookend: the reply is typed, sent, and the phone steps aside for the end card
+const cT0 = Math.max(close.type, 0.75);
+ticks(cut.close + cT0, close.send - cT0 - 0.15, 11, "key", 0.09);
+fx("send", cut.close + close.send, 0.24);
+fx("whoosh-b", cut.close + close.card - 0.1, 0.11);
 // ── write ─────────────────────────────────────────────────────────────────────────────────────────────────────
 const LIB = rd("src/lib.css");
 const stamp = (id, T, extra = {}) => {
@@ -202,8 +228,8 @@ const stamp = (id, T, extra = {}) => {
   for (const [k, v] of Object.entries(extra)) s = s.replace(`<!--{{${k}}}-->`, v);
   wr(`compositions/${id}.html`, s);
 };
-const coldDraft = { A: "Well, everything happens for a reason", B: "God has a plan, and" };
-stamp("cold", { ...cold, draft: coldDraft });
+
+stamp("cold", { ...cold, draft: coldDraft, dur: COLD_DUR });
 stamp("gap", gap);
 stamp("verse", verse);
 stamp("title", title);
@@ -215,12 +241,19 @@ stamp("safe", safe);
 stamp("hood", hood);
 stamp("who", who);
 stamp("close", close);
-wr("compositions/captions.html", rd("src/captions.html").replace("/*{{LIB}}*/", LIB).replace("<!--{{CAPS}}-->", capTags));
+// no burned-in captions (Jarret's call): the captions file for YouTube is written by tools/srt.py
+stamp("bg", { cut, total, card: cut.close + close.card });
+stamp("grain", { total });
 
-const host = (id, z = 1) => {
+// scenes alternate between tracks 1 and 2 so one can run on under the next one's entrance (OVER seconds)
+const OVER = { title: 0.1 };
+const host = (id) => {
+  const i = order.indexOf(id);
   const [a, b] = span(id);
-  return `    <div id="${id}" data-composition-id="${id}" data-composition-src="compositions/${id}.html" data-start="${r3(a)}" data-duration="${r3(b - a)}" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index: ${z}"></div>`;
+  const end = Math.min(total, b + (OVER[id] || 0));
+  return `    <div id="${id}" data-composition-id="${id}" data-composition-src="compositions/${id}.html" data-start="${r3(a)}" data-duration="${r3(end - a)}" data-track-index="${1 + (i % 2)}" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index: ${2 + i}"></div>`;
 };
+const layer = (id, track, z) => `    <div id="${id}" data-composition-id="${id}" data-composition-src="compositions/${id}.html" data-start="0" data-duration="${total}" data-track-index="${track}" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index: ${z}"></div>`;
 wr("index.html", `<!doctype html>
 <html lang="en" data-resolution="landscape">
   <head>
@@ -234,8 +267,9 @@ wr("index.html", `<!doctype html>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="${total}" data-width="1920" data-height="1080">
+${layer("bg", 0, 0)}
 ${order.map((id) => host(id)).join("\n")}
-    <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="${total}" data-track-index="2" data-track-kind="captions" data-width="1920" data-height="1080" style="z-index: 10"></div>
+${layer("grain", 3, 50)}
     </div>
     <script>
       window.__timelines = window.__timelines || {};

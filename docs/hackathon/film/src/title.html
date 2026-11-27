@@ -2,18 +2,28 @@
   <style>
     /*{{LIB}}*/
     #tt-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
-    #tt-mark { position: absolute; left: 880px; top: 230px; width: 160px; height: 160px; }
+    /* the gap scene's last row comes back: Christians -> ? ... and the ? becomes the answer */
+    #tt-row { position: absolute; left: 470px; top: 456px; width: 1100px; height: 170px; }
+    #tt-ico { position: absolute; left: 0; top: 18px; width: 128px; height: 128px; border-radius: 34px; background: #7137FF; }
+    #tt-ico svg { position: absolute; left: 30px; top: 30px; width: 68px; height: 68px; }
+    #tt-who { position: absolute; left: 172px; top: 34px; font: 700 84px/1 "AA Outfit"; letter-spacing: -0.015em; color: #fff; }
+    #tt-arrow { position: absolute; left: 640px; top: 76px; width: 120px; height: 4px; background: rgba(255,255,255,.35); }
+    #tt-arrow::after { content: ""; position: absolute; right: -2px; top: -9px; border-left: 18px solid rgba(255,255,255,.35); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
+    #tt-q { position: absolute; left: 800px; top: -10px; font: 700 150px/1 "AA Outfit"; color: #9D7BFF; }
+    #tt-mark { position: absolute; left: 1270px; top: 456px; width: 160px; height: 160px; }
     #tt-name { position: absolute; left: 0; top: 440px; width: 1920px; text-align: center; font: 700 120px/1 "AA Outfit"; letter-spacing: -0.025em; color: #fff; }
     #tt-name span { display: inline-block; }
     #tt-line { position: absolute; left: 0; top: 610px; width: 1920px; text-align: center; font: 500 46px/1.3 "AA Outfit"; color: #D1D5DB; }
-    #tt-steps { position: absolute; left: 0; top: 760px; width: 1920px; text-align: center; }
-    .tt-step { display: inline-block; margin: 0 14px; padding: 18px 30px; border-radius: 999px; background: rgba(17,24,39,.8); border: 1px solid rgba(157,123,255,.35); font: 600 28px/1 "AA Inter"; color: #E5E7EB; }
-    .tt-step b { color: #B191FF; font-weight: 700; margin-right: 12px; }
   </style>
 
   <div id="root" data-composition-id="title" data-width="1920" data-height="1080">
-    <div class="bg"></div>
     <div id="tt-stage">
+      <div id="tt-row">
+        <div id="tt-ico"><svg viewBox="0 0 304.63 304.63"><path fill="#FFFFFF" d="M95.56,144.05v-36.56h113.51v36.56h-113.51ZM131.49,261.05V43.58h41.66v217.46h-41.66Z"/></svg></div>
+        <div id="tt-who">Christians</div>
+        <div id="tt-arrow"></div>
+        <div id="tt-q">?</div>
+      </div>
       <img id="tt-mark" src="assets/img/mark.svg" alt="" />
       <div id="tt-name"><span>A</span><span>p</span><span>o</span><span>l</span><span>o</span><span>g</span><span>i</span><span>s</span><span>t</span>&nbsp;<span>A</span><span>c</span><span>a</span><span>d</span><span>e</span><span>m</span><span>y</span></div>
       <div id="tt-line">A safe place to practice the hard questions,<br />before someone asks you for real.</div>
@@ -26,11 +36,20 @@
       const tl = gsap.timeline({ paused: true });
       gsap.set(["#tt-mark", "#tt-line"], { opacity: 0 });
       gsap.set("#tt-name span", { opacity: 0 });
-      tl.fromTo("#tt-mark", { opacity: 0, scale: 0.4, rotate: -8 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.7, ease: "back.out(1.7)" }, T.mark);
-      tl.fromTo("#tt-name span", { opacity: 0.0, filter: "blur(6px)", y: 10 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.22, stagger: 0.045, ease: "power3.out" }, T.name - 0.15);
+      // the question comes back
+      tl.fromTo("#tt-row", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18 }, 0);
+      // on "So we built...": the ? turns into the mark (same place, same colour family)
+      const m = Math.max(0.4, T.so - 0.12);
+      tl.to("#tt-q", { opacity: 0, scale: 0.4, rotate: 20, filter: "blur(6px)", duration: 0.22, ease: "power3.in", transformOrigin: "40% 60%" }, m);
+      tl.fromTo("#tt-mark", { opacity: 0, scale: 0.3, rotate: -14 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.5, ease: "back.out(1.7)" }, m + 0.12);
+      // the row steps away, the mark rises to its place over the name
+      const up = Math.min(m + 0.42, T.name - 0.5);
+      tl.to("#tt-row", { opacity: 0, x: -60, filter: "blur(8px)", duration: 0.3, ease: "power2.in" }, up - 0.1);
+      tl.to("#tt-mark", { x: 880 - 1270, y: 230 - 456, duration: 0.55, ease: "power3.inOut" }, up);
+      tl.fromTo("#tt-name span", { opacity: 0, filter: "blur(6px)", y: 10 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.22, stagger: 0.045, ease: "power3.out" }, T.name - 0.12);
       tl.fromTo("#tt-line", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.24 }, T.safe - 0.1);
-      // into the product: the stage pushes in and dissolves into the phone
-      tl.to("#tt-stage", { scale: 1.5, opacity: 0, filter: "blur(14px)", duration: 0.36, ease: "power3.in", transformOrigin: "50% 45%" }, T.exit);
+      // into the product: the title lifts away as the phone rises in from below (the demo runs on top of this)
+      tl.to("#tt-stage", { y: -300, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.in" }, T.exit);
       window.__timelines["title"] = tl;
     })();
   </script>

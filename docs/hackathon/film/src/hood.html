@@ -2,38 +2,68 @@
   <style>
     /*{{LIB}}*/
     #hd-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
-    #hd-head { position: absolute; left: 0; top: 110px; width: 1920px; text-align: center; }
+    #hd-head { position: absolute; left: 0; top: 96px; width: 1920px; text-align: center; }
     #hd-head .h-big { margin-top: 18px; }
-    .hd-node { position: absolute; top: 380px; height: 430px; border-radius: 34px; background: rgba(17,24,39,.85); border: 1px solid rgba(255,255,255,.09); padding: 38px 40px; box-sizing: border-box; }
-    .hd-node h3 { margin: 0 0 26px; font: 700 44px/1.1 "AA Outfit"; color: #fff; }
-    .hd-node p { margin: 0 0 16px; font: 500 30px/1.3 "AA Inter"; color: #9CA3AF; }
-    .hd-node p b { color: #E5E7EB; font-weight: 600; }
-    #hd-a { left: 130px; width: 380px; }
-    #hd-b { left: 620px; width: 560px; border-color: rgba(157,123,255,.55); }
-    #hd-c { left: 1290px; width: 500px; }
-    .hd-link { position: absolute; top: 590px; height: 4px; background: #7137FF; transform-origin: 0 50%; }
-    #hd-l1 { left: 512px; width: 104px; } #hd-l2 { left: 1182px; width: 104px; }
-    .hd-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #7137FF; margin-right: 14px; vertical-align: middle; position: relative; top: -3px; }
-    #hd-off { color: #34D399; }
+    .hd-box { position: absolute; box-sizing: border-box; border-radius: 30px; background: rgba(13,18,30,.94); border: 1px solid rgba(255,255,255,.1); padding: 30px 34px; }
+    .hd-box h3 { margin: 0 0 14px; font: 700 42px/1.1 "AA Outfit"; color: #fff; }
+    .hd-box p { margin: 0; font: 500 30px/1.3 "AA Inter"; color: #A8B0BD; }
+    #hd-a { left: 90px; top: 420px; width: 380px; height: 300px; }
+    /* the server box starts where the safeguards' code card ended (980, 330, 820 x 440) */
+    #hd-b { left: 545px; top: 360px; width: 640px; height: 420px; border-color: rgba(157,123,255,.6); }
+    #hd-c { left: 1255px; top: 420px; width: 580px; height: 270px; }
+    #hd-c h3 { font-size: 40px; }
+    .hd-ico { width: 54px; height: 54px; margin-bottom: 14px; }
+    .hd-rule { display: inline-block; margin: 0 10px 14px 0; padding: 12px 20px; border-radius: 999px; background: rgba(113,55,255,.16); border: 1.5px solid rgba(157,123,255,.55); font: 600 28px/1 "AA Inter"; color: #fff; }
+    .hd-tags { margin-top: 10px; }
+    .hd-tag { display: inline-block; margin: 0 8px 10px 0; padding: 8px 16px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.3); font: 600 28px/1 "AA Inter"; color: #fff; }
+    #hd-mem { margin-top: 8px; display: flex; align-items: center; gap: 14px; font: 600 30px/1 "AA Inter"; color: #fff; }
+    #hd-sw { position: relative; width: 70px; height: 38px; border-radius: 19px; background: #7137FF; }
+    #hd-sw i { position: absolute; left: 36px; top: 4px; width: 30px; height: 30px; border-radius: 50%; background: #fff; }
+    #hd-memtxt b { color: #34D399; }
+    /* lanes between the boxes */
+    .hd-lane { position: absolute; height: 3px; background: rgba(157,123,255,.55); transform-origin: 0 50%; }
+    .hd-lane::after { content: ""; position: absolute; right: -2px; top: -8px; border-left: 14px solid rgba(157,123,255,.8); border-top: 9px solid transparent; border-bottom: 9px solid transparent; }
+    .hd-lane.back { transform-origin: 100% 50%; }
+    .hd-lane.back::after { right: auto; left: -2px; border-left: 0; border-right: 14px solid rgba(157,123,255,.8); }
+    #hd-l1 { left: 476px; top: 568px; width: 62px; }
+    #hd-l2 { left: 1191px; top: 568px; width: 58px; }
+    #hd-l3 { left: 526px; top: 640px; width: 868px; }
+    .hd-lbl { position: absolute; font: 500 28px/1 "AA Inter"; color: #C9CED6; }
+    #hd-lbl3 { left: 790px; top: 812px; }
+    /* the message that travels */
+    .hd-msg { position: absolute; left: 0; top: 0; padding: 14px 22px; border-radius: 22px; font: 500 28px/1.2 "AA Inter"; color: #fff; white-space: nowrap; box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+    #hd-m1 { background: #374151; }
+    #hd-m2 { background: #262C3A; border: 1.5px solid rgba(255,255,255,.2); }
+    .hd-msg small { display: block; margin-bottom: 6px; font: 600 28px/1 "AA Inter"; color: #C9CED6; }
   </style>
 
   <div id="root" data-composition-id="hood" data-width="1920" data-height="1080">
-    <div class="bg"></div>
     <div id="hd-stage">
       <div id="hd-head"><div class="kicker">How the AI is used</div><div class="h-big">Our server <span class="v">sets the rules.</span></div></div>
-      <div class="hd-node" id="hd-a"><h3>Your browser</h3><p>Your replies</p><p>Saved only on your device</p></div>
-      <div class="hd-link" id="hd-l1"></div>
-      <div class="hd-node" id="hd-b"><h3>Our server</h3>
-        <p id="hd-p1"><span class="hd-dot"></span><b>Five turns</b>, then a review</p>
-        <p id="hd-p2"><span class="hd-dot"></span>Separate instructions for <b>each role</b></p>
-        <p id="hd-p3"><span class="hd-dot"></span>A <b>daily limit</b> on live use</p>
+
+      <div class="hd-box" id="hd-a">
+        <svg class="hd-ico" viewBox="0 0 24 24" fill="none" stroke="#B191FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+        <h3>Your browser</h3>
+        <p id="hd-a2">Your conversation stays on your device</p>
       </div>
-      <div class="hd-link" id="hd-l2"></div>
-      <div class="hd-node" id="hd-c"><h3>The Apologist Project&rsquo;s AI platform</h3>
-        <p id="hd-q1">Plays the <b>skeptic</b></p>
-        <p id="hd-q2">Powers <b>Coach</b> and the <b>review</b></p>
-        <p id="hd-q3"><b id="hd-off">Memory off</b></p>
+      <div class="hd-box" id="hd-b">
+        <div id="hd-b-in">
+          <svg class="hd-ico" viewBox="0 0 24 24" fill="none" stroke="#B191FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg>
+          <h3>Our server</h3>
+          <div><span class="hd-rule" id="hd-r1">5 turns, then a review</span><span class="hd-rule" id="hd-r2">Separate instructions for each role</span><span class="hd-rule" id="hd-r3">A daily limit on live use</span></div>
+        </div>
       </div>
+      <div class="hd-box" id="hd-c">
+        <h3>The Apologist Project&rsquo;s<br />AI platform</h3>
+        <div class="hd-tags"><span class="hd-tag" id="hd-t1">Skeptic</span><span class="hd-tag" id="hd-t2">Coach</span><span class="hd-tag" id="hd-t3">Review</span></div>
+        <div id="hd-mem"><div id="hd-sw"><i></i></div><span id="hd-memtxt">Memory <b>off</b></span></div>
+      </div>
+
+      <div class="hd-lane" id="hd-l1"></div>
+      <div class="hd-lane" id="hd-l2"></div>
+
+      <div class="hd-msg" id="hd-m1"><small>Your reply</small>&ldquo;If it is personal, I&rsquo;m sorry&hellip;&rdquo;</div>
+      <div class="hd-msg" id="hd-m2"><small>AI skeptic</small>&ldquo;I appreciate you not pretending&hellip;&rdquo;</div>
     </div>
   </div>
 
@@ -41,22 +71,41 @@
     (function () {
       const T = /*{{T}}*/ {};
       const tl = gsap.timeline({ paused: true });
-      gsap.set(["#hd-a", "#hd-b", "#hd-c", "#hd-p1", "#hd-p2", "#hd-p3", "#hd-q1", "#hd-q2", "#hd-q3", "#hd-head"], { opacity: 0 });
-      gsap.set(".hd-link", { scaleX: 0 });
-      tl.fromTo("#hd-head", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3 }, Math.max(0.05, T.server - 0.6));
-      tl.fromTo("#hd-a", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, T.browser - 0.1);
-      tl.to("#hd-l1", { scaleX: 1, duration: 0.35, ease: "power2.out" }, T.server - 0.3);
-      tl.fromTo("#hd-b", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, T.server - 0.15);
-      const p = (id, t) => tl.fromTo(id, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.32, ease: "expo.out" }, t);
-      p("#hd-p1", T.five - 0.1);
-      p("#hd-p2", T.instr - 0.25);
-      p("#hd-p3", T.limit - 0.3);
-      tl.to("#hd-l2", { scaleX: 1, duration: 0.35, ease: "power2.out" }, T.platform - 0.35);
-      tl.fromTo("#hd-c", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, T.platform - 0.2);
-      p("#hd-q1", T.skeptic - 0.2);
-      p("#hd-q2", T.coach - 0.2);
-      p("#hd-q3", T.memory - 0.2);
-      tl.to("#hd-stage", { y: -220, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in" }, T.exit);
+      gsap.set(["#hd-a", "#hd-c", "#hd-head", "#hd-b-in", "#hd-r1", "#hd-r2", "#hd-r3", "#hd-t1", "#hd-t2", "#hd-t3", "#hd-mem", "#hd-a2", "#hd-m1", "#hd-m2"], { opacity: 0 });
+      gsap.set(".hd-lane", { scaleX: 0 });
+      // match cut: the code card from the safeguards becomes the server
+      // (transforms only, so the move never snaps to whole pixels)
+      tl.fromTo("#hd-b", { x: 980 - 545, y: 330 - 360, scaleX: 820 / 640, scaleY: 440 / 420, transformOrigin: "0 0", backgroundColor: "rgba(10,14,24,.96)", borderColor: "rgba(157,123,255,.35)" },
+        { x: 0, y: 0, scaleX: 1, scaleY: 1, backgroundColor: "rgba(13,18,30,.94)", borderColor: "rgba(157,123,255,.6)", duration: 0.85, ease: "power3.inOut" }, 0);
+      tl.fromTo("#hd-head", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3 }, 0.25);
+      tl.fromTo("#hd-b-in", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.7);
+      tl.fromTo("#hd-a", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, Math.max(0.6, T.browser - 0.1));
+      // your reply goes to our server
+      tl.to("#hd-l1", { scaleX: 1, duration: 0.3, ease: "power2.out" }, T.server - 0.5);
+      // it travels under the boxes, so the rules stay readable
+      tl.fromTo("#hd-m1", { opacity: 0, x: 100, y: 745, scale: 0.9 }, { opacity: 1, x: 100, y: 745, scale: 1, duration: 0.25 }, T.server - 0.7);
+      tl.to("#hd-m1", { x: 640, y: 805, duration: 0.6, ease: "power3.inOut" }, T.server - 0.35);
+      // the rules stamp on
+      const rule = (id, t) => tl.fromTo(id, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, t);
+      rule("#hd-r1", T.five - 0.1);
+      rule("#hd-r2", T.instr - 0.25);
+      rule("#hd-r3", T.limit - 0.3);
+      // on to the platform
+      tl.to("#hd-l2", { scaleX: 1, duration: 0.3, ease: "power2.out" }, T.platform - 0.45);
+      tl.fromTo("#hd-c", { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, T.platform - 0.3);
+      tl.to("#hd-m1", { x: 1290, y: 755, duration: 0.6, ease: "power3.inOut" }, T.platform - 0.1);
+      tl.to("#hd-m1", { opacity: 0, duration: 0.2 }, T.platform + 0.5);
+      tl.fromTo("#hd-t1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, T.skeptic - 0.15);
+      tl.fromTo(["#hd-t2", "#hd-t3"], { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.25, ease: "expo.out" }, T.coach - 0.15);
+      // memory off: the switch flips
+      tl.fromTo("#hd-mem", { opacity: 0 }, { opacity: 1, duration: 0.25 }, T.memory - 0.6);
+      tl.to("#hd-sw", { backgroundColor: "#374151", duration: 0.25 }, T.memory - 0.25);
+      tl.to("#hd-sw i", { x: -32, duration: 0.25, ease: "power2.inOut" }, T.memory - 0.25);
+      // the skeptic's reply comes back to you; it stays on your device
+      tl.fromTo("#hd-m2", { opacity: 0, x: 1290, y: 860 }, { opacity: 1, x: 1290, y: 860, duration: 0.2 }, T.skeptic + 0.2);
+      tl.to("#hd-m2", { x: 100, y: 745, duration: 1.1, ease: "power3.inOut" }, T.coach + 0.6);
+      tl.fromTo("#hd-a2", { opacity: 0 }, { opacity: 1, duration: 0.3 }, T.coach + 1.2);
+      tl.to("#hd-stage", { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, T.exit);
       window.__timelines["hood"] = tl;
     })();
   </script>

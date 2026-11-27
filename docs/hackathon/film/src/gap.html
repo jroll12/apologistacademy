@@ -15,7 +15,6 @@
   </style>
 
   <div id="root" data-composition-id="gap" data-width="1920" data-height="1080">
-    <div class="bg"></div>
     <div id="gp-stage">
       <div id="gp-r1" class="gp-row">
         <div class="gp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C4B1FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></div>
@@ -57,7 +56,8 @@
       // the question mark is the point: the other rows step back
       tl.to(["#gp-r1", "#gp-r2"], { opacity: 0.32, duration: 0.5, ease: "power2.out" }, T.q - 0.1);
       tl.fromTo("#gp-q", { scale: 1.25, transformOrigin: "30% 60%" }, { scale: 1, duration: 0.5, ease: "back.out(1.8)" }, T.q - 0.2);
-      tl.to("#gp-stage", { y: -200, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in" }, T.exit);
+      // dip cut: the frame darkens for three frames, then the verse cuts in
+      tl.to("#gp-stage", { filter: "brightness(0.55)", duration: 0.1, ease: "none" }, T.exit);
       window.__timelines["gap"] = tl;
     })();
   </script>

@@ -5,10 +5,16 @@
     #dm-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
     #dm-phone { left: 300px; top: 48px; }
     #dm-screen { width: 366.6px; height: 793.4px; border-radius: 46px; }
-    #dm-col { position: absolute; left: 930px; top: 0; width: 880px; height: 1080px; }
+    /* zoomed chat text fades out at the top edge instead of being sliced through */
+    #dm-fade { position: absolute; left: 0; top: 0; width: 1000px; height: 130px; background: linear-gradient(#030712 15%, rgba(3,7,18,0)); opacity: 0; }
+    /* "Ask Coach": points at the app's AI button (app point 342,700 on the 390 x 844 screen) */
+    #dm-ask { position: absolute; right: calc(1920px - 586px); top: 701px; padding: 8px 16px; border-radius: 999px; background: #111827; border: 1.5px solid #9D7BFF; font: 600 22px/1 "AA Inter"; color: #fff; white-space: nowrap; }
+    #dm-ask::after { content: ""; position: absolute; right: -11px; top: 50%; margin-top: -8px; border-left: 10px solid #9D7BFF; border-top: 8px solid transparent; border-bottom: 8px solid transparent; }
+
     #dm-tag { position: absolute; left: 930px; top: 74px; display: flex; align-items: center; gap: 12px; }
-    #dm-tag i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #34D399; box-shadow: 0 0 12px rgba(52,211,153,.8); }
-    .dm-g { position: absolute; left: 0; top: 190px; width: 880px; }
+    #dm-tag i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #34D399; box-shadow: 0 0 12px rgba(52,211,153,.8); }
+    #dm-col { position: absolute; left: 930px; top: 0; width: 900px; height: 1080px; }
+    .dm-g { position: absolute; left: 0; top: 190px; width: 900px; }
     .dm-g .kicker { margin-bottom: 30px; }
     .dm-row { display: flex; align-items: baseline; gap: 22px; margin-bottom: 14px; }
     .dm-num { font: 700 150px/1 "AA Outfit"; letter-spacing: -0.03em; color: #fff; }
@@ -16,27 +22,51 @@
     .dm-note { margin-top: 30px; font: 600 40px/1.25 "AA Outfit"; color: #B191FF; }
     .dm-p { position: relative; margin-bottom: 18px; padding: 24px 30px; border-radius: 26px; background: rgba(17,24,39,.82); border: 1px solid rgba(255,255,255,.08); }
     .dm-p b { display: block; font: 700 40px/1.1 "AA Outfit"; color: #fff; margin-bottom: 8px; }
-    .dm-p span { font: 400 27px/1.35 "AA Inter"; color: #9CA3AF; }
-    .dm-pills { margin-top: 24px; display: flex; gap: 14px; }
-    .dm-pill { padding: 16px 28px; border-radius: 999px; border: 1.5px solid rgba(157,123,255,.45); font: 600 28px/1 "AA Inter"; color: #E5E7EB; }
+    .dm-p span { font: 400 30px/1.35 "AA Inter"; color: #A8B0BD; }
+    .dm-p.run { border: 2px solid #7137FF; }
+    .dm-p em { position: absolute; right: 26px; top: 24px; font: 600 28px/1 "AA Inter"; font-style: normal; color: #fff; background: #7137FF; border-radius: 999px; padding: 8px 16px; }
+    .dm-pills { margin-top: 24px; display: flex; gap: 14px; align-items: center; }
+    .dm-pill { padding: 16px 28px; border-radius: 999px; border: 1.5px solid rgba(157,123,255,.45); font: 600 30px/1 "AA Inter"; color: #E5E7EB; }
     .dm-pill.on { background: #7137FF; border-color: #7137FF; }
-    .dm-turns { display: flex; gap: 12px; margin: 10px 0 34px; }
+    .dm-turns { display: flex; gap: 12px; margin: 6px 0 0; }
     .dm-turns i { display: block; width: 120px; height: 14px; border-radius: 7px; background: rgba(255,255,255,.12); }
     .dm-turns i b { display: block; height: 100%; width: 100%; border-radius: 7px; background: #7137FF; transform-origin: 0 50%; }
-    .dm-line { font: 700 64px/1.1 "AA Outfit"; color: #fff; margin-bottom: 22px; }
-    .dm-sub { font: 500 34px/1.3 "AA Inter"; color: #D1D5DB; margin-bottom: 18px; }
-    .dm-step { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; font: 700 60px/1 "AA Outfit"; color: #4B5563; }
-    .dm-step em { font-style: normal; display: inline-block; width: 74px; height: 74px; border-radius: 50%; border: 2px solid #374151; font: 700 34px/70px "AA Inter"; text-align: center; color: #6B7280; }
-    .dm-quote { font: 600 50px/1.25 "AA Outfit"; color: #fff; padding-left: 34px; border-left: 6px solid #7137FF; margin-bottom: 46px; }
-    .dm-quote small { display: block; margin-top: 18px; font: 500 24px/1 "AA Inter"; color: #9CA3AF; }
+    .dm-line { font: 700 60px/1.1 "AA Outfit"; color: #fff; }
+    .dm-sub { font: 500 36px/1.3 "AA Inter"; color: #D1D5DB; margin-bottom: 18px; }
+    /* a real line from the live run, enlarged */
+    .dm-qc { position: absolute; left: 0; width: 900px; box-sizing: border-box; padding: 30px 38px 34px; border-radius: 30px; background: rgba(13,18,30,.94); border: 1px solid rgba(157,123,255,.32); box-shadow: 0 30px 70px rgba(0,0,0,.45); }
+    .dm-who { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; font: 500 28px/1 "AA Inter"; color: #A8B0BD; }
+    .dm-who b { font: 600 28px/1 "AA Inter"; color: #fff; padding: 8px 16px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.35); }
+    .dm-who b.coach { background: #7137FF; border-color: #7137FF; }
+    .dm-qc p { margin: 0; font: 500 38px/1.38 "AA Inter"; color: #F3F4F6; }
+    .dm-qc p mark { background: rgba(113,55,255,.38); color: #fff; border-radius: 8px; padding: 0 6px; }
+    .dm-qc ul { margin: 0; padding: 0; list-style: none; }
+    .dm-qc li { position: relative; padding-left: 34px; margin-bottom: 14px; font: 500 36px/1.35 "AA Inter"; color: #F3F4F6; }
+    .dm-qc li::before { content: ""; position: absolute; left: 2px; top: 18px; width: 12px; height: 12px; border-radius: 50%; background: #9D7BFF; }
+    .dm-you { background: rgba(38,44,58,.96); border-color: rgba(255,255,255,.12); }
+    #dm-q1 { top: 300px; }
+    #dm-pair-h { position: absolute; top: 0; left: 0; font-size: 52px; white-space: nowrap; }
+    #dm-you1 { top: 110px; }
+    #dm-sk1 { top: 330px; }
+    .dm-steps { display: flex; gap: 14px; }
+    .dm-step { padding: 14px 24px; border-radius: 999px; border: 1.5px solid #374151; font: 600 32px/1 "AA Inter"; color: #6B7280; }
+    .dm-step em { font-style: normal; margin-right: 10px; }
+    .dm-cq { top: 150px; }
+    #dm-own { position: absolute; top: 640px; left: 0; }
+    /* the personal beat: the phone steps back, the skeptic's own words take the frame */
+    #dm-pers { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #dm-pers .kicker { position: absolute; left: 0; top: 150px; width: 1920px; text-align: center; }
+    #dm-pq { left: 330px; top: 230px; width: 1260px; padding: 40px 54px 46px; }
+    #dm-pq p { font: 500 50px/1.36 "AA Outfit"; color: #fff; }
+    #dm-debate { position: absolute; left: 0; top: 660px; width: 1920px; text-align: center; }
+    #dm-person { position: absolute; left: 0; top: 750px; width: 1920px; text-align: center; }
     .dm-sec { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; font: 700 50px/1.1 "AA Outfit"; color: #4B5563; }
     .dm-sec i { display: inline-block; width: 18px; height: 18px; border-radius: 50%; background: #374151; }
     .dm-stamp { display: inline-block; margin-top: 18px; padding: 18px 30px; border-radius: 18px; border: 2px solid #34D399; font: 700 36px/1 "AA Inter"; color: #34D399; letter-spacing: 0.02em; }
-    #dm-rv2 { top: 640px; }
+    #dm-rv2 .dm-sub { font-size: 44px; line-height: 1.3; color: #fff; margin-bottom: 40px; }
   </style>
 
   <div id="root" data-composition-id="demo" data-width="1920" data-height="1080">
-    <div class="bg"></div>
     <div id="dm-stage">
       <div id="dm-cam">
         <div id="dm-phone" class="phone">
@@ -44,13 +74,15 @@
 <!--{{CLIPS}}-->
           </div>
         </div>
+        <div id="dm-ask">Ask Coach</div>
       </div>
+      <div id="dm-fade"></div>
 
       <div id="dm-tag" class="tag"><i></i>The real app. AI replies recorded from the live site.</div>
       <div id="dm-col">
         <div id="dm-pick" class="dm-g">
           <div class="kicker">Pick a question</div>
-          <div class="dm-row"><span class="dm-num" id="dm-n16">16</span><span class="dm-unit">questions</span></div>
+          <div class="dm-row" id="dm-r16"><span class="dm-num" id="dm-n16">16</span><span class="dm-unit">questions</span></div>
           <div class="dm-row" id="dm-r8"><span class="dm-num">8</span><span class="dm-unit">topics</span></div>
           <div class="dm-note" id="dm-noacct">No account. Nothing to install.</div>
         </div>
@@ -59,32 +91,30 @@
           <div class="kicker">Choose who you're talking to</div>
           <div class="dm-p" id="dm-p1"><b>Curious</b><span>Asks honest questions and wants to understand.</span></div>
           <div class="dm-p" id="dm-p2"><b>Hostile</b><span>Openly against it. Pushes hard, stays civil.</span></div>
-          <div class="dm-p" id="dm-p3"><b>Balanced</b><span>Fair-minded. Weighs both sides.</span></div>
+          <div class="dm-p run" id="dm-p3"><b>Balanced</b><span>Fair-minded. Weighs both sides.</span><em>This run</em></div>
           <div class="dm-pills" id="dm-diff"><span class="dm-pill">Gentle</span><span class="dm-pill on">Standard</span><span class="dm-pill">Tough</span></div>
         </div>
 
         <div id="dm-talk" class="dm-g">
           <div class="kicker">Talk it through</div>
-          <div class="dm-row"><span class="dm-num" style="font-size:120px">5</span><span class="dm-unit">turns</span></div>
-          <div class="dm-turns"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
-          <div class="dm-sub" id="dm-speak">Type your reply, or speak it.</div>
-          <div class="dm-line" id="dm-answers">It answers what you <span class="v">actually</span> said.</div>
-          <div class="dm-sub" id="dm-tough">Tough mode presses on weak spots.</div>
+          <div class="dm-row" id="dm-five"><span class="dm-num" style="font-size:110px">5</span><span class="dm-unit">turns</span><div class="dm-turns" style="margin-left:24px"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div></div>
+          <div class="dm-qc" id="dm-q1"><div class="dm-who"><b>AI skeptic</b>real reply from the live site</div><p>&ldquo;If God is all powerful and loving, I don&rsquo;t see why a child gets cancer or a tsunami wipes out a village.&rdquo;</p></div>
+        </div>
+
+        <div id="dm-pair" class="dm-g">
+          <div class="dm-line" id="dm-pair-h">It answers what you <span class="v">actually</span> said.</div>
+          <div class="dm-qc dm-you" id="dm-you1"><div class="dm-who"><b>You</b>reply 1</div><p>&ldquo;&hellip;real love needs <mark>real choices</mark>.&rdquo;</p></div>
+          <div class="dm-qc" id="dm-sk1"><div class="dm-who"><b>AI skeptic</b>real reply from the live site</div><p>&ldquo;But what about suffering where <mark>nobody is choosing</mark> anything &hellip; How does <mark>free will</mark> explain that?&rdquo;</p></div>
         </div>
 
         <div id="dm-coach" class="dm-g">
           <div class="kicker">Stuck? Ask Coach</div>
-          <div class="dm-step" id="dm-s1"><em>1</em>Hint</div>
-          <div class="dm-step" id="dm-s2"><em>2</em>Outline</div>
-          <div class="dm-step" id="dm-s3"><em>3</em>Sample reply</div>
+          <div class="dm-steps"><span class="dm-step" id="dm-s1"><em>1</em>Hint</span><span class="dm-step" id="dm-s2"><em>2</em>Outline</span><span class="dm-step" id="dm-s3"><em>3</em>Sample reply</span></div>
+          <div class="dm-qc dm-cq" id="dm-cq1"><div class="dm-who"><b class="coach">Coach</b>real hint from the live site</div>
+            <p>&ldquo;The skeptic is checking whether your answer can be honest about suffering that no person chooses, so they are looking for candor more than a clever fix.&rdquo;</p></div>
+          <div class="dm-qc dm-cq" id="dm-cq3"><div class="dm-who"><b class="coach">Coach</b>real sample reply (excerpt)</div>
+            <p>&ldquo;You&rsquo;re right, free will doesn&rsquo;t explain a child with cancer or an earthquake, and I won&rsquo;t pretend it does.&nbsp;&hellip;&rdquo;</p></div>
           <div class="dm-note" id="dm-own">Find your own words first.</div>
-        </div>
-
-        <div id="dm-pers" class="dm-g">
-          <div class="kicker">The skeptic answers in character</div>
-          <div class="dm-quote" id="dm-q">&ldquo;Someone close to me went through a long illness&hellip;&rdquo;<small>From the live conversation</small></div>
-          <div class="dm-line" id="dm-debate">Not a debate to win.</div>
-          <div class="dm-line v" id="dm-person">A person to listen to.</div>
         </div>
 
         <div id="dm-rv" class="dm-g">
@@ -98,6 +128,13 @@
           <div class="dm-sub" id="dm-print">Print it for your small group.</div>
           <div class="dm-sub" id="dm-church">It doesn't replace your church.<br /><span class="v">It gets you ready for real conversations.</span></div>
         </div>
+      </div>
+
+      <div id="dm-pers">
+        <div class="kicker">It gets personal</div>
+        <div class="dm-qc" id="dm-pq"><div class="dm-who"><b>AI skeptic</b>real reply from the live site</div><p>&ldquo;A little, yes. Someone close to me went through a long illness, and I never knew what to make of it.&rdquo;</p></div>
+        <div class="dm-line" id="dm-debate">Not a debate to win.</div>
+        <div class="dm-line v" id="dm-person">A person to listen to.</div>
       </div>
     </div>
   </div>
@@ -117,70 +154,94 @@
       T.cam.forEach(([t, cx, cy, s, d, tx], i) => {
         if (i === 0) tl.set("#dm-cam", pos(cx, cy, s, tx), 0);
         else tl.to("#dm-cam", { ...pos(cx, cy, s, tx), duration: d, ease: i === 1 ? "sine.inOut" : "power2.inOut" }, t);
+        // the top-edge fade only while the phone is cropped by the frame
+        if (i > 0) tl.to("#dm-fade", { opacity: s >= 1.25 ? 1 : 0, duration: d, ease: "power2.inOut" }, t);
       });
-      tl.fromTo("#dm-stage", { scale: 0.86, opacity: 0, filter: "blur(12px)", transformOrigin: "26% 45%" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, 0);
+      // in from the title: the phone rises from below as the title lifts away
+      tl.fromTo("#dm-phone", { y: 900 }, { y: 0, duration: 0.95, ease: "expo.out" }, 0);
 
-      const groups = ["#dm-pick", "#dm-sk", "#dm-talk", "#dm-coach", "#dm-pers", "#dm-rv", "#dm-rv2"];
+      const groups = ["#dm-pick", "#dm-sk", "#dm-talk", "#dm-pair", "#dm-coach", "#dm-pers", "#dm-rv", "#dm-rv2"];
       gsap.set(groups, { opacity: 0 });
+      gsap.set(["#dm-tag", "#dm-ask"], { opacity: 0 });
       const groupIn = (id, t) => tl.fromTo(id, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, t);
       const groupOut = (id, t) => tl.to(id, { opacity: 0, filter: "blur(8px)", duration: 0.16 }, t);
       const land = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 26, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.38, ease: "expo.out" }, t);
-      const lit = (sel, t) => {
-        tl.to(sel, { color: "#FFFFFF", duration: 0.2 }, t);
-        tl.to(`${sel} em, ${sel} i`, { backgroundColor: "#7137FF", borderColor: "#7137FF", color: "#FFFFFF", duration: 0.2 }, t);
+      const lit = (sel, t, dot = true) => {
+        tl.to(sel, { color: "#FFFFFF", borderColor: "#7137FF", duration: 0.2 }, t);
+        if (dot) tl.to(`${sel} i`, { backgroundColor: "#7137FF", duration: 0.2 }, t);
       };
-      gsap.set(["#dm-n16", "#dm-r8", "#dm-noacct", "#dm-p1", "#dm-p2", "#dm-p3", "#dm-diff", "#dm-speak", "#dm-answers", "#dm-tough", "#dm-own", "#dm-q", "#dm-debate", "#dm-person", "#dm-stamp", "#dm-print", "#dm-church"], { opacity: 0 });
+      gsap.set(["#dm-r16", "#dm-r8", "#dm-noacct", "#dm-p1", "#dm-p2", "#dm-p3", "#dm-diff", "#dm-five", "#dm-q1", "#dm-pair-h", "#dm-you1", "#dm-sk1", "#dm-cq1", "#dm-cq3", "#dm-own", "#dm-pq", "#dm-debate", "#dm-person", "#dm-stamp", "#dm-print", "#dm-church"], { opacity: 0 });
       gsap.set(".dm-turns b", { scaleX: 0 });
+
+      // the honesty line, once, while the app is first on screen
+      tl.fromTo("#dm-tag", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.7);
+      tl.to("#dm-tag", { opacity: 0, duration: 0.25 }, T.pickOut);
 
       // 1 pick
       groupIn("#dm-pick", T.pickIn - 0.1);
-      land("#dm-n16", T.q16 - 0.1);
+      land("#dm-r16", T.q16 - 0.1);
       const n = { v: 1 };
       tl.fromTo(n, { v: 1 }, { v: 16, duration: 0.7, ease: "power2.out", onUpdate: () => { document.getElementById("dm-n16").textContent = Math.round(n.v); } }, T.q16 - 0.1);
       land("#dm-r8", T.t8 - 0.1);
       land("#dm-noacct", T.noAcct - 0.1);
       groupOut("#dm-pick", T.pickOut);
-      // 2 skeptic
+      // 2 skeptic (this run: Balanced, Standard)
       groupIn("#dm-sk", T.who);
       land("#dm-p1", T.curious - 0.1);
       land("#dm-p2", T.hostile - 0.1);
       land("#dm-p3", T.hostile + 0.9);
       land("#dm-diff", T.set - 0.1);
       groupOut("#dm-sk", T.skOut);
-      // 3 talk
+      // 3 talk: five turns, then the skeptic's real opening line
       groupIn("#dm-talk", T.skOut + 0.2);
+      land("#dm-five", T.turns - 0.2);
       tl.to(".dm-turns b", { scaleX: 1, duration: 0.25, stagger: 0.12, ease: "power2.out" }, T.turns);
-      land("#dm-speak", T.speak - 0.6);
-      land("#dm-answers", T.answers - 0.15);
-      land("#dm-tough", T.tougher - 0.1);
-      groupOut("#dm-talk", T.talkOut);
-      // 4 coach
+      land("#dm-q1", Math.min(T.open, T.turns + 0.5));
+      groupOut("#dm-talk", T.answers - 0.35);
+      // 3b it answers what you said: your words, and the reply that picks them up
+      groupIn("#dm-pair", T.answers - 0.2);
+      land("#dm-pair-h", T.answers - 0.2);
+      land("#dm-you1", T.answers);
+      land("#dm-sk1", T.answers + 0.6);
+      groupOut("#dm-pair", T.talkOut);
+      // 4 coach: point at the button, then show what Coach actually says, step by step
+      tl.fromTo("#dm-ask", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, T.coachTap - 0.9);
+      tl.to("#dm-ask", { opacity: 0, duration: 0.2 }, T.coachTap + 0.5);
       groupIn("#dm-coach", T.stuck - 0.1);
-      lit("#dm-s1", T.hint - 0.05);
-      lit("#dm-s2", T.outline - 0.05);
-      lit("#dm-s3", T.sample - 0.05);
+      // one card per step, swapped in place
+      const swap = (from, to, t) => {
+        tl.to(from, { opacity: 0, filter: "blur(6px)", duration: 0.14 }, t - 0.14);
+        tl.fromTo(to, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.22 }, t);
+      };
+      // the hint is on the phone as soon as Coach opens, so its card comes early enough to read;
+      // the outline only lights its step (on screen it would be too brief to read)
+      land("#dm-cq1", T.stuck + 0.25);
+      lit("#dm-s1", T.hint - 0.05, false);
+      lit("#dm-s2", T.outline - 0.05, false);
+      lit("#dm-s3", T.sample - 0.05, false);
+      swap("#dm-cq1", "#dm-cq3", T.sample - 0.02);
       land("#dm-own", T.own - 0.3);
       groupOut("#dm-coach", T.coachOut);
-      // while the phone moves to the centre, the label steps aside
-      tl.to("#dm-tag", { opacity: 0, duration: 0.25 }, T.center);
-      tl.to("#dm-tag", { opacity: 1, duration: 0.3 }, T.quote - 0.2);
-      // 5 the personal answer (the skeptic's own words from the live run)
+      // 5 the personal answer: the phone (centred) steps back and the skeptic's words fill the frame
+      tl.to("#dm-phone", { opacity: 0.22, duration: 0.4, ease: "power2.inOut" }, T.quote - 0.35);
       groupIn("#dm-pers", T.quote - 0.2);
-      land("#dm-q", T.quote - 0.1);
+      land("#dm-pq", T.quote - 0.1);
       land("#dm-debate", T.debate - 0.25);
       land("#dm-person", T.person - 0.15);
       groupOut("#dm-pers", T.personalOut);
+      tl.to("#dm-phone", { opacity: 1, duration: 0.4, ease: "power2.inOut" }, T.personalOut);
       // 6 review
       groupIn("#dm-rv", T.review - 0.1);
       lit("#dm-c1", T.covered - 0.1);
       lit("#dm-c2", T.add - 0.1);
       lit("#dm-c3", T.verseW - 0.1);
       tl.fromTo("#dm-stamp", { opacity: 0, scale: 1.3, rotate: -4 }, { opacity: 1, scale: 1, rotate: -2, duration: 0.35, ease: "back.out(2)" }, T.scores - 0.1);
+      groupOut("#dm-rv", T.print - 0.3);
       groupIn("#dm-rv2", T.print - 0.2);
       land("#dm-print", T.print - 0.1);
       land("#dm-church", T.replace - 0.15);
-
-      tl.to("#dm-stage", { scale: 0.9, opacity: 0, filter: "blur(12px)", duration: 0.3, ease: "power3.in", transformOrigin: "50% 50%" }, T.exit);
+      // out: the text clears; the phone is back at full size for the match cut into the three screens
+      groupOut("#dm-rv2", T.fin);
       window.__timelines["demo"] = tl;
     })();
   </script>

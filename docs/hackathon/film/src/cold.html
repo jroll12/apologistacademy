@@ -2,7 +2,7 @@
   <style>
     /*{{LIB}}*/
     #cd-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
-    #cd-phone-wrap { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 960px 480px; }
+    #cd-phone-wrap { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
     #cd-phone { left: 746px; top: 56px; }
     #cd-screen { width: 400px; height: 820px; background: #0B0F19; }
     .cd-status { position: absolute; left: 34px; top: 22px; font: 600 19px/1 "AA Inter"; color: #E5E7EB; }
@@ -15,11 +15,12 @@
     #cd-b1 { top: 228px; }
     #cd-b2 { top: 302px; }
     .cd-out { position: absolute; right: 20px; width: 300px; padding: 16px 20px; border-radius: 26px 26px 8px 26px; background: #7137FF; font: 400 23px/1.32 "AA Inter"; color: #fff; }
-    .cd-bar { position: absolute; left: 16px; top: 736px; width: 368px; height: 56px; border-radius: 28px; border: 1.5px solid rgba(255,255,255,.14); background: #111522; }
-    #cd-text { position: absolute; left: 22px; top: 16px; width: 290px; height: 28px; overflow: hidden; white-space: nowrap; font: 400 21px/26px "AA Inter"; color: #fff; }
-    #cd-ph { position: absolute; left: 22px; top: 16px; font: 400 21px/26px "AA Inter"; color: #6B7280; }
-    #cd-caret { display: inline-block; width: 2px; height: 26px; margin-left: 2px; vertical-align: -6px; background: #9D7BFF; }
-    #cd-send { position: absolute; right: 7px; top: 7px; width: 42px; height: 42px; border-radius: 50%; background: #374151; }
+    /* the field grows upward as a draft wraps, like a phone's does */
+    .cd-bar { position: absolute; left: 16px; bottom: 28px; width: 368px; min-height: 56px; box-sizing: border-box; border-radius: 28px; border: 1.5px solid rgba(255,255,255,.14); background: #111522; }
+    #cd-text { position: relative; padding: 13px 58px 13px 22px; min-height: 28px; white-space: normal; font: 400 23px/28px "AA Inter"; color: #fff; }
+    #cd-ph { position: absolute; left: 22px; top: 13px; font: 400 23px/28px "AA Inter"; color: #6B7280; }
+    #cd-caret { display: inline-block; width: 2px; height: 27px; margin-left: 2px; vertical-align: -6px; background: #9D7BFF; }
+    #cd-send { position: absolute; right: 7px; bottom: 6px; width: 42px; height: 42px; border-radius: 50%; background: #374151; }
     #cd-send i { position: absolute; left: 14px; top: 11px; width: 0; height: 0; border-left: 16px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
     #cd-right { position: absolute; left: 1040px; top: 330px; width: 780px; }
     #cd-t1 span { display: inline-block; }
@@ -27,15 +28,14 @@
   </style>
 
   <div id="root" data-composition-id="cold" data-width="1920" data-height="1080">
-    <div class="bg"></div>
     <div id="cd-stage">
       <div id="cd-phone-wrap">
         <div id="cd-phone" class="phone">
           <div id="cd-screen" class="screen">
             <div class="cd-island"></div>
-            <div class="cd-status">9:41</div>
-            <div class="cd-head"><div class="cd-ava">S</div><div class="cd-name">Sam · Work</div></div>
-            <div class="cd-time" id="cd-when">Today 7:12 PM</div>
+            <div class="cd-status" data-layout-ignore>9:41</div>
+            <div class="cd-head"><div class="cd-ava">S</div><div class="cd-name" data-layout-ignore>Sam · Work</div></div>
+            <div class="cd-time" data-layout-ignore id="cd-when">Today 7:12 PM</div>
             <div id="cd-b1" class="cd-in">Honest question.</div>
             <div id="cd-b2" class="cd-in">If God is good, why does my sister have cancer?</div>
             <div class="cd-bar">
@@ -61,9 +61,9 @@
       const ph = document.getElementById("cd-ph");
       const caret = document.getElementById("cd-caret");
       const send = document.getElementById("cd-send");
-      // the field shows the end of a long draft, like a phone does; the caret sits right after the text
+      // the whole draft shows (the field wraps); the caret sits right after the text
       const show = (s) => {
-        text.textContent = s.length > 25 ? "\u2026" + s.slice(-24) : s;
+        text.textContent = s;
         ph.style.opacity = s ? 0 : 1;
         send.style.background = s ? "#7137FF" : "#374151";
       };
@@ -71,28 +71,32 @@
         const o = { n: del ? s.length : 0 };
         tl.to(o, { n: del ? 0 : s.length, duration: dur, ease: "none", onUpdate: () => show(s.slice(0, Math.round(o.n))) }, at);
       };
-      gsap.set(["#cd-b1", "#cd-b2"], { opacity: 0 });
+      gsap.set("#cd-b2", { opacity: 0 });
       gsap.set(caret, { opacity: 0 });
       gsap.set("#cd-t1 span", { opacity: 0 });
       gsap.set("#cd-t2", { opacity: 0 });
-      // the phone is already there; the coworker's message arrives
-      tl.fromTo("#cd-phone-wrap", { scale: 1.2 }, { scale: 1.12, duration: 1.4, ease: "power3.out" }, 0);
-      tl.fromTo("#cd-b1", { opacity: 0, y: 18, scale: 0.92, transformOrigin: "0% 100%" }, { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.5)" }, T.msg);
-      tl.fromTo("#cd-b2", { opacity: 0, y: 18, scale: 0.92, transformOrigin: "0% 100%" }, { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.5)" }, T.msg + 0.5);
+      // camera: put stage point (fx, fy) at frame point (px, py) at scale s (the phone sits at 746,56; its screen at 760,70)
+      const cam = (fx, fy, s, px, py) => ({ x: px - s * fx, y: py - s * fy, scale: s });
+      // open tight on the conversation; the question arrives with the notification, and the camera leans in on it
+      tl.set("#cd-phone-wrap", cam(950, 380, 1.72, 960, 540), 0);
+      tl.to("#cd-phone-wrap", { ...cam(950, 395, 1.95, 960, 540), duration: T.toBar - 0.1, ease: "sine.inOut" }, 0.1);
+      tl.fromTo("#cd-b2", { opacity: 0, y: 18, scale: 0.92, transformOrigin: "0% 100%" }, { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.5)" }, T.msg);
+      // "What do you type back?": down to the reply field, the question still at the top of the frame
+      tl.to("#cd-phone-wrap", { ...cam(960, 834, 1.8, 960, 876), duration: 0.7, ease: "power2.inOut" }, T.toBar);
       // "What do you type back?": a reply starts, stops, and is deleted, twice
       tl.set(caret, { opacity: 1 }, T.draftA - 0.3);
-      type(T.draft.A, T.draftA, 1.15);
-      type(T.draft.A, T.draftA + 1.35, 0.5, true);
-      type(T.draft.B, T.draftB, 0.8);
-      type(T.draft.B, T.draftB + 1.05, 0.4, true);
-      tl.to(caret, { opacity: 0, duration: 0.01, repeat: 5, yoyo: true, repeatDelay: 0.45 }, T.blank);
+      type(T.draft.A, T.draftA, T.dur.typeA);
+      type(T.draft.A, T.draftA + T.dur.delAt, T.dur.delA, true);
+      type(T.draft.B, T.draftB, T.dur.typeB);
+      type(T.draft.B, T.draftB + T.dur.delBt, T.dur.delB, true);
+      tl.to(caret, { opacity: 0, duration: 0.01, repeat: 3, yoyo: true, repeatDelay: 0.4 }, T.blank);
       // "Most of us freeze": the phone steps back, the line lands word by word
-      tl.to("#cd-phone-wrap", { x: -420, scale: 0.9, duration: 0.8, ease: "power3.inOut" }, T.pull);
+      tl.to("#cd-phone-wrap", { ...cam(960, 480, 0.9, 540, 480), duration: 0.85, ease: "power3.inOut" }, T.pull);
       tl.to("#cd-screen", { opacity: 0.55, duration: 0.8, ease: "power2.inOut" }, T.pull);
       tl.fromTo("#cd-t1 span", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.09 }, T.freeze - 0.25);
       tl.fromTo("#cd-t2", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, T.practiced - 0.1);
-      // exit: everything travels left, blurring, into the next scene
-      tl.to("#cd-stage", { x: -260, opacity: 0, filter: "blur(10px)", duration: 0.32, ease: "power3.in" }, T.exit);
+      // exit: a blur swap on the same ground
+      tl.to("#cd-stage", { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, T.exit);
       window.__timelines["cold"] = tl;
     })();
   </script>

@@ -1,0 +1,55 @@
+<template>
+  <style>
+    /*{{LIB}}*/
+    /* one ground for the whole film: the light moves between acts, the ground never cuts */
+    #bg-root { position: absolute; inset: 0; background: #030712; overflow: hidden; }
+    .bg-glow { position: absolute; left: 0; top: 0; width: 1800px; height: 1200px; border-radius: 50%; will-change: transform, opacity; }
+    #bg-a { background: radial-gradient(closest-side, rgba(113,55,255,.30), rgba(113,55,255,.12) 45%, rgba(113,55,255,0)); }
+    #bg-b { background: radial-gradient(closest-side, rgba(79,70,229,.22), rgba(79,70,229,.08) 45%, rgba(79,70,229,0)); }
+    #bg-c { background: radial-gradient(closest-side, rgba(177,145,255,.26), rgba(157,123,255,.10) 45%, rgba(157,123,255,0)); }
+  </style>
+  <div id="root" data-composition-id="bg" data-width="1920" data-height="1080">
+    <div id="bg-root">
+      <div class="bg-glow" id="bg-b"></div>
+      <div class="bg-glow" id="bg-a"></div>
+      <div class="bg-glow" id="bg-c"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const T = /*{{T}}*/ {};
+      const tl = gsap.timeline({ paused: true });
+      const at = (cx, cy) => ({ x: cx - 900, y: cy - 600 });
+      const C = T.cut;
+      // cold open: dim and cool, the light far off in a corner
+      gsap.set("#bg-a", { ...at(1620, 60), opacity: 0.4, scale: 0.9 });
+      gsap.set("#bg-b", { ...at(150, 1060), opacity: 0.35, scale: 1 });
+      gsap.set("#bg-c", { ...at(1150, 520), opacity: 0, scale: 0.8 });
+      const go = (sel, t, v, d, ease) => tl.to(sel, { ...v, duration: d, ease: ease || "sine.inOut" }, t);
+      // the question: a little more light
+      go("#bg-a", C.gap - 0.4, { ...at(1540, 110), opacity: 0.62 }, 2.5);
+      go("#bg-b", C.gap - 0.4, { opacity: 0.55 }, 2.5);
+      // the arrival: the light opens toward the centre as the product is named
+      go("#bg-a", C.title - 0.2, { ...at(1080, 170), opacity: 1, scale: 1.18 }, 1.6, "power2.inOut");
+      go("#bg-b", C.title - 0.2, { ...at(260, 980), opacity: 0.95 }, 1.6, "power2.inOut");
+      // the walkthrough: the light settles to the right and drifts slowly while the app works
+      go("#bg-a", C.demo + 0.2, { ...at(1500, 140), scale: 1.05 }, 2.4);
+      go("#bg-a", C.demo + 3, { ...at(1330, 210) }, Math.max(4, C.screens - C.demo - 4));
+      go("#bg-b", C.demo + 3, { ...at(120, 900) }, Math.max(4, C.screens - C.demo - 4));
+      // a lift for the three screens
+      go("#bg-a", C.screens - 0.2, { ...at(980, 150), scale: 1.25 }, 1.2, "power2.inOut");
+      // trust and how it works: steady, slow drift
+      go("#bg-a", C.safe - 0.2, { ...at(1560, 160), scale: 1.05, opacity: 0.9 }, 1.4, "power2.inOut");
+      go("#bg-a", C.safe + 1.4, { ...at(1420, 240) }, Math.max(4, C.close - C.safe - 2));
+      // the bookend: dim again, like the opening
+      go("#bg-a", C.close - 0.1, { ...at(1620, 60), opacity: 0.45, scale: 0.9 }, 0.8, "power2.out");
+      go("#bg-b", C.close - 0.1, { opacity: 0.4 }, 0.8, "power2.out");
+      // the end card: the warmest light of the film, behind the name
+      go("#bg-c", T.card - 0.2, { opacity: 1, scale: 1.1 }, 1.8, "power2.inOut");
+      go("#bg-a", T.card - 0.2, { ...at(1500, 120), opacity: 0.85, scale: 1.1 }, 1.8, "power2.inOut");
+      go("#bg-b", T.card - 0.2, { opacity: 0.8 }, 1.8, "power2.inOut");
+      tl.set({}, {}, T.total);
+      window.__timelines["bg"] = tl;
+    })();
+  </script>
+</template>

@@ -2,23 +2,22 @@
   <style>
     /*{{LIB}}*/
     #wh-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
-    #wh-head { position: absolute; left: 0; top: 170px; width: 1920px; text-align: center; }
+    #wh-head { position: absolute; left: 0; top: 230px; width: 1920px; text-align: center; }
     #wh-head .h-big { margin-top: 18px; }
-    #wh-row { position: absolute; left: 150px; top: 430px; width: 1620px; display: flex; gap: 36px; }
-    .wh-card { flex: 1; height: 330px; border-radius: 34px; background: rgba(17,24,39,.85); border: 1px solid rgba(255,255,255,.09); position: relative; }
-    .wh-card svg { position: absolute; left: 44px; top: 48px; width: 76px; height: 76px; }
-    .wh-card div { position: absolute; left: 44px; bottom: 48px; font: 700 50px/1.1 "AA Outfit"; color: #fff; }
+    #wh-row { position: absolute; left: 260px; top: 480px; width: 1400px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .wh-card { height: 140px; box-sizing: border-box; padding: 0 30px; border-radius: 30px; background: rgba(13,18,30,.94); border: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; gap: 22px; }
+    .wh-card svg { flex: none; width: 64px; height: 64px; }
+    .wh-card div { font: 700 48px/1 "AA Outfit"; color: #fff; white-space: nowrap; }
   </style>
 
   <div id="root" data-composition-id="who" data-width="1920" data-height="1080">
-    <div class="bg"></div>
     <div id="wh-stage">
       <div id="wh-head"><div class="kicker">Who it's for</div><div class="h-big">Anyone who wants to be <span class="v">ready.</span></div></div>
       <div id="wh-row">
         <div class="wh-card" id="wh-1"><svg viewBox="0 0 24 24" fill="none" stroke="#B191FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><div>Small groups</div></div>
         <div class="wh-card" id="wh-2"><svg viewBox="0 0 24 24" fill="none" stroke="#B191FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.2a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0z"/><path d="M22 10v6M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg><div>Students</div></div>
         <div class="wh-card" id="wh-3"><svg viewBox="0 0 24 24" fill="none" stroke="#B191FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8zM14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg><div>New believers</div></div>
-        <div class="wh-card" id="wh-4"><svg viewBox="0 0 304.63 304.63"><path fill="#B191FF" d="M95.56,144.05v-36.56h113.51v36.56h-113.51ZM131.49,261.05V43.58h41.66v217.46h-41.66Z"/></svg><div>Church leaders</div></div>
+        <div class="wh-card" id="wh-4"><svg viewBox="0 0 24 24" fill="none" stroke="#B191FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg><div>Church leaders</div></div>
       </div>
     </div>
   </div>
@@ -28,13 +27,14 @@
       const T = /*{{T}}*/ {};
       const tl = gsap.timeline({ paused: true });
       gsap.set([".wh-card", "#wh-head"], { opacity: 0 });
-      tl.fromTo("#wh-head", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3 }, 0.1);
-      const card = (id, t) => tl.fromTo(id, { opacity: 0, y: 60, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "expo.out" }, t);
+      tl.fromTo("#wh-head", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25 }, 0.05);
+      const card = (id, t) => tl.fromTo(id, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, t);
       card("#wh-1", T.groups - 0.35);
       card("#wh-2", T.students - 0.2);
       card("#wh-3", T.believers - 0.3);
       card("#wh-4", T.leaders - 0.3);
-      tl.to("#wh-stage", { scale: 0.92, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in", transformOrigin: "50% 50%" }, T.exit);
+      // dip cut into the bookend: three frames darker, then the phone cuts in
+      tl.to("#wh-stage", { filter: "brightness(0.55)", duration: 0.1, ease: "none" }, T.exit);
       window.__timelines["who"] = tl;
     })();
   </script>

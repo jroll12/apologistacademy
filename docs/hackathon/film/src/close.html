@@ -2,44 +2,46 @@
   <style>
     /*{{LIB}}*/
     #cl-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
-    #cl-phone-wrap { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 960px 480px; }
+    #cl-phone-wrap { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
     #cl-phone { left: 746px; top: 56px; }
     #cl-screen { width: 400px; height: 820px; background: #0B0F19; }
     .cd-status { position: absolute; left: 34px; top: 22px; font: 600 19px/1 "AA Inter"; color: #E5E7EB; }
     .cd-island { position: absolute; left: 140px; top: 14px; width: 120px; height: 34px; border-radius: 18px; background: #000; }
     .cd-head { position: absolute; left: 0; top: 62px; width: 400px; height: 112px; border-bottom: 1px solid rgba(255,255,255,.07); text-align: center; }
     .cd-ava { position: absolute; left: 172px; top: 8px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #6B7280, #374151); font: 600 24px/56px "AA Inter"; color: #fff; text-align: center; }
-    .cd-name { position: absolute; left: 0; top: 72px; width: 400px; font: 500 18px/1.2 "AA Inter"; color: #D1D5DB; }
+    .cd-name { position: absolute; left: 0; top: 72px; width: 400px; font: 500 22px/1.2 "AA Inter"; color: #D1D5DB; }
+    .cd-time { position: absolute; left: 0; top: 192px; width: 400px; text-align: center; font: 500 17px/1 "AA Inter"; color: #9CA3AF; }
     .cd-in { position: absolute; left: 20px; width: 300px; padding: 16px 20px; border-radius: 26px 26px 26px 8px; background: #262C3A; font: 400 23px/1.32 "AA Inter"; color: #F3F4F6; }
     #cl-b1 { top: 228px; } #cl-b2 { top: 302px; }
     #cl-out { position: absolute; right: 20px; top: 430px; width: 296px; padding: 16px 20px; border-radius: 26px 26px 8px 26px; background: #7137FF; font: 400 23px/1.32 "AA Inter"; color: #fff; }
-    #cl-dots { position: absolute; left: 20px; top: 640px; width: 84px; height: 48px; border-radius: 24px; background: #262C3A; }
+    #cl-dots { position: absolute; left: 20px; top: 610px; width: 84px; height: 48px; border-radius: 24px; background: #262C3A; }
     #cl-dots i { position: absolute; top: 20px; width: 10px; height: 10px; border-radius: 50%; background: #9CA3AF; }
-    .cd-bar { position: absolute; left: 16px; top: 736px; width: 368px; height: 56px; border-radius: 28px; border: 1.5px solid rgba(255,255,255,.14); background: #111522; }
-    #cl-text { position: absolute; left: 22px; top: 16px; width: 280px; height: 26px; overflow: hidden; white-space: nowrap; font: 400 21px/26px "AA Inter"; color: #fff; }
-    #cl-ph { position: absolute; left: 22px; top: 16px; font: 400 21px/26px "AA Inter"; color: #9CA3AF; }
-    #cl-send { position: absolute; right: 7px; top: 7px; width: 42px; height: 42px; border-radius: 50%; background: #374151; }
+    .cd-bar { position: absolute; left: 16px; bottom: 28px; width: 368px; min-height: 56px; box-sizing: border-box; border-radius: 28px; border: 1.5px solid rgba(255,255,255,.14); background: #111522; }
+    #cl-text { position: relative; padding: 13px 58px 13px 22px; min-height: 28px; white-space: normal; font: 400 23px/28px "AA Inter"; color: #fff; }
+    #cl-ph { position: absolute; left: 22px; top: 13px; font: 400 23px/28px "AA Inter"; color: #6B7280; }
+    #cl-send { position: absolute; right: 7px; bottom: 6px; width: 42px; height: 42px; border-radius: 50%; background: #374151; }
     #cl-send i { position: absolute; left: 14px; top: 11px; width: 0; height: 0; border-left: 16px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
     #cl-card { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
-    #cl-mark { position: absolute; left: 250px; top: 300px; width: 150px; height: 150px; }
-    #cl-name { position: absolute; left: 250px; top: 490px; font: 700 110px/1 "AA Outfit"; letter-spacing: -0.025em; }
-    #cl-url { position: absolute; left: 250px; top: 700px; font: 600 50px/1 "AA Outfit"; color: #B191FF; }
-    #cl-try { position: absolute; left: 250px; top: 648px; font: 500 28px/1 "AA Inter"; color: #9CA3AF; }
-    #cl-qrbox { position: absolute; left: 1330px; top: 300px; width: 340px; height: 340px; border-radius: 34px; background: #fff; }
-    #cl-qrbox img { position: absolute; left: 30px; top: 30px; width: 280px; height: 280px; }
-    #cl-scan { position: absolute; left: 1330px; top: 672px; width: 340px; text-align: center; font: 500 26px/1 "AA Inter"; color: #9CA3AF; }
-    #cl-foot { position: absolute; left: 0; top: 900px; width: 1920px; text-align: center; }
+    /* the end card sits beside the phone, so the reply that was sent stays on screen to the end */
+    #cl-mark { position: absolute; left: 800px; top: 200px; width: 116px; height: 116px; }
+    #cl-name { position: absolute; left: 796px; top: 348px; font: 700 100px/1 "AA Outfit"; letter-spacing: -0.025em; white-space: nowrap; }
+    #cl-try { position: absolute; left: 800px; top: 486px; font: 600 40px/1.2 "AA Inter"; color: #fff; white-space: nowrap; }
+    #cl-url { position: absolute; left: 798px; top: 560px; font: 600 66px/1 "AA Outfit"; color: #B191FF; white-space: nowrap; }
+    #cl-qrbox { position: absolute; left: 800px; top: 700px; width: 250px; height: 250px; border-radius: 26px; background: #fff; }
+    #cl-qrbox img { position: absolute; left: 18px; top: 18px; width: 214px; height: 214px; }
+    #cl-scan { position: absolute; left: 1090px; top: 770px; font: 600 36px/1 "AA Inter"; color: #fff; }
+    #cl-foot { position: absolute; left: 1090px; top: 830px; font: 500 30px/1.3 "AA Inter"; color: #A8B0BD; }
   </style>
 
   <div id="root" data-composition-id="close" data-width="1920" data-height="1080">
-    <div class="bg"></div>
     <div id="cl-stage">
       <div id="cl-phone-wrap">
         <div id="cl-phone" class="phone">
           <div id="cl-screen" class="screen">
             <div class="cd-island"></div>
-            <div class="cd-status">9:41</div>
-            <div class="cd-head"><div class="cd-ava">S</div><div class="cd-name">Sam · Work</div></div>
+            <div class="cd-status" data-layout-ignore>9:41</div>
+            <div class="cd-head"><div class="cd-ava">S</div><div class="cd-name" data-layout-ignore>Sam · Work</div></div>
+            <div class="cd-time" data-layout-ignore>Today 7:12 PM</div>
             <div id="cl-b1" class="cd-in">Honest question.</div>
             <div id="cl-b2" class="cd-in">If God is good, why does my sister have cancer?</div>
             <div id="cl-out">I'm so sorry. I don't have a neat answer, and I won't pretend to. How is she doing?</div>
@@ -51,11 +53,11 @@
       <div id="cl-card">
         <img id="cl-mark" src="assets/img/mark.svg" alt="" />
         <div id="cl-name">Apologist Academy</div>
-        <div id="cl-try">Try it free</div>
+        <div id="cl-try">Try it free. No account. Nothing to install.</div>
         <div id="cl-url">apologistacademy.pages.dev</div>
         <div id="cl-qrbox"><img src="assets/img/qr.svg" alt="" /></div>
         <div id="cl-scan">Scan to practice</div>
-        <div id="cl-foot" class="tag">Built for the AI for Church Hackathon 2026</div>
+        <div id="cl-foot">Built for the AI for Church<br />Hackathon 2026</div>
       </div>
     </div>
   </div>
@@ -68,26 +70,31 @@
       const text = document.getElementById("cl-text");
       const ph = document.getElementById("cl-ph");
       const send = document.getElementById("cl-send");
-      const show = (s) => { text.textContent = s.length > 24 ? "…" + s.slice(-23) : s; ph.style.opacity = s ? 0 : 1; send.style.background = s ? "#7137FF" : "#374151"; };
+      const show = (s) => { text.textContent = s; ph.style.opacity = s ? 0 : 1; send.style.background = s ? "#7137FF" : "#374151"; };
+      const cam = (fx, fy, s, px, py) => ({ x: px - s * fx, y: py - s * fy, scale: s });
       gsap.set(["#cl-out", "#cl-dots", "#cl-card", "#cl-mark", "#cl-name", "#cl-try", "#cl-url", "#cl-qrbox", "#cl-scan", "#cl-foot"], { opacity: 0 });
-      // the same phone as the opening, the same question
-      tl.fromTo("#cl-stage", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.45 }, 0);
-      tl.fromTo("#cl-phone-wrap", { scale: 1.2 }, { scale: 1.12, duration: 1.2, ease: "power3.out" }, 0);
+      // the same phone as the opening, the same framing (a hard cut after the dip)
+      tl.set("#cl-phone-wrap", cam(950, 395, 1.95, 960, 540), 0);
+      // down to the reply field, as in the opening; this time the reply gets written
+      tl.to("#cl-phone-wrap", { ...cam(960, 834, 1.8, 960, 876), duration: 0.6, ease: "power2.inOut" }, 0.1);
       // this time a reply gets written, and sent
       const o = { n: 0 };
-      tl.to(o, { n: reply.length, duration: Math.max(1.2, T.send - T.type - 0.15), ease: "none", onUpdate: () => show(reply.slice(0, Math.round(o.n))) }, T.type);
+      const t0 = Math.max(T.type, 0.75);
+      tl.to(o, { n: reply.length, duration: Math.max(1.2, T.send - t0 - 0.15), ease: "none", onUpdate: () => show(reply.slice(0, Math.round(o.n))) }, t0);
       tl.to(o, { n: 0, duration: 0.01, onUpdate: () => show(reply.slice(0, Math.round(o.n))) }, T.send);
       tl.fromTo("#cl-out", { opacity: 0, y: 30, scale: 0.9, transformOrigin: "100% 100%" }, { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.5)" }, T.send);
+      // sent: back up to see the whole exchange
+      tl.to("#cl-phone-wrap", { ...cam(950, 470, 1.32, 960, 520), duration: 0.75, ease: "power3.inOut" }, T.send + 0.05);
       tl.fromTo("#cl-dots", { opacity: 0, scale: 0.8, transformOrigin: "0% 100%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, T.send + 1.0);
       tl.to("#cl-dots i", { y: -5, duration: 0.22, stagger: 0.1, yoyo: true, repeat: 5, ease: "sine.inOut" }, T.send + 1.15);
-      // the end card
-      tl.to("#cl-phone-wrap", { x: -60, scale: 0.86, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power3.in" }, T.card);
+      // the end card: the phone steps left and stays, the name and the way in arrive beside it
+      tl.to("#cl-phone-wrap", { ...cam(960, 480, 0.94, 410, 530), duration: 0.85, ease: "power3.inOut" }, T.card - 0.1);
       tl.set("#cl-card", { opacity: 1 }, T.card + 0.2);
       tl.fromTo("#cl-mark", { opacity: 0, scale: 0.4, rotate: -8 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.6, ease: "back.out(1.7)" }, T.card + 0.25);
       tl.fromTo("#cl-name", { opacity: 0, x: -30, filter: "blur(8px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, T.card + 0.4);
-      tl.fromTo(["#cl-try", "#cl-url"], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, ease: "expo.out" }, T.url - 0.1);
-      tl.fromTo(["#cl-qrbox", "#cl-scan"], { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, T.qr);
-      tl.fromTo("#cl-foot", { opacity: 0 }, { opacity: 1, duration: 0.5 }, T.qr + 0.4);
+      tl.fromTo(["#cl-try", "#cl-url"], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.12, ease: "expo.out" }, T.url - 0.15);
+      tl.fromTo(["#cl-qrbox", "#cl-scan"], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.1, ease: "expo.out" }, T.url + 0.15);
+      tl.fromTo("#cl-foot", { opacity: 0 }, { opacity: 1, duration: 0.5 }, T.url + 0.6);
       window.__timelines["close"] = tl;
     })();
   </script>

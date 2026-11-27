@@ -41,3 +41,22 @@ If it fails partway, report the error and whatever it printed; do not loop.
 Commit only `docs/hackathon/film/audio/**`, `docs/hackathon/film/capture/**` and any fix to `tools/`, push
 `claude/academy-film-vo`, then reply with: which steps worked, each take's seconds and words per second (from
 `report.json`), music length, the skeptic's six lines from the capture, and anything that failed with its error.
+
+## 5. Polish pass (second request): a scored track and a few sound effects
+First bring this branch up to date with the main session's work (it already contains everything you pushed):
+```bash
+git fetch origin claude/amazing-albattani-jhbna4 && git merge --ff-only FETCH_HEAD
+```
+Then:
+```bash
+python3 docs/hackathon/film/tools/music_v2.py --dry-run   # 10 sections, 169.89 s in all; read once
+python3 docs/hackathon/film/tools/music_v2.py             # one call
+python3 docs/hackathon/film/tools/sfx_el.py               # seven short effects
+```
+Out: `docs/hackathon/film/audio/music-v2.mp3` (+ `music-v2.plan.json`) and `docs/hackathon/film/assets/sfx/el-*.mp3`.
+If the music endpoint rejects the composition plan, read the ElevenLabs Music API docs, fix the request in
+`music_v2.py` (keep the sections, their durations and styles, instrumental only) and retry once. Same for `sfx_el.py`.
+Do not change `build/timeline.json`.
+
+Hand back as before: commit only those output files and any fix to `tools/`, push `claude/academy-film-vo`, and
+reply with the music file's length in seconds, each effect's length, and any error verbatim.

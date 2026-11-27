@@ -1,0 +1,147 @@
+{
+ "positive_global_styles": [
+  "instrumental underscore for a narrated film",
+  "felt piano",
+  "warm soft string pads",
+  "80 BPM",
+  "D major",
+  "hopeful",
+  "understated",
+  "leaves space for a spoken narrator",
+  "warm and clear, with some air in the top end"
+ ],
+ "negative_global_styles": [
+  "vocals",
+  "choir",
+  "drum kit",
+  "EDM",
+  "cinematic hits",
+  "trailer braams",
+  "dark",
+  "muffled",
+  "lo-fi",
+  "sudden loud changes"
+ ],
+ "sections": [
+  {
+   "section_name": "Cold open",
+   "positive_local_styles": [
+    "near silence",
+    "one soft sustained low pad note",
+    "very quiet",
+    "tense",
+    "unresolved",
+    "no melody",
+    "no rhythm"
+   ],
+   "negative_local_styles": [],
+   "duration_ms": 18910,
+   "lines": []
+  },
+  {
+   "section_name": "The question",
+   "positive_local_styles": [
+    "solo felt piano enters",
+    "simple reflective motif",
+    "quiet",
+    "slowly building",
+    "hopeful but unresolved"
+   ],
+   "negative_local_styles": [],
+   "duration_ms": 21160,
+   "lines": []
+  },
+  {
+   "section_name": "Arrival",
+   "positive_local_styles": [
+    "the full warm texture arrives on the first beat of this section",
+    "piano with string pads and a light pulse",
+    "bright, resolved, hopeful"
+   ],
+   "negative_local_styles": [],
+   "duration_ms": 7350,
+   "lines": []
+  },
+  {
+   "section_name": "Walkthrough",
+   "positive_local_styles": [
+    "steady warm light pulse",
+    "piano and pads",
+    "understated",
+    "stays out of the way of the narrator"
+   ],
+   "negative_local_styles": [],
+   "duration_ms": 45030,
+   "lines": []
+  },
+  {
+   "section_name": "Personal",
+   "positive_local_styles": [
+    "strip back to solo piano",
+    "intimate",
+    "tender",
+    "quiet"
+   ],
+   "negative_local_styles": [],
+   "duration_ms": 5630,
+   "lines": []
+  },
+  {
+   "section_name": "Review",
+   "positive_local_styles": [
+    "the warm light pulse returns",
+    "piano and pads",
+    "understated"
+   ],
+   "negative_local_styles": [],
+   "duration_ms": 14960,
+   "lines": []
+  },
+  {
+   "section_name": "Lift",
+   "positive_local_styles": [
+    "a gentle lift",
+    "fuller pads",
+    "brighter"
+   ],
+   "negative_local_styles": [],
+   "duration_ms": 4150,
+   "lines": []
+  },
+  {
+   "section_name": "Trust",
+   "positive_local_styles": [
+    "steady",
+    "calm confidence",
+    "light pulse",
+    "understated under narration"
+   ],
+   "negative_local_styles": [],
+   "duration_ms": 36760,
+   "lines": []
+  },
+  {
+   "section_name": "Bookend",
+   "positive_local_styles": [
+    "strip back to solo piano",
+    "tender",
+    "quiet",
+    "reflective"
+   ],
+   "negative_local_styles": [],
+   "duration_ms": 6990,
+   "lines": []
+  },
+  {
+   "section_name": "Resolve",
+   "positive_local_styles": [
+    "warm full final chord",
+    "gentle resolved cadence",
+    "rings out and fades to silence at the very end"
+   ],
+   "negative_local_styles": [],
+   "duration_ms": 8950,
+   "lines": []
+  }
+ ]
+}

@@ -1,16 +1,16 @@
 {
- "total": 172.214,
+ "total": 169.89,
  "cut": {
   "cold": 0,
   "gap": 18.91,
   "verse": 27.1,
   "title": 40.07,
   "demo": 47.42,
-  "screens": 115.364,
-  "safe": 119.514,
-  "hood": 137.254,
-  "who": 150.914,
-  "close": 156.274
+  "screens": 113.04,
+  "safe": 117.19,
+  "hood": 134.93,
+  "who": 148.59,
+  "close": 153.95
  },
  "vo": [
   {
@@ -52,31 +52,31 @@
   {
    "take": "personal",
    "file": "assets/vo/personal.wav",
-   "start": 95.774,
+   "start": 93.45,
    "dur": 4.13
   },
   {
    "take": "review",
    "file": "assets/vo/review.wav",
-   "start": 100.404,
+   "start": 98.08,
    "dur": 17.11
   },
   {
    "take": "trust",
    "file": "assets/vo/trust.wav",
-   "start": 119.914,
+   "start": 117.59,
    "dur": 17.04
   },
   {
    "take": "hood",
    "file": "assets/vo/hood.wav",
-   "start": 137.654,
+   "start": 135.33,
    "dur": 18.32
   },
   {
    "take": "close",
    "file": "assets/vo/close.wav",
-   "start": 156.974,
+   "start": 154.65,
    "dur": 11.44
   }
  ],
@@ -108,22 +108,22 @@
   },
   {
    "f": "whoosh-short",
-   "at": 115.244,
+   "at": 112.92,
    "vol": 0.13
   },
   {
    "f": "whoosh-short",
-   "at": 119.394,
+   "at": 117.07,
    "vol": 0.13
   },
   {
    "f": "whoosh-short",
-   "at": 137.134,
+   "at": 134.81,
    "vol": 0.13
   },
   {
    "f": "whoosh-short",
-   "at": 150.794,
+   "at": 148.47,
    "vol": 0.13
   },
   {
@@ -178,12 +178,12 @@
   },
   {
    "f": "pop",
-   "at": 159.774,
+   "at": 157.45,
    "vol": 0.22
   },
   {
    "f": "whoosh",
-   "at": 163.264,
+   "at": 160.94,
    "vol": 0.14
   }
  ],
@@ -466,248 +466,248 @@
   },
   {
    "text": "Because this isn't a debate to win.",
-   "start": 95.694,
-   "end": 97.964,
+   "start": 93.37,
+   "end": 95.64,
    "line": "L13"
   },
   {
    "text": "It's a person to listen to.",
-   "start": 98.274,
-   "end": 99.964,
+   "start": 95.95,
+   "end": 97.64,
    "line": "L13"
   },
   {
    "text": "After five turns,",
-   "start": 100.324,
-   "end": 101.714,
+   "start": 98,
+   "end": 99.39,
    "line": "L14"
   },
   {
    "text": "Coach writes you a short review.",
-   "start": 101.744,
-   "end": 103.374,
+   "start": 99.42,
+   "end": 101.05,
    "line": "L14"
   },
   {
    "text": "What you covered,",
-   "start": 103.584,
-   "end": 104.394,
+   "start": 101.26,
+   "end": 102.07,
    "line": "L14"
   },
   {
    "text": "what you could add,",
-   "start": 104.424,
-   "end": 105.414,
+   "start": 102.1,
+   "end": 103.09,
    "line": "L14"
   },
   {
    "text": "and a verse to study.",
-   "start": 105.444,
-   "end": 106.654,
+   "start": 103.12,
+   "end": 104.33,
    "line": "L14"
   },
   {
    "text": "No scores. No grades.",
-   "start": 106.824,
-   "end": 108.594,
+   "start": 104.5,
+   "end": 106.27,
    "line": "L14"
   },
   {
    "text": "Print it,",
-   "start": 108.884,
-   "end": 109.154,
+   "start": 106.56,
+   "end": 106.83,
    "line": "L15"
   },
   {
    "text": "and bring it to your small group.",
-   "start": 109.184,
-   "end": 110.774,
+   "start": 106.86,
+   "end": 108.45,
    "line": "L15"
   },
   {
    "text": "It doesn't replace your church.",
-   "start": 110.924,
-   "end": 112.574,
+   "start": 108.6,
+   "end": 110.25,
    "line": "L15"
   },
   {
    "text": "It helps you get ready",
-   "start": 112.744,
-   "end": 113.574,
+   "start": 110.42,
+   "end": 111.25,
    "line": "L15"
   },
   {
    "text": "for real conversations.",
-   "start": 113.604,
-   "end": 115.114,
+   "start": 111.28,
+   "end": 112.79,
    "line": "L15"
   },
   {
    "text": "And it works on any screen.",
-   "start": 115.484,
-   "end": 117.454,
+   "start": 113.16,
+   "end": 115.13,
    "line": "L16"
   },
   {
    "text": "We built it carefully.",
-   "start": 119.834,
-   "end": 121.224,
+   "start": 117.51,
+   "end": 118.9,
    "line": "L17"
   },
   {
    "text": "The AI is always labeled.",
-   "start": 121.514,
-   "end": 123.744,
+   "start": 119.19,
+   "end": 121.42,
    "line": "L17"
   },
   {
    "text": "The skeptic never pretends",
-   "start": 123.774,
-   "end": 125.044,
+   "start": 121.45,
+   "end": 122.72,
    "line": "L17"
   },
   {
    "text": "to be converted,",
-   "start": 125.074,
-   "end": 126.024,
+   "start": 122.75,
+   "end": 123.7,
    "line": "L17"
   },
   {
    "text": "and never insults you or your faith.",
-   "start": 126.054,
-   "end": 128.244,
+   "start": 123.73,
+   "end": 125.92,
    "line": "L17"
   },
   {
    "text": "If someone seems to be in crisis,",
-   "start": 128.514,
-   "end": 130.144,
+   "start": 126.19,
+   "end": 127.82,
    "line": "L18"
   },
   {
    "text": "it stops the exercise",
-   "start": 130.234,
-   "end": 131.364,
+   "start": 127.91,
+   "end": 129.04,
    "line": "L18"
   },
   {
    "text": "and points them to real help.",
-   "start": 131.394,
-   "end": 133.304,
+   "start": 129.07,
+   "end": 130.98,
    "line": "L18"
   },
   {
    "text": "And Coach quotes one checked verse,",
-   "start": 133.454,
-   "end": 134.964,
+   "start": 131.13,
+   "end": 132.64,
    "line": "L18"
   },
   {
    "text": "and never makes up sources.",
-   "start": 134.994,
-   "end": 136.804,
+   "start": 132.67,
+   "end": 134.48,
    "line": "L18"
   },
   {
    "text": "Under the hood,",
-   "start": 137.574,
-   "end": 138.524,
+   "start": 135.25,
+   "end": 136.2,
    "line": "L19"
   },
   {
    "text": "our server sets the rules:",
-   "start": 138.614,
-   "end": 140.304,
+   "start": 136.29,
+   "end": 137.98,
    "line": "L19"
   },
   {
    "text": "five turns,",
-   "start": 140.474,
-   "end": 141.344,
+   "start": 138.15,
+   "end": 139.02,
    "line": "L19"
   },
   {
    "text": "separate instructions for each role,",
-   "start": 141.514,
-   "end": 143.244,
+   "start": 139.19,
+   "end": 140.92,
    "line": "L19"
   },
   {
    "text": "and a daily limit.",
-   "start": 143.274,
-   "end": 144.504,
+   "start": 140.95,
+   "end": 142.18,
    "line": "L19"
   },
   {
    "text": "The Apologist Project's AI platform",
-   "start": 144.734,
-   "end": 146.604,
+   "start": 142.41,
+   "end": 144.28,
    "line": "L19"
   },
   {
    "text": "plays the skeptic",
-   "start": 146.634,
-   "end": 147.664,
+   "start": 144.31,
+   "end": 145.34,
    "line": "L19"
   },
   {
    "text": "and powers Coach and the review,",
-   "start": 147.694,
-   "end": 149.504,
+   "start": 145.37,
+   "end": 147.18,
    "line": "L19"
   },
   {
    "text": "with memory turned off.",
-   "start": 149.534,
-   "end": 150.964,
+   "start": 147.21,
+   "end": 148.64,
    "line": "L19"
   },
   {
    "text": "It's for small groups,",
-   "start": 151.134,
-   "end": 152.304,
+   "start": 148.81,
+   "end": 149.98,
    "line": "L20"
   },
   {
    "text": "students, new believers,",
-   "start": 152.334,
-   "end": 153.944,
+   "start": 150.01,
+   "end": 151.62,
    "line": "L20"
   },
   {
    "text": "and church leaders",
-   "start": 154.034,
-   "end": 154.684,
+   "start": 151.71,
+   "end": 152.36,
    "line": "L20"
   },
   {
    "text": "training their people.",
-   "start": 154.714,
-   "end": 155.904,
+   "start": 152.39,
+   "end": 153.58,
    "line": "L20"
   },
   {
    "text": "So the next time someone asks,",
-   "start": 156.894,
-   "end": 158.624,
+   "start": 154.57,
+   "end": 156.3,
    "line": "L21"
   },
   {
    "text": "you won't freeze.",
-   "start": 158.774,
-   "end": 159.844,
+   "start": 156.45,
+   "end": 157.52,
    "line": "L21"
   },
   {
    "text": "You'll be ready,",
-   "start": 160.094,
-   "end": 160.744,
+   "start": 157.77,
+   "end": 158.42,
    "line": "L21"
   },
   {
    "text": "with gentleness and respect.",
-   "start": 160.774,
-   "end": 163.024,
+   "start": 158.45,
+   "end": 160.7,
    "line": "L21"
   }
  ],
@@ -744,20 +744,27 @@
    "from": 51.108,
    "to": 56.949,
    "at": 42.32,
-   "dur": 2.434,
-   "rate": 2.4
+   "dur": 1.46,
+   "rate": 4
   },
   {
    "from": 56.949,
+   "to": 59.549,
+   "at": 43.78,
+   "dur": 2,
+   "rate": 1.3
+  },
+  {
+   "from": 59.549,
    "to": 63.677,
-   "at": 44.754,
-   "dur": 7.83,
-   "rate": 0.859
+   "at": 45.78,
+   "dur": 4.48,
+   "rate": 0.921
   },
   {
    "from": 79.38,
    "to": 96.195,
-   "at": 52.584,
+   "at": 50.26,
    "dur": 15.36,
    "rate": 1.095
   }
@@ -812,44 +819,44 @@
    "end": 89.04
   },
   "L13": {
-   "start": 95.774,
-   "end": 99.714
+   "start": 93.45,
+   "end": 97.39
   },
   "L14": {
-   "start": 100.404,
-   "end": 108.344
+   "start": 98.08,
+   "end": 106.02
   },
   "L15": {
-   "start": 108.964,
-   "end": 114.864
+   "start": 106.64,
+   "end": 112.54
   },
   "L16": {
-   "start": 115.564,
-   "end": 117.204
+   "start": 113.24,
+   "end": 114.88
   },
   "L17": {
-   "start": 119.914,
-   "end": 127.994
+   "start": 117.59,
+   "end": 125.67
   },
   "L18": {
-   "start": 128.594,
-   "end": 136.554
+   "start": 126.27,
+   "end": 134.23
   },
   "L19": {
-   "start": 137.654,
-   "end": 150.714
+   "start": 135.33,
+   "end": 148.39
   },
   "L20": {
-   "start": 151.214,
-   "end": 155.654
+   "start": 148.89,
+   "end": 153.33
   },
   "L21": {
-   "start": 156.974,
-   "end": 162.774
+   "start": 154.65,
+   "end": 160.45
   },
   "L22": {
-   "start": 163.614,
-   "end": 168.174
+   "start": 161.29,
+   "end": 165.85
   }
  }
 }

@@ -22,7 +22,9 @@ const M = { phone: JSON.parse(rd("capture/phone.marks.json")), laptop: JSON.pars
 // ── narration layout: each take starts after a gap (seconds of picture before it) ─────────────────────────────
 const GAP = { open: 0.9, freeze: 2.7, verse: 1.0, intro: 1.1, demo: 0.45, coach: 0.6, personal: null, review: 0.5, trust: 2.4, hood: 0.7, close: 1.0 };
 const TAIL = 3.8;
-const E1_RATE = 2.4; // reply 2 is typed on fast-forward
+const E1_RATE = 4.0; // reply 2 is typed on fast-forward
+const S2_RATE = 1.3; // the personal answer streams a little fast until its first line is on screen
+const S2_READ = 2.7; // media seconds after skeptic2 when "Someone close to me..." is on screen
 const ph = M.phone;
 const L = {};
 const vo = [];
@@ -32,9 +34,9 @@ for (const tk of script.takes) {
   let gap = GAP[tk.id];
   if (tk.id === "personal") {
     // after Coach closes: reply 2 typed at E1_RATE, then the skeptic's personal answer streams; the voice comes in
-    // once the answer is on screen and readable
-    const e1 = (ph.skeptic2 + 0.1 - (ph.reply2 - 0.05)) / E1_RATE;
-    gap = 0.35 + e1 + 3.6;
+    // as the first line of the answer is on screen (the pull-quote lands with it)
+    const e1 = (ph.skeptic2 + 0.15 - ph.reply2) / E1_RATE;
+    gap = 0.35 + e1 + (S2_READ - 0.1) / S2_RATE + 0.25;
   }
   t += gap;
   vo.push({ take: tk.id, file: `assets/vo/${tk.id}.wav`, start: r3(t), dur: k.dur });
@@ -103,7 +105,8 @@ at = seg(ph["tap-question"] + 0.85, ph.start + 0.75, at, L.L10.start - 0.2 - D0 
 at = seg(ph.start + 0.75, ph.coach - 0.1, at, TK.coach.start - 0.3 - D0 - at);
 at = seg(ph.coach - 0.1, ph.reply2 - 0.05, at, TK.coach.end + 0.35 - D0 - at);
 at = seg(ph.reply2 - 0.05, ph.skeptic2 + 0.1, at, (ph.skeptic2 + 0.15 - ph.reply2) / E1_RATE);
-at = seg(ph.skeptic2 + 0.1, ph.fast - 0.2, at, TK.review.start - 0.4 - D0 - at);
+at = seg(ph.skeptic2 + 0.1, ph.skeptic2 + S2_READ, at, (S2_READ - 0.1) / S2_RATE);
+at = seg(ph.skeptic2 + S2_READ, ph.fast - 0.2, at, TK.review.start - 0.4 - D0 - at);
 at = seg(ph["review-wait"] - 0.1, ph.end - 0.05, at, cut.screens - D0 - at);
 const m2l = (mt) => { for (const s of segs) if (mt >= s.from - 1e-6 && mt <= s.to + 1e-6) return s.at + (mt - s.from) / s.rate; throw new Error(`media ${mt} not in any segment`); };
 // camera: [local time, focus x, focus y (app pixels on the 390 x 844 screen), scale, move seconds]
@@ -121,7 +124,7 @@ const cam = [
   [m2l(ph.back) + 0.1, 195, 470, 1.15, 0.55],
   [m2l(ph.reply2) + 0.1, 195, 700, 1.7, 0.55, 960],
   [m2l(ph.skeptic2) + 0.35, 195, 540, 1.8, 0.7, 960],
-  [m2l(ph.skeptic2 + 2.7), 195, 540, 1.8, 0.6],
+  [m2l(ph.skeptic2 + S2_READ), 195, 540, 1.8, 0.6],
   [m2l(ph["review-wait"]) + 0.02, 195, 430, 1.08, 0.5],
   [m2l(ph.review) + 1.3, 195, 330, 1.45, 0.7],
   [m2l(ph.conversation) - 0.6, 195, 560, 1.3, 0.7],
@@ -137,7 +140,7 @@ const demo = {
   talkOut: dl(TK.coach.start - 0.35),
   stuck: dl(L.L12.start), hint: dl(W("L12", "hint")), outline: dl(W("L12", "outline")), sample: dl(W("L12", "sample")), own: dl(W("L12", "own")),
   coachOut: dl(TK.coach.end + 0.3),
-  quote: m2l(ph.skeptic2 + 2.7) + 0.25, center: m2l(ph.reply2) + 0.1, debate: dl(W("L13", "debate")), person: dl(W("L13", "person")),
+  quote: m2l(ph.skeptic2 + S2_READ) + 0.05, center: m2l(ph.reply2) + 0.1, debate: dl(W("L13", "debate")), person: dl(W("L13", "person")),
   personalOut: dl(TK.review.start - 0.45),
   review: dl(L.L14.start), covered: dl(W("L14", "covered")), add: dl(W("L14", "add")), verseW: dl(W("L14", "verse")), scores: dl(W("L14", "scores")),
   print: dl(W("L15", "Print")), replace: dl(W("L15", "replace")), ready: dl(W("L15", "ready")),

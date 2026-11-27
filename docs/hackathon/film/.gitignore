@@ -1,0 +1,8 @@
+# Generated or large: rebuilt by the tools, or sent as files instead of committed
+assets/clips/
+assets/vo/
+renders/
+compositions/
+snapshots/
+.hyperframes/
+node_modules/

@@ -1,0 +1,21 @@
+{
+ "note": "Pre-written example conversation (not live AI output). Used only until the live capture arrives.",
+ "skeptic": [
+  "If God is good and strong, why is there so much pain?",
+  "That does not explain a child who gets sick.",
+  "It is personal. My sister was sick for years. If God could stop it and didn't, how is that good?",
+  "People say it's all part of a plan. That sounds cold when you're the one hurting.",
+  "Then what do you actually say to someone in the middle of it?",
+  "I need to think about that. Thanks for the talk."
+ ],
+ "coach": {
+  "nudge": "Name what the skeptic is really asking: why this pain, not just any pain.",
+  "outline": "Agree that the pain is real.\nSay what you don't know.\nPoint to a God who entered suffering, not one who watched from a distance.\nAsk what is behind the question for them.",
+  "sample": "I won't pretend that makes sense of a sick child. I don't know why God allows each thing. What I hold on to is that God did not stay far from pain. In Jesus he stepped into it. Can I ask if this question is personal for you?"
+ },
+ "review": {
+  "covered": "You named the pain as real, admitted what you do not know, and turned toward the person by asking if the question was personal.",
+  "couldAdd": "When they mentioned their sister, slow down and ask what that time was like before offering hope.",
+  "possibleAnswer": "Pain is real, and Christians don't claim to know every reason God allows it. We hold on to a God who entered suffering in Jesus and promises it won't have the last word."
+ }
+}

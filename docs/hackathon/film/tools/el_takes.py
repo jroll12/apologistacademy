@@ -48,6 +48,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--variant", help="write <take>-<variant>.mp3 instead (never overwrites); use with --only")
     a = ap.parse_args()
     s = json.load(open(os.path.join(FILM, "script.json"), encoding="utf-8"))
     v = s["voice"]
@@ -64,14 +65,24 @@ def main():
     only = set(a.only.split(",")) if a.only else None
     spent = 0
     for t in s["takes"]:
-        path = os.path.join(OUT, t["id"] + ".mp3")
-        if os.path.exists(path) and (only is None or t["id"] not in only):
-            continue
+        if a.variant:
+            if only is None or t["id"] not in only:
+                continue
+            path = os.path.join(OUT, f"{t['id']}-{a.variant}.mp3")
+            if os.path.exists(path):
+                continue
+        else:
+            path = os.path.join(OUT, t["id"] + ".mp3")
+            if os.path.exists(path) and (only is None or t["id"] not in only):
+                continue
         ok, err = tts(texts[t["id"]], path, v["voice_id"], v["model_id"], v["settings"])
         if not ok:
             sys.exit(f"take {t['id']} failed: {err}")
         spent += len(texts[t["id"]])
-        print(f"generated {t['id']}: {len(texts[t['id']])} chars, {duration(path):.2f}s", flush=True)
+        print(f"generated {os.path.basename(path)}: {len(texts[t['id']])} chars, {duration(path):.2f}s", flush=True)
+    if a.variant:
+        print(f"spent {spent} characters this run (variants; report.json unchanged)")
+        return
     rep = {t["id"]: {"seconds": round(duration(os.path.join(OUT, t["id"] + ".mp3")), 2),
                      "words": len(" ".join(lines[i] for i in t["lines"]).split()),
                      "text": texts[t["id"]]} for t in s["takes"]}

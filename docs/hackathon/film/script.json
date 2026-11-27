@@ -18,9 +18,9 @@
     { "id": "intro", "direction": "[warm, natural, conversational]", "lines": ["L7", "L8"] },
     { "id": "demo", "direction": "[warm, natural, conversational]", "lines": ["L9", "L10", "L11"] },
     { "id": "coach", "direction": "[warm, natural, conversational]", "lines": ["L12"] },
-    { "id": "personal", "direction": "[warm, sincere]", "lines": ["L13"] },
+    { "id": "personal", "direction": "[warm, natural, conversational]", "lines": ["L13"] },
     { "id": "review", "direction": "[warm, natural, conversational]", "lines": ["L14", "L15", "L16"] },
-    { "id": "trust", "direction": "[warm, clear, quietly confident]", "lines": ["L17", "L18"] },
+    { "id": "trust", "direction": "[warm, natural, conversational]", "lines": ["L17", "L18"] },
     { "id": "hood", "direction": "[warm, clear, quietly confident]", "lines": ["L19", "L20"] },
     { "id": "close", "direction": "[warmly]", "lines": ["L21", "L22"] }
   ],

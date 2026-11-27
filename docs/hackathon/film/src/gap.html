@@ -2,15 +2,15 @@
   <style>
     /*{{LIB}}*/
     #gp-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
-    .gp-row { position: absolute; left: 330px; width: 1300px; height: 170px; }
-    #gp-r1 { top: 170px; } #gp-r2 { top: 400px; } #gp-r3 { top: 630px; }
-    .gp-ico { position: absolute; left: 0; top: 18px; width: 128px; height: 128px; border-radius: 34px; background: rgba(113,55,255,.14); border: 1px solid rgba(157,123,255,.3); }
-    .gp-ico svg { position: absolute; left: 30px; top: 30px; width: 68px; height: 68px; }
-    .gp-who { position: absolute; left: 172px; top: 34px; font: 700 84px/1 "AA Outfit"; letter-spacing: -0.015em; color: #fff; }
-    .gp-arrow { position: absolute; left: 640px; top: 76px; width: 120px; height: 4px; background: rgba(255,255,255,.35); transform-origin: 0 50%; }
+    .gp-row { position: absolute; left: 330px; width: 1300px; height: 128px; display: flex; align-items: center; }
+    #gp-r1 { top: 190px; } #gp-r2 { top: 420px; } #gp-r3 { top: 650px; }
+    .gp-ico { position: relative; flex: none; width: 128px; height: 128px; border-radius: 34px; background: rgba(113,55,255,.14); border: 1px solid rgba(157,123,255,.3); box-sizing: border-box; }
+    .gp-ico svg { position: absolute; left: 30px; top: 30px; width: 66px; height: 66px; }
+    .gp-who { flex: none; width: 440px; margin-left: 44px; font: 700 84px/128px "AA Outfit"; letter-spacing: -0.015em; color: #fff; }
+    .gp-arrow { position: relative; flex: none; width: 120px; height: 4px; margin: 0 40px 0 0; background: rgba(255,255,255,.35); transform-origin: 0 50%; }
     .gp-arrow::after { content: ""; position: absolute; right: -2px; top: -9px; border-left: 18px solid rgba(255,255,255,.35); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
-    .gp-what { position: absolute; left: 800px; top: 34px; font: 600 84px/1 "AA Outfit"; color: #9D7BFF; }
-    #gp-q { position: absolute; left: 800px; top: -10px; font: 700 150px/1 "AA Outfit"; color: #9D7BFF; }
+    .gp-what { flex: none; font: 600 84px/128px "AA Outfit"; color: #9D7BFF; }
+    #gp-q { font-weight: 700; }
     #gp-r3 .gp-ico { background: #7137FF; border-color: #7137FF; }
   </style>
 
@@ -32,7 +32,7 @@
         <div class="gp-ico"><svg viewBox="0 0 304.63 304.63"><path fill="#FFFFFF" d="M95.56,144.05v-36.56h113.51v36.56h-113.51ZM131.49,261.05V43.58h41.66v217.46h-41.66Z"/></svg></div>
         <div class="gp-who">Christians</div>
         <div class="gp-arrow"></div>
-        <div id="gp-q">?</div>
+        <div id="gp-q" class="gp-what">?</div>
       </div>
     </div>
   </div>
@@ -42,7 +42,7 @@
       const T = /*{{T}}*/ {};
       const tl = gsap.timeline({ paused: true });
       const row = (id, tWho, tWhat, what) => {
-        tl.fromTo(`${id} .gp-ico`, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(1.6)" }, tWho - 0.12);
+        tl.fromTo(`${id} .gp-ico`, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, tWho - 0.12);
         tl.fromTo(`${id} .gp-who`, { opacity: 0, x: -30, filter: "blur(8px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.36, ease: "expo.out" }, tWho - 0.08);
         tl.fromTo(`${id} .gp-arrow`, { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, tWhat - 0.3);
         tl.fromTo(what, { opacity: 0, x: 24, filter: "blur(8px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.34, ease: "expo.out" }, tWhat - 0.05);
@@ -55,8 +55,7 @@
       row("#gp-r3", T.christians, T.q - 0.2, "#gp-q");
       // the question mark is the point: the other rows step back
       tl.to(["#gp-r1", "#gp-r2"], { opacity: 0.32, duration: 0.5, ease: "power2.out" }, T.q - 0.1);
-      tl.fromTo("#gp-q", { scale: 1.25, transformOrigin: "30% 60%" }, { scale: 1, duration: 0.5, ease: "back.out(1.8)" }, T.q - 0.2);
-      // dip cut: the frame darkens for three frames, then the verse cuts in
+            // dip cut: the frame darkens for three frames, then the verse cuts in
       tl.to("#gp-stage", { filter: "brightness(0.55)", duration: 0.1, ease: "none" }, T.exit);
       window.__timelines["gap"] = tl;
     })();

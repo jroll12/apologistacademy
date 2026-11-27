@@ -1,0 +1,187 @@
+<template>
+  <style>
+    /*{{LIB}}*/
+    #dm-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #dm-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #dm-phone { left: 300px; top: 48px; }
+    #dm-screen { width: 366.6px; height: 793.4px; border-radius: 46px; }
+    #dm-col { position: absolute; left: 930px; top: 0; width: 880px; height: 1080px; }
+    #dm-tag { position: absolute; left: 930px; top: 74px; display: flex; align-items: center; gap: 12px; }
+    #dm-tag i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #34D399; box-shadow: 0 0 12px rgba(52,211,153,.8); }
+    .dm-g { position: absolute; left: 0; top: 190px; width: 880px; }
+    .dm-g .kicker { margin-bottom: 30px; }
+    .dm-row { display: flex; align-items: baseline; gap: 22px; margin-bottom: 14px; }
+    .dm-num { font: 700 150px/1 "AA Outfit"; letter-spacing: -0.03em; color: #fff; }
+    .dm-unit { font: 600 54px/1 "AA Outfit"; color: #D1D5DB; }
+    .dm-note { margin-top: 30px; font: 600 40px/1.25 "AA Outfit"; color: #B191FF; }
+    .dm-p { position: relative; margin-bottom: 18px; padding: 24px 30px; border-radius: 26px; background: rgba(17,24,39,.82); border: 1px solid rgba(255,255,255,.08); }
+    .dm-p b { display: block; font: 700 40px/1.1 "AA Outfit"; color: #fff; margin-bottom: 8px; }
+    .dm-p span { font: 400 27px/1.35 "AA Inter"; color: #9CA3AF; }
+    .dm-pills { margin-top: 24px; display: flex; gap: 14px; }
+    .dm-pill { padding: 16px 28px; border-radius: 999px; border: 1.5px solid rgba(157,123,255,.45); font: 600 28px/1 "AA Inter"; color: #E5E7EB; }
+    .dm-pill.on { background: #7137FF; border-color: #7137FF; }
+    .dm-turns { display: flex; gap: 12px; margin: 10px 0 34px; }
+    .dm-turns i { display: block; width: 120px; height: 14px; border-radius: 7px; background: rgba(255,255,255,.12); }
+    .dm-turns i b { display: block; height: 100%; width: 100%; border-radius: 7px; background: #7137FF; transform-origin: 0 50%; }
+    .dm-line { font: 700 64px/1.1 "AA Outfit"; color: #fff; margin-bottom: 22px; }
+    .dm-sub { font: 500 34px/1.3 "AA Inter"; color: #D1D5DB; margin-bottom: 18px; }
+    .dm-step { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; font: 700 60px/1 "AA Outfit"; color: #4B5563; }
+    .dm-step em { font-style: normal; display: inline-block; width: 74px; height: 74px; border-radius: 50%; border: 2px solid #374151; font: 700 34px/70px "AA Inter"; text-align: center; color: #6B7280; }
+    .dm-quote { font: 600 50px/1.25 "AA Outfit"; color: #fff; padding-left: 34px; border-left: 6px solid #7137FF; margin-bottom: 46px; }
+    .dm-quote small { display: block; margin-top: 18px; font: 500 24px/1 "AA Inter"; color: #9CA3AF; }
+    .dm-sec { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; font: 700 50px/1.1 "AA Outfit"; color: #4B5563; }
+    .dm-sec i { display: inline-block; width: 18px; height: 18px; border-radius: 50%; background: #374151; }
+    .dm-stamp { display: inline-block; margin-top: 18px; padding: 18px 30px; border-radius: 18px; border: 2px solid #34D399; font: 700 36px/1 "AA Inter"; color: #34D399; letter-spacing: 0.02em; }
+    #dm-rv2 { top: 640px; }
+  </style>
+
+  <div id="root" data-composition-id="demo" data-width="1920" data-height="1080">
+    <div class="bg"></div>
+    <div id="dm-stage">
+      <div id="dm-cam">
+        <div id="dm-phone" class="phone">
+          <div id="dm-screen" class="screen">
+<!--{{CLIPS}}-->
+          </div>
+        </div>
+      </div>
+
+      <div id="dm-tag" class="tag"><i></i>The real app. AI replies recorded from the live site.</div>
+      <div id="dm-col">
+        <div id="dm-pick" class="dm-g">
+          <div class="kicker">Pick a question</div>
+          <div class="dm-row"><span class="dm-num" id="dm-n16">16</span><span class="dm-unit">questions</span></div>
+          <div class="dm-row" id="dm-r8"><span class="dm-num">8</span><span class="dm-unit">topics</span></div>
+          <div class="dm-note" id="dm-noacct">No account. Nothing to install.</div>
+        </div>
+
+        <div id="dm-sk" class="dm-g">
+          <div class="kicker">Choose who you're talking to</div>
+          <div class="dm-p" id="dm-p1"><b>Curious</b><span>Asks honest questions and wants to understand.</span></div>
+          <div class="dm-p" id="dm-p2"><b>Hostile</b><span>Openly against it. Pushes hard, stays civil.</span></div>
+          <div class="dm-p" id="dm-p3"><b>Balanced</b><span>Fair-minded. Weighs both sides.</span></div>
+          <div class="dm-pills" id="dm-diff"><span class="dm-pill">Gentle</span><span class="dm-pill on">Standard</span><span class="dm-pill">Tough</span></div>
+        </div>
+
+        <div id="dm-talk" class="dm-g">
+          <div class="kicker">Talk it through</div>
+          <div class="dm-row"><span class="dm-num" style="font-size:120px">5</span><span class="dm-unit">turns</span></div>
+          <div class="dm-turns"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+          <div class="dm-sub" id="dm-speak">Type your reply, or speak it.</div>
+          <div class="dm-line" id="dm-answers">It answers what you <span class="v">actually</span> said.</div>
+          <div class="dm-sub" id="dm-tough">Tough mode presses on weak spots.</div>
+        </div>
+
+        <div id="dm-coach" class="dm-g">
+          <div class="kicker">Stuck? Ask Coach</div>
+          <div class="dm-step" id="dm-s1"><em>1</em>Hint</div>
+          <div class="dm-step" id="dm-s2"><em>2</em>Outline</div>
+          <div class="dm-step" id="dm-s3"><em>3</em>Sample reply</div>
+          <div class="dm-note" id="dm-own">Find your own words first.</div>
+        </div>
+
+        <div id="dm-pers" class="dm-g">
+          <div class="kicker">The skeptic answers in character</div>
+          <div class="dm-quote" id="dm-q">&ldquo;Someone close to me went through a long illness&hellip;&rdquo;<small>From the live conversation</small></div>
+          <div class="dm-line" id="dm-debate">Not a debate to win.</div>
+          <div class="dm-line v" id="dm-person">A person to listen to.</div>
+        </div>
+
+        <div id="dm-rv" class="dm-g">
+          <div class="kicker">After five turns, a short review</div>
+          <div class="dm-sec" id="dm-c1"><i></i>What you covered</div>
+          <div class="dm-sec" id="dm-c2"><i></i>What you could add</div>
+          <div class="dm-sec" id="dm-c3"><i></i>A verse to study</div>
+          <div class="dm-stamp" id="dm-stamp">No scores. No grades.</div>
+        </div>
+        <div id="dm-rv2" class="dm-g">
+          <div class="dm-sub" id="dm-print">Print it for your small group.</div>
+          <div class="dm-sub" id="dm-church">It doesn't replace your church.<br /><span class="v">It gets you ready for real conversations.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const T = /*{{T}}*/ {};
+      const tl = gsap.timeline({ paused: true });
+      // camera: put an app point (cx, cy) of the 390 x 844 screen at (TX, TY) on the frame, at scale s
+      const SX = 314, SY = 62, K = 0.94, TX = 497, TY = 470;
+      const pos = (cx, cy, s, tx) => {
+        let y = TY - s * (SY + cy * K);
+        const top = y + s * (SY - 14), bot = y + s * (SY + 844 * K + 14);
+        if (bot - top > 1080) { if (top > 0) y -= top; else if (bot < 1080) y += 1080 - bot; }
+        return { x: (tx || TX) - s * (SX + cx * K), y, scale: s };
+      };
+      T.cam.forEach(([t, cx, cy, s, d, tx], i) => {
+        if (i === 0) tl.set("#dm-cam", pos(cx, cy, s, tx), 0);
+        else tl.to("#dm-cam", { ...pos(cx, cy, s, tx), duration: d, ease: i === 1 ? "sine.inOut" : "power2.inOut" }, t);
+      });
+      tl.fromTo("#dm-stage", { scale: 0.86, opacity: 0, filter: "blur(12px)", transformOrigin: "26% 45%" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, 0);
+
+      const groups = ["#dm-pick", "#dm-sk", "#dm-talk", "#dm-coach", "#dm-pers", "#dm-rv", "#dm-rv2"];
+      gsap.set(groups, { opacity: 0 });
+      const groupIn = (id, t) => tl.fromTo(id, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, t);
+      const groupOut = (id, t) => tl.to(id, { opacity: 0, filter: "blur(8px)", duration: 0.16 }, t);
+      const land = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 26, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.38, ease: "expo.out" }, t);
+      const lit = (sel, t) => {
+        tl.to(sel, { color: "#FFFFFF", duration: 0.2 }, t);
+        tl.to(`${sel} em, ${sel} i`, { backgroundColor: "#7137FF", borderColor: "#7137FF", color: "#FFFFFF", duration: 0.2 }, t);
+      };
+      gsap.set(["#dm-n16", "#dm-r8", "#dm-noacct", "#dm-p1", "#dm-p2", "#dm-p3", "#dm-diff", "#dm-speak", "#dm-answers", "#dm-tough", "#dm-own", "#dm-q", "#dm-debate", "#dm-person", "#dm-stamp", "#dm-print", "#dm-church"], { opacity: 0 });
+      gsap.set(".dm-turns b", { scaleX: 0 });
+
+      // 1 pick
+      groupIn("#dm-pick", T.pickIn - 0.1);
+      land("#dm-n16", T.q16 - 0.1);
+      const n = { v: 1 };
+      tl.fromTo(n, { v: 1 }, { v: 16, duration: 0.7, ease: "power2.out", onUpdate: () => { document.getElementById("dm-n16").textContent = Math.round(n.v); } }, T.q16 - 0.1);
+      land("#dm-r8", T.t8 - 0.1);
+      land("#dm-noacct", T.noAcct - 0.1);
+      groupOut("#dm-pick", T.pickOut);
+      // 2 skeptic
+      groupIn("#dm-sk", T.who);
+      land("#dm-p1", T.curious - 0.1);
+      land("#dm-p2", T.hostile - 0.1);
+      land("#dm-p3", T.hostile + 0.9);
+      land("#dm-diff", T.set - 0.1);
+      groupOut("#dm-sk", T.skOut);
+      // 3 talk
+      groupIn("#dm-talk", T.skOut + 0.2);
+      tl.to(".dm-turns b", { scaleX: 1, duration: 0.25, stagger: 0.12, ease: "power2.out" }, T.turns);
+      land("#dm-speak", T.speak - 0.6);
+      land("#dm-answers", T.answers - 0.15);
+      land("#dm-tough", T.tougher - 0.1);
+      groupOut("#dm-talk", T.talkOut);
+      // 4 coach
+      groupIn("#dm-coach", T.stuck - 0.1);
+      lit("#dm-s1", T.hint - 0.05);
+      lit("#dm-s2", T.outline - 0.05);
+      lit("#dm-s3", T.sample - 0.05);
+      land("#dm-own", T.own - 0.3);
+      groupOut("#dm-coach", T.coachOut);
+      // while the phone moves to the centre, the label steps aside
+      tl.to("#dm-tag", { opacity: 0, duration: 0.25 }, T.center);
+      tl.to("#dm-tag", { opacity: 1, duration: 0.3 }, T.quote - 0.2);
+      // 5 the personal answer (the skeptic's own words from the live run)
+      groupIn("#dm-pers", T.quote - 0.2);
+      land("#dm-q", T.quote - 0.1);
+      land("#dm-debate", T.debate - 0.25);
+      land("#dm-person", T.person - 0.15);
+      groupOut("#dm-pers", T.personalOut);
+      // 6 review
+      groupIn("#dm-rv", T.review - 0.1);
+      lit("#dm-c1", T.covered - 0.1);
+      lit("#dm-c2", T.add - 0.1);
+      lit("#dm-c3", T.verseW - 0.1);
+      tl.fromTo("#dm-stamp", { opacity: 0, scale: 1.3, rotate: -4 }, { opacity: 1, scale: 1, rotate: -2, duration: 0.35, ease: "back.out(2)" }, T.scores - 0.1);
+      groupIn("#dm-rv2", T.print - 0.2);
+      land("#dm-print", T.print - 0.1);
+      land("#dm-church", T.replace - 0.15);
+
+      tl.to("#dm-stage", { scale: 0.9, opacity: 0, filter: "blur(12px)", duration: 0.3, ease: "power3.in", transformOrigin: "50% 50%" }, T.exit);
+      window.__timelines["demo"] = tl;
+    })();
+  </script>
+</template>

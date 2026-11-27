@@ -1,0 +1,17 @@
+<template>
+  <style>
+    /*{{LIB}}*/
+    #root { background: transparent; }
+    .cap { position: absolute; left: 0; top: 944px; width: 1920px; text-align: center; }
+    .cap span { display: inline-block; padding: 12px 26px; border-radius: 16px; background: rgba(3,7,18,.78); font: 600 36px/1.2 "AA Inter"; color: #fff; letter-spacing: 0.005em; }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1920" data-height="1080">
+<!--{{CAPS}}-->
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["captions"] = tl;
+    })();
+  </script>
+</template>

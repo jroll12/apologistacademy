@@ -1,0 +1,862 @@
+{
+ "total": 169.89,
+ "cut": {
+  "cold": 0,
+  "gap": 18.91,
+  "verse": 27.1,
+  "title": 40.07,
+  "demo": 47.42,
+  "screens": 113.04,
+  "safe": 117.19,
+  "hood": 134.93,
+  "who": 148.59,
+  "close": 153.95
+ },
+ "vo": [
+  {
+   "take": "open",
+   "file": "assets/vo/open.wav",
+   "start": 0.9,
+   "dur": 7.52
+  },
+  {
+   "take": "freeze",
+   "file": "assets/vo/freeze.wav",
+   "start": 11.12,
+   "dur": 15.48
+  },
+  {
+   "take": "verse",
+   "file": "assets/vo/verse.wav",
+   "start": 27.6,
+   "dur": 11.92
+  },
+  {
+   "take": "intro",
+   "file": "assets/vo/intro.wav",
+   "start": 40.62,
+   "dur": 14.77
+  },
+  {
+   "take": "demo",
+   "file": "assets/vo/demo.wav",
+   "start": 55.84,
+   "dur": 22.16
+  },
+  {
+   "take": "coach",
+   "file": "assets/vo/coach.wav",
+   "start": 78.6,
+   "dur": 10.79
+  },
+  {
+   "take": "personal",
+   "file": "assets/vo/personal.wav",
+   "start": 93.45,
+   "dur": 4.13
+  },
+  {
+   "take": "review",
+   "file": "assets/vo/review.wav",
+   "start": 98.08,
+   "dur": 17.11
+  },
+  {
+   "take": "trust",
+   "file": "assets/vo/trust.wav",
+   "start": 117.59,
+   "dur": 17.04
+  },
+  {
+   "take": "hood",
+   "file": "assets/vo/hood.wav",
+   "start": 135.33,
+   "dur": 18.32
+  },
+  {
+   "take": "close",
+   "file": "assets/vo/close.wav",
+   "start": 154.65,
+   "dur": 11.44
+  }
+ ],
+ "sfx": [
+  {
+   "f": "notification",
+   "at": 0.35,
+   "vol": 0.32
+  },
+  {
+   "f": "whoosh-short",
+   "at": 18.79,
+   "vol": 0.13
+  },
+  {
+   "f": "whoosh-short",
+   "at": 26.98,
+   "vol": 0.13
+  },
+  {
+   "f": "whoosh-short",
+   "at": 39.95,
+   "vol": 0.13
+  },
+  {
+   "f": "whoosh-short",
+   "at": 47.3,
+   "vol": 0.13
+  },
+  {
+   "f": "whoosh-short",
+   "at": 112.92,
+   "vol": 0.13
+  },
+  {
+   "f": "whoosh-short",
+   "at": 117.07,
+   "vol": 0.13
+  },
+  {
+   "f": "whoosh-short",
+   "at": 134.81,
+   "vol": 0.13
+  },
+  {
+   "f": "whoosh-short",
+   "at": 148.47,
+   "vol": 0.13
+  },
+  {
+   "f": "click-soft",
+   "at": 53.335,
+   "vol": 0.3
+  },
+  {
+   "f": "click-soft",
+   "at": 55.186,
+   "vol": 0.3
+  },
+  {
+   "f": "click-soft",
+   "at": 64.712,
+   "vol": 0.3
+  },
+  {
+   "f": "click-soft",
+   "at": 78.7,
+   "vol": 0.3
+  },
+  {
+   "f": "click-soft",
+   "at": 82.264,
+   "vol": 0.3
+  },
+  {
+   "f": "click-soft",
+   "at": 85.252,
+   "vol": 0.3
+  },
+  {
+   "f": "click-soft",
+   "at": 88.77,
+   "vol": 0.3
+  },
+  {
+   "f": "click-soft",
+   "at": 68.793,
+   "vol": 0.22
+  },
+  {
+   "f": "pop-lo",
+   "at": 48.16,
+   "vol": 0.1
+  },
+  {
+   "f": "pop-lo",
+   "at": 26.02,
+   "vol": 0.12
+  },
+  {
+   "f": "pop",
+   "at": 157.45,
+   "vol": 0.22
+  },
+  {
+   "f": "whoosh",
+   "at": 160.94,
+   "vol": 0.14
+  }
+ ],
+ "caps": [
+  {
+   "text": "A coworker texts you.",
+   "start": 0.82,
+   "end": 2.47,
+   "line": "L1"
+  },
+  {
+   "text": "Honest question.",
+   "start": 2.78,
+   "end": 3.51,
+   "line": "L1"
+  },
+  {
+   "text": "If God is good,",
+   "start": 3.86,
+   "end": 4.99,
+   "line": "L1"
+  },
+  {
+   "text": "why does my sister have cancer?",
+   "start": 5.1,
+   "end": 6.83,
+   "line": "L1"
+  },
+  {
+   "text": "What do you type back?",
+   "start": 7.34,
+   "end": 8.45,
+   "line": "L2"
+  },
+  {
+   "text": "Most of us freeze.",
+   "start": 11.04,
+   "end": 12.39,
+   "line": "L3"
+  },
+  {
+   "text": "Not because we don't believe,",
+   "start": 12.72,
+   "end": 14.25,
+   "line": "L3"
+  },
+  {
+   "text": "but because we've never practiced",
+   "start": 14.58,
+   "end": 15.73,
+   "line": "L3"
+  },
+  {
+   "text": "saying it out loud,",
+   "start": 15.76,
+   "end": 16.71,
+   "line": "L3"
+  },
+  {
+   "text": "to someone who pushes back.",
+   "start": 16.74,
+   "end": 18.75,
+   "line": "L3"
+  },
+  {
+   "text": "Pilots train in simulators.",
+   "start": 19.18,
+   "end": 20.77,
+   "line": "L4"
+  },
+  {
+   "text": "Surgeons practice on models.",
+   "start": 21.2,
+   "end": 22.75,
+   "line": "L4"
+  },
+  {
+   "text": "So where do Christians practice",
+   "start": 23.04,
+   "end": 24.27,
+   "line": "L4"
+  },
+  {
+   "text": "the hardest conversations",
+   "start": 24.3,
+   "end": 25.53,
+   "line": "L4"
+  },
+  {
+   "text": "about faith?",
+   "start": 25.56,
+   "end": 26.57,
+   "line": "L4"
+  },
+  {
+   "text": "So we built Apologist Academy.",
+   "start": 40.54,
+   "end": 42.85,
+   "line": "L7"
+  },
+  {
+   "text": "A safe place to practice",
+   "start": 43.04,
+   "end": 44.31,
+   "line": "L7"
+  },
+  {
+   "text": "the hard questions,",
+   "start": 44.34,
+   "end": 45.65,
+   "line": "L7"
+  },
+  {
+   "text": "before someone asks you for real.",
+   "start": 45.68,
+   "end": 47.37,
+   "line": "L7"
+  },
+  {
+   "text": "Pick one of sixteen questions",
+   "start": 47.64,
+   "end": 48.97,
+   "line": "L8"
+  },
+  {
+   "text": "across eight topics,",
+   "start": 49,
+   "end": 50.49,
+   "line": "L8"
+  },
+  {
+   "text": "from suffering to science",
+   "start": 50.6,
+   "end": 52.11,
+   "line": "L8"
+  },
+  {
+   "text": "to other faiths.",
+   "start": 52.14,
+   "end": 53.01,
+   "line": "L8"
+  },
+  {
+   "text": "No account.",
+   "start": 53.3,
+   "end": 54.13,
+   "line": "L8"
+  },
+  {
+   "text": "Nothing to install.",
+   "start": 54.22,
+   "end": 55.33,
+   "line": "L8"
+  },
+  {
+   "text": "Then choose who you're talking to.",
+   "start": 55.76,
+   "end": 57.77,
+   "line": "L9"
+  },
+  {
+   "text": "Curious asks honest questions.",
+   "start": 58.18,
+   "end": 60.15,
+   "line": "L9"
+  },
+  {
+   "text": "Hostile pushes hard,",
+   "start": 60.54,
+   "end": 61.85,
+   "line": "L9"
+  },
+  {
+   "text": "but stays civil.",
+   "start": 61.88,
+   "end": 62.97,
+   "line": "L9"
+  },
+  {
+   "text": "And you set how hard it pushes.",
+   "start": 63.18,
+   "end": 64.99,
+   "line": "L9"
+  },
+  {
+   "text": "Now you talk it through,",
+   "start": 65.26,
+   "end": 66.23,
+   "line": "L10"
+  },
+  {
+   "text": "for five turns.",
+   "start": 66.26,
+   "end": 67.77,
+   "line": "L10"
+  },
+  {
+   "text": "Type your reply,",
+   "start": 67.92,
+   "end": 68.61,
+   "line": "L10"
+  },
+  {
+   "text": "or just speak it.",
+   "start": 68.64,
+   "end": 70.09,
+   "line": "L10"
+  },
+  {
+   "text": "The skeptic isn't reading",
+   "start": 70.14,
+   "end": 71.33,
+   "line": "L11"
+  },
+  {
+   "text": "from a script.",
+   "start": 71.36,
+   "end": 72.35,
+   "line": "L11"
+  },
+  {
+   "text": "It answers what you actually said.",
+   "start": 72.48,
+   "end": 74.55,
+   "line": "L11"
+  },
+  {
+   "text": "Pick a tougher skeptic,",
+   "start": 74.72,
+   "end": 75.83,
+   "line": "L11"
+  },
+  {
+   "text": "and it won't let a vague answer slide.",
+   "start": 75.86,
+   "end": 78.01,
+   "line": "L11"
+  },
+  {
+   "text": "Stuck? Ask Coach.",
+   "start": 78.52,
+   "end": 80.27,
+   "line": "L12"
+  },
+  {
+   "text": "It helps in steps.",
+   "start": 80.48,
+   "end": 81.69,
+   "line": "L12"
+  },
+  {
+   "text": "First a hint.",
+   "start": 81.9,
+   "end": 82.85,
+   "line": "L12"
+  },
+  {
+   "text": "Then an outline.",
+   "start": 82.98,
+   "end": 84.23,
+   "line": "L12"
+  },
+  {
+   "text": "Then a sample reply,",
+   "start": 84.48,
+   "end": 85.77,
+   "line": "L12"
+  },
+  {
+   "text": "only if you want it.",
+   "start": 85.8,
+   "end": 87.01,
+   "line": "L12"
+  },
+  {
+   "text": "The goal is to find your own words.",
+   "start": 87.06,
+   "end": 89.29,
+   "line": "L12"
+  },
+  {
+   "text": "Because this isn't a debate to win.",
+   "start": 93.37,
+   "end": 95.64,
+   "line": "L13"
+  },
+  {
+   "text": "It's a person to listen to.",
+   "start": 95.95,
+   "end": 97.64,
+   "line": "L13"
+  },
+  {
+   "text": "After five turns,",
+   "start": 98,
+   "end": 99.39,
+   "line": "L14"
+  },
+  {
+   "text": "Coach writes you a short review.",
+   "start": 99.42,
+   "end": 101.05,
+   "line": "L14"
+  },
+  {
+   "text": "What you covered,",
+   "start": 101.26,
+   "end": 102.07,
+   "line": "L14"
+  },
+  {
+   "text": "what you could add,",
+   "start": 102.1,
+   "end": 103.09,
+   "line": "L14"
+  },
+  {
+   "text": "and a verse to study.",
+   "start": 103.12,
+   "end": 104.33,
+   "line": "L14"
+  },
+  {
+   "text": "No scores. No grades.",
+   "start": 104.5,
+   "end": 106.27,
+   "line": "L14"
+  },
+  {
+   "text": "Print it,",
+   "start": 106.56,
+   "end": 106.83,
+   "line": "L15"
+  },
+  {
+   "text": "and bring it to your small group.",
+   "start": 106.86,
+   "end": 108.45,
+   "line": "L15"
+  },
+  {
+   "text": "It doesn't replace your church.",
+   "start": 108.6,
+   "end": 110.25,
+   "line": "L15"
+  },
+  {
+   "text": "It helps you get ready",
+   "start": 110.42,
+   "end": 111.25,
+   "line": "L15"
+  },
+  {
+   "text": "for real conversations.",
+   "start": 111.28,
+   "end": 112.79,
+   "line": "L15"
+  },
+  {
+   "text": "And it works on any screen.",
+   "start": 113.16,
+   "end": 115.13,
+   "line": "L16"
+  },
+  {
+   "text": "We built it carefully.",
+   "start": 117.51,
+   "end": 118.9,
+   "line": "L17"
+  },
+  {
+   "text": "The AI is always labeled.",
+   "start": 119.19,
+   "end": 121.42,
+   "line": "L17"
+  },
+  {
+   "text": "The skeptic never pretends",
+   "start": 121.45,
+   "end": 122.72,
+   "line": "L17"
+  },
+  {
+   "text": "to be converted,",
+   "start": 122.75,
+   "end": 123.7,
+   "line": "L17"
+  },
+  {
+   "text": "and never insults you or your faith.",
+   "start": 123.73,
+   "end": 125.92,
+   "line": "L17"
+  },
+  {
+   "text": "If someone seems to be in crisis,",
+   "start": 126.19,
+   "end": 127.82,
+   "line": "L18"
+  },
+  {
+   "text": "it stops the exercise",
+   "start": 127.91,
+   "end": 129.04,
+   "line": "L18"
+  },
+  {
+   "text": "and points them to real help.",
+   "start": 129.07,
+   "end": 130.98,
+   "line": "L18"
+  },
+  {
+   "text": "And Coach quotes one checked verse,",
+   "start": 131.13,
+   "end": 132.64,
+   "line": "L18"
+  },
+  {
+   "text": "and never makes up sources.",
+   "start": 132.67,
+   "end": 134.48,
+   "line": "L18"
+  },
+  {
+   "text": "Under the hood,",
+   "start": 135.25,
+   "end": 136.2,
+   "line": "L19"
+  },
+  {
+   "text": "our server sets the rules:",
+   "start": 136.29,
+   "end": 137.98,
+   "line": "L19"
+  },
+  {
+   "text": "five turns,",
+   "start": 138.15,
+   "end": 139.02,
+   "line": "L19"
+  },
+  {
+   "text": "separate instructions for each role,",
+   "start": 139.19,
+   "end": 140.92,
+   "line": "L19"
+  },
+  {
+   "text": "and a daily limit.",
+   "start": 140.95,
+   "end": 142.18,
+   "line": "L19"
+  },
+  {
+   "text": "The Apologist Project's AI platform",
+   "start": 142.41,
+   "end": 144.28,
+   "line": "L19"
+  },
+  {
+   "text": "plays the skeptic",
+   "start": 144.31,
+   "end": 145.34,
+   "line": "L19"
+  },
+  {
+   "text": "and powers Coach and the review,",
+   "start": 145.37,
+   "end": 147.18,
+   "line": "L19"
+  },
+  {
+   "text": "with memory turned off.",
+   "start": 147.21,
+   "end": 148.64,
+   "line": "L19"
+  },
+  {
+   "text": "It's for small groups,",
+   "start": 148.81,
+   "end": 149.98,
+   "line": "L20"
+  },
+  {
+   "text": "students, new believers,",
+   "start": 150.01,
+   "end": 151.62,
+   "line": "L20"
+  },
+  {
+   "text": "and church leaders",
+   "start": 151.71,
+   "end": 152.36,
+   "line": "L20"
+  },
+  {
+   "text": "training their people.",
+   "start": 152.39,
+   "end": 153.58,
+   "line": "L20"
+  },
+  {
+   "text": "So the next time someone asks,",
+   "start": 154.57,
+   "end": 156.3,
+   "line": "L21"
+  },
+  {
+   "text": "you won't freeze.",
+   "start": 156.45,
+   "end": 157.52,
+   "line": "L21"
+  },
+  {
+   "text": "You'll be ready,",
+   "start": 157.77,
+   "end": 158.42,
+   "line": "L21"
+  },
+  {
+   "text": "with gentleness and respect.",
+   "start": 158.45,
+   "end": 160.7,
+   "line": "L21"
+  }
+ ],
+ "segs": [
+  {
+   "from": 0.52,
+   "to": 10.425,
+   "at": 0,
+   "dur": 8.17,
+   "rate": 1.212
+  },
+  {
+   "from": 10.425,
+   "to": 19.131,
+   "at": 8.17,
+   "dur": 9.55,
+   "rate": 0.912
+  },
+  {
+   "from": 19.131,
+   "to": 37.952,
+   "at": 17.72,
+   "dur": 13.16,
+   "rate": 1.43
+  },
+  {
+   "from": 37.952,
+   "to": 51.108,
+   "at": 30.88,
+   "dur": 11.44,
+   "rate": 1.15
+  },
+  {
+   "from": 51.108,
+   "to": 56.949,
+   "at": 42.32,
+   "dur": 1.46,
+   "rate": 4
+  },
+  {
+   "from": 56.949,
+   "to": 59.549,
+   "at": 43.78,
+   "dur": 2,
+   "rate": 1.3
+  },
+  {
+   "from": 59.549,
+   "to": 63.677,
+   "at": 45.78,
+   "dur": 4.48,
+   "rate": 0.921
+  },
+  {
+   "from": 79.38,
+   "to": 96.195,
+   "at": 50.26,
+   "dur": 15.36,
+   "rate": 1.095
+  }
+ ],
+ "lines": {
+  "L1": {
+   "start": 0.9,
+   "end": 6.58
+  },
+  "L2": {
+   "start": 7.42,
+   "end": 8.2
+  },
+  "L3": {
+   "start": 11.12,
+   "end": 18.5
+  },
+  "L4": {
+   "start": 19.26,
+   "end": 26.32
+  },
+  "L5": {
+   "start": 27.6,
+   "end": 36.66
+  },
+  "L6": {
+   "start": 37.48,
+   "end": 39.12
+  },
+  "L7": {
+   "start": 40.62,
+   "end": 47.12
+  },
+  "L8": {
+   "start": 47.72,
+   "end": 55.08
+  },
+  "L9": {
+   "start": 55.84,
+   "end": 64.74
+  },
+  "L10": {
+   "start": 65.34,
+   "end": 69.84
+  },
+  "L11": {
+   "start": 70.22,
+   "end": 77.76
+  },
+  "L12": {
+   "start": 78.6,
+   "end": 89.04
+  },
+  "L13": {
+   "start": 93.45,
+   "end": 97.39
+  },
+  "L14": {
+   "start": 98.08,
+   "end": 106.02
+  },
+  "L15": {
+   "start": 106.64,
+   "end": 112.54
+  },
+  "L16": {
+   "start": 113.24,
+   "end": 114.88
+  },
+  "L17": {
+   "start": 117.59,
+   "end": 125.67
+  },
+  "L18": {
+   "start": 126.27,
+   "end": 134.23
+  },
+  "L19": {
+   "start": 135.33,
+   "end": 148.39
+  },
+  "L20": {
+   "start": 148.89,
+   "end": 153.33
+  },
+  "L21": {
+   "start": 154.65,
+   "end": 160.45
+  },
+  "L22": {
+   "start": 161.29,
+   "end": 165.85
+  }
+ }
+}

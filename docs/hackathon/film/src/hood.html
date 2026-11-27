@@ -1,0 +1,63 @@
+<template>
+  <style>
+    /*{{LIB}}*/
+    #hd-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #hd-head { position: absolute; left: 0; top: 110px; width: 1920px; text-align: center; }
+    #hd-head .h-big { margin-top: 18px; }
+    .hd-node { position: absolute; top: 380px; height: 430px; border-radius: 34px; background: rgba(17,24,39,.85); border: 1px solid rgba(255,255,255,.09); padding: 38px 40px; box-sizing: border-box; }
+    .hd-node h3 { margin: 0 0 26px; font: 700 44px/1.1 "AA Outfit"; color: #fff; }
+    .hd-node p { margin: 0 0 16px; font: 500 30px/1.3 "AA Inter"; color: #9CA3AF; }
+    .hd-node p b { color: #E5E7EB; font-weight: 600; }
+    #hd-a { left: 130px; width: 380px; }
+    #hd-b { left: 620px; width: 560px; border-color: rgba(157,123,255,.55); }
+    #hd-c { left: 1290px; width: 500px; }
+    .hd-link { position: absolute; top: 590px; height: 4px; background: #7137FF; transform-origin: 0 50%; }
+    #hd-l1 { left: 512px; width: 104px; } #hd-l2 { left: 1182px; width: 104px; }
+    .hd-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #7137FF; margin-right: 14px; vertical-align: middle; position: relative; top: -3px; }
+    #hd-off { color: #34D399; }
+  </style>
+
+  <div id="root" data-composition-id="hood" data-width="1920" data-height="1080">
+    <div class="bg"></div>
+    <div id="hd-stage">
+      <div id="hd-head"><div class="kicker">How the AI is used</div><div class="h-big">Our server <span class="v">sets the rules.</span></div></div>
+      <div class="hd-node" id="hd-a"><h3>Your browser</h3><p>Your replies</p><p>Saved only on your device</p></div>
+      <div class="hd-link" id="hd-l1"></div>
+      <div class="hd-node" id="hd-b"><h3>Our server</h3>
+        <p id="hd-p1"><span class="hd-dot"></span><b>Five turns</b>, then a review</p>
+        <p id="hd-p2"><span class="hd-dot"></span>Separate instructions for <b>each role</b></p>
+        <p id="hd-p3"><span class="hd-dot"></span>A <b>daily limit</b> on live use</p>
+      </div>
+      <div class="hd-link" id="hd-l2"></div>
+      <div class="hd-node" id="hd-c"><h3>The Apologist Project&rsquo;s AI platform</h3>
+        <p id="hd-q1">Plays the <b>skeptic</b></p>
+        <p id="hd-q2">Powers <b>Coach</b> and the <b>review</b></p>
+        <p id="hd-q3"><b id="hd-off">Memory off</b></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const T = /*{{T}}*/ {};
+      const tl = gsap.timeline({ paused: true });
+      gsap.set(["#hd-a", "#hd-b", "#hd-c", "#hd-p1", "#hd-p2", "#hd-p3", "#hd-q1", "#hd-q2", "#hd-q3", "#hd-head"], { opacity: 0 });
+      gsap.set(".hd-link", { scaleX: 0 });
+      tl.fromTo("#hd-head", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3 }, Math.max(0.05, T.server - 0.6));
+      tl.fromTo("#hd-a", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, T.browser - 0.1);
+      tl.to("#hd-l1", { scaleX: 1, duration: 0.35, ease: "power2.out" }, T.server - 0.3);
+      tl.fromTo("#hd-b", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, T.server - 0.15);
+      const p = (id, t) => tl.fromTo(id, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.32, ease: "expo.out" }, t);
+      p("#hd-p1", T.five - 0.1);
+      p("#hd-p2", T.instr - 0.25);
+      p("#hd-p3", T.limit - 0.3);
+      tl.to("#hd-l2", { scaleX: 1, duration: 0.35, ease: "power2.out" }, T.platform - 0.35);
+      tl.fromTo("#hd-c", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, T.platform - 0.2);
+      p("#hd-q1", T.skeptic - 0.2);
+      p("#hd-q2", T.coach - 0.2);
+      p("#hd-q3", T.memory - 0.2);
+      tl.to("#hd-stage", { y: -220, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in" }, T.exit);
+      window.__timelines["hood"] = tl;
+    })();
+  </script>
+</template>

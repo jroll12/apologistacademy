@@ -20,17 +20,43 @@ def decode(path):
     return np.frombuffer(raw, np.float32).copy()
 
 
-def trim(a, keep=0.12):
+def trim(a, head=0.05, tail=0.15, fade=0.012):
+    """Cut to the speech, keeping 50 ms before and 150 ms after, with 12 ms fades. Two takes (intro, coach) open
+    with a short click or lip noise before the first word, heard as a glitch: if the first sound is shorter than
+    80 ms, at least 20 dB under the take's peak, and followed by a quiet frame, it is dropped."""
     hop = int(SR * 0.01)
     n = len(a) // hop
     db = 20 * np.log10(np.sqrt((a[: n * hop].reshape(n, hop) ** 2).mean(1)) + 1e-12)
-    on = np.where(db > db.max() - 40)[0]
-    s0 = max(0, on[0] * hop - int(keep * SR))
-    s1 = min(len(a), (on[-1] + 1) * hop + int(keep * SR))
-    return a[s0:s1]
+    top = db.max()
+    on = np.where(db > top - 52)[0]
+    first, last = on[0], on[-1]
+    floor = 0  # never start inside a dropped noise
+    for _ in range(3):  # the noise can come in two or three short pieces
+        j = first
+        while j < n and db[j] > top - 52:
+            j += 1
+        nxt = np.where(db[j:] > top - 52)[0] if j < n else []
+        if not (j - first < 8 and db[first:j].max() < top - 20 and len(nxt)):
+            break
+        print(f"  dropped {(j - first) * 10} ms of noise before the first word", flush=True)
+        floor = j * hop
+        first = j + nxt[0]
+    s0 = max(floor, first * hop - int(head * SR))
+    s1 = min(len(a), (last + 1) * hop + int(tail * SR))
+    out = a[s0:s1].copy()
+    f = int(fade * SR)
+    out[:f] *= np.linspace(0, 1, f, dtype=np.float32)
+    out[-f:] *= np.linspace(1, 0, f, dtype=np.float32)
+    return out
 
 
-norm = lambda w: re.sub(r"[^a-z0-9]", "", w.lower())
+NUM = {"1": "one", "2": "two", "3": "three", "4": "four", "5": "five", "6": "six", "7": "seven", "8": "eight", "9": "nine",
+       "10": "ten", "16": "sixteen", "500": "fivehundred"}
+
+
+def norm(w):
+    w = re.sub(r"[^a-z0-9]", "", w.lower())
+    return NUM.get(w, w)
 
 
 def main():
@@ -48,7 +74,7 @@ def main():
     os.makedirs(os.path.join(FILM, "assets", "vo"), exist_ok=True)
     out = {}
     for t in s["takes"]:
-        a = trim(decode(os.path.join(FILM, "audio", "takes", t["id"] + ".mp3")))
+        a = trim(decode(os.path.join(FILM, "audio", "takes", t.get("file", t["id"]) + ".mp3")))
         wav = os.path.join(FILM, "assets", "vo", t["id"] + ".wav")
         sf.write(wav, a, SR, subtype="PCM_16")
         a16 = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-i", wav, "-ac", "1", "-ar", "16000", "-f", "f32le", "-"],

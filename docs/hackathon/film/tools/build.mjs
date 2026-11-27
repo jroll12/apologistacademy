@@ -242,6 +242,6 @@ ${order.map((id) => host(id)).join("\n")}
 </html>
 `);
 wr("build/timeline.json", JSON.stringify(round({ total, cut, vo, sfx, caps, segs, lines: Object.fromEntries(Object.entries(L).map(([k, v]) => [k, { start: v.start, end: v.end }])) }), null, 1));
-const t2 = (x) => `${Math.floor(x / 60)}:${(x % 60).toFixed(1).padStart(4, "0")}`;
+const t2 = (x) => { const d = Math.round(x * 10); return `${Math.floor(d / 600)}:${((d % 600) / 10).toFixed(1).padStart(4, "0")}`; };
 console.log(`built ${t2(total)} · ` + order.map((id) => `${id} ${t2(cut[id])}`).join(" · "));
 console.log("demo footage speeds: " + segs.map((s) => s.rate.toFixed(2)).join(", ") + ` · ${caps.length} captions · ${sfx.length} sounds`);

@@ -75,6 +75,7 @@
       gsap.set(["#cl-out", "#cl-dots", "#cl-card", "#cl-mark", "#cl-name", "#cl-try", "#cl-url", "#cl-qrbox", "#cl-scan", "#cl-foot"], { opacity: 0 });
       // the same phone as the opening, the same framing (a hard cut after the dip)
       tl.set("#cl-phone-wrap", cam(950, 395, 1.95, 960, 540), 0);
+      tl.fromTo("#cl-stage", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0);
       // down to the reply field, as in the opening; this time the reply gets written
       tl.to("#cl-phone-wrap", { ...cam(960, 834, 1.8, 960, 876), duration: 0.6, ease: "power2.inOut" }, 0.1);
       // this time a reply gets written, and sent

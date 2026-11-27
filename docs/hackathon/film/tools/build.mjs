@@ -28,6 +28,9 @@ const S2_READ = 2.7; // media seconds after skeptic2 when "Someone close to me..
 const ph = M.phone;
 const L = {};
 const vo = [];
+// lines cut from the film (Jarret, draft 4): the pilots/surgeons analogy and "who it's for". Each is the last line of
+// its take, so the take is cut 0.2 s after the line before it (inside the pause), with a short fade in tools/mix.py
+const DROP = new Set(["L4", "L20"]);
 let t = 0;
 for (const tk of script.takes) {
   const k = takes[tk.id];
@@ -39,11 +42,14 @@ for (const tk of script.takes) {
     gap = 0.35 + e1 + (S2_READ - 0.1) / S2_RATE + 0.25;
   }
   t += gap;
-  vo.push({ take: tk.id, file: `assets/vo/${tk.id}.wav`, start: r3(t), dur: k.dur });
-  for (const [id, ln] of Object.entries(k.lines)) {
+  const kept = Object.entries(k.lines).filter(([id]) => !DROP.has(id));
+  const cutAt = kept.length < Object.keys(k.lines).length ? kept[kept.length - 1][1].end + 0.2 : null;
+  const dur = cutAt ?? k.dur;
+  vo.push(cutAt ? { take: tk.id, file: `assets/vo/${tk.id}.wav`, start: r3(t), dur: r3(dur), end: r3(dur) } : { take: tk.id, file: `assets/vo/${tk.id}.wav`, start: r3(t), dur: k.dur });
+  for (const [id, ln] of kept) {
     L[id] = { start: t + ln.start, end: t + ln.end, words: ln.words.map((w) => ({ w: w.w, start: t + w.start, end: t + w.end })) };
   }
-  t += k.dur;
+  t += dur;
 }
 const TK = Object.fromEntries(vo.map((v) => [v.take, { start: v.start, end: v.start + v.dur }]));
 const total = r3(t + TAIL);
@@ -58,16 +64,14 @@ const WE = (id, word, occ = 1) => { let n = 0; for (const w of L[id].words) if (
 // ── scene cuts ────────────────────────────────────────────────────────────────────────────────────────────────
 const cut = {};
 cut.cold = 0;
-cut.gap = L.L4.start - 0.35;
 cut.verse = TK.verse.start - 0.5;
 cut.title = TK.intro.start - 0.55;
 cut.demo = L.L8.start - 0.3;
 cut.screens = L.L16.start - 0.2;
 cut.safe = TK.trust.start - 0.4;
 cut.hood = TK.hood.start - 0.4;
-cut.who = L.L20.start - 0.3;
 cut.close = TK.close.start - 0.7;
-const order = ["cold", "gap", "verse", "title", "demo", "screens", "safe", "hood", "who", "close"];
+const order = ["cold", "verse", "title", "demo", "screens", "safe", "hood", "close"];
 const span = (id) => { const i = order.indexOf(id); return [cut[id], i + 1 < order.length ? cut[order[i + 1]] : total]; };
 const loc = (id, x) => r3(x - cut[id]);
 
@@ -82,16 +86,11 @@ cold.freeze = W("L3", "freeze");
 cold.practiced = W("L3", "practiced");
 cold.pushes = W("L3", "pushes");
 cold.toBar = L.L2.end - 0.15; // the camera reaches the reply field as the first draft starts
-cold.exit = cut.gap - 0.2;
+cold.exit = cut.verse - 0.3;
 for (const k in cold) cold[k] = loc("cold", cold[k]);
 const coldDraft = { A: "Well, everything happens for a reason", B: "God has a plan, and" };
 const COLD_DUR = { typeA: 1.0, delAt: 1.25, delA: 0.35, typeB: 0.55, delBt: 0.7, delB: 0.25 };
 
-const gap = {
-  pilots: W("L4", "Pilots"), sim: W("L4", "simulators"), surgeons: W("L4", "Surgeons"), models: W("L4", "models"),
-  christians: W("L4", "Christians"), q: W("L4", "practice", 2), exit: cut.verse - 0.1,
-};
-for (const k in gap) gap[k] = loc("gap", gap[k]);
 
 const verseWords = L.L5.words.slice(2).map((w) => loc("verse", w.start)); // "Peter wrote," is not on screen
 const verse = { words: verseWords, peter: loc("verse", L.L5.start), ref: loc("verse", WE("L5", "respect")) , out: loc("verse", L.L6.start - 0.35), prepared: loc("verse", L.L6.start), practice: loc("verse", W("L6", "practice")), exit: loc("verse", cut.title - 0.2) };
@@ -161,8 +160,7 @@ screens.phoneMedia = r3(PH_HANDOFF);
 screens.carry = 0.9; // the phone travels from the demo framing to its place in the trio
 
 const safe = { kick: loc("safe", L.L17.start), labeled: loc("safe", W("L17", "labeled")), converted: loc("safe", W("L17", "converted")), insults: loc("safe", W("L17", "insults")), crisis: loc("safe", W("L18", "crisis")), help: loc("safe", W("L18", "help")), verse: loc("safe", W("L18", "verse")), sources: loc("safe", W("L18", "sources")), exit: loc("safe", cut.hood - 0.2) };
-const hood = { browser: loc("hood", L.L19.start), server: loc("hood", W("L19", "server")), five: loc("hood", W("L19", "five")), instr: loc("hood", W("L19", "instructions")), limit: loc("hood", W("L19", "limit")), platform: loc("hood", W("L19", "Apologist")), skeptic: loc("hood", W("L19", "plays")), coach: loc("hood", W("L19", "Coach")), memory: loc("hood", W("L19", "memory")), exit: loc("hood", cut.who - 0.2) };
-const who = { groups: loc("who", W("L20", "groups")), students: loc("who", W("L20", "students")), believers: loc("who", W("L20", "believers")), leaders: loc("who", W("L20", "leaders")), exit: loc("who", cut.close - 0.1) };
+const hood = { browser: loc("hood", L.L19.start), server: loc("hood", W("L19", "server")), five: loc("hood", W("L19", "five")), instr: loc("hood", W("L19", "instructions")), limit: loc("hood", W("L19", "limit")), platform: loc("hood", W("L19", "Apologist")), skeptic: loc("hood", W("L19", "plays")), coach: loc("hood", W("L19", "Coach")), memory: loc("hood", W("L19", "memory")), exit: loc("hood", cut.close - 0.3) };
 const close = {
   phone: 0.0, type: loc("close", L.L21.start - 0.5), send: loc("close", W("L21", "freeze") + 0.35), respect: loc("close", W("L21", "respect")),
   card: loc("close", L.L22.start - 0.35), url: loc("close", W("L22", "Try")), qr: loc("close", W("L22", "Try") + 0.5),
@@ -172,7 +170,7 @@ const close = {
 const NO_CAP = new Set(["L5", "L6", "L22"]); // on screen already (the verse, its line, the end card)
 const caps = [];
 for (const ln of script.lines) {
-  if (NO_CAP.has(ln.id) || !ln.cap) continue;
+  if (NO_CAP.has(ln.id) || DROP.has(ln.id) || !ln.cap) continue;
   const words = L[ln.id].words;
   let wi = 0;
   const parts = ln.cap.split(" / ");
@@ -197,30 +195,8 @@ const ticks = (t0, dur, rate, name, vol) => {
   const n = Math.max(2, Math.round(dur * rate));
   for (let k = 0; k < n; k++) fx(name === "key" ? `key-${1 + (k % 3)}` : name, t0 + (k / n) * dur + JIT[k % JIT.length], vol);
 };
-fx("notification", cold.msg, 0.32);
-ticks(cold.draftA, COLD_DUR.typeA, 11, "key", 0.1);
-ticks(cold.draftA + COLD_DUR.delAt, COLD_DUR.delA, 14, "delete", 0.09);
-ticks(cold.draftB, COLD_DUR.typeB, 11, "key", 0.1);
-ticks(cold.draftB + COLD_DUR.delBt, COLD_DUR.delB, 14, "delete", 0.09);
-// cuts: three whoosh takes in rotation on the moves that carry; dip cuts (verse, bookend) stay dry
-fx("whoosh-a", cut.gap - 0.12, 0.12);
-fx("riser", cut.title + Math.max(0.4, title.so - 0.12) + 0.12, 0.16, "peak"); // swells into the ? becoming the mark
-fx("impact", cut.title + Math.max(0.4, title.so - 0.12) + 0.12, 0.2, "peak");
-fx("whoosh-b", cut.demo + 0.05, 0.12);
-fx("whoosh-c", cut.screens + 0.05, 0.13);
-fx("whoosh-a", cut.safe - 0.12, 0.11);
-fx("whoosh-b", cut.hood + 0.05, 0.1);
-fx("whoosh-c", cut.who - 0.12, 0.11);
-for (const k of ["tap-topic", "tap-question", "start", "coach", "outline", "sample", "back"]) fx("click-soft", D0 + m2l(ph[k] + 0.36), 0.3);
-fx("click-soft", D0 + m2l(ph.reply1 + 0.36), 0.22);
-fx("pop-lo", D0 + demo.q16, 0.1);
-fx("pop-lo", cut.gap + gap.q, 0.12);
-for (const k of ["five", "instr", "limit"]) fx("pop-lo", cut.hood + hood[k] - 0.1, 0.08);
-// the bookend: the reply is typed, sent, and the phone steps aside for the end card
-const cT0 = Math.max(close.type, 0.75);
-ticks(cut.close + cT0, close.send - cT0 - 0.15, 11, "key", 0.09);
-fx("send", cut.close + close.send, 0.24);
-fx("whoosh-b", cut.close + close.card - 0.1, 0.11);
+// no sound effects (Jarret, draft 4): voice and music only
+
 // ── write ─────────────────────────────────────────────────────────────────────────────────────────────────────
 const LIB = rd("src/lib.css");
 const stamp = (id, T, extra = {}) => {
@@ -230,7 +206,6 @@ const stamp = (id, T, extra = {}) => {
 };
 
 stamp("cold", { ...cold, draft: coldDraft, dur: COLD_DUR });
-stamp("gap", gap);
 stamp("verse", verse);
 stamp("title", title);
 stamp("demo", demo, { CLIPS: clipTags });
@@ -239,7 +214,6 @@ const vtag = (id, f, ms) => `<video id="${id}" class="clip" src="assets/clips/${
 stamp("screens", screens, { LAPV: vtag("sc-v1", "laptop", screens.lapMedia), TABV: vtag("sc-v2", "tablet", screens.tabMedia), PHV: vtag("sc-v3", "phone", screens.phoneMedia) });
 stamp("safe", safe);
 stamp("hood", hood);
-stamp("who", who);
 stamp("close", close);
 // no burned-in captions (Jarret's call): the captions file for YouTube is written by tools/srt.py
 stamp("bg", { cut, total, card: cut.close + close.card });

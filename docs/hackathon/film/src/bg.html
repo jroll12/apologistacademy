@@ -27,8 +27,8 @@
       gsap.set("#bg-c", { ...at(1150, 520), opacity: 0, scale: 0.8 });
       const go = (sel, t, v, d, ease) => tl.to(sel, { ...v, duration: d, ease: ease || "sine.inOut" }, t);
       // the question: a little more light
-      go("#bg-a", C.gap - 0.4, { ...at(1540, 110), opacity: 0.62 }, 2.5);
-      go("#bg-b", C.gap - 0.4, { opacity: 0.55 }, 2.5);
+      go("#bg-a", C.verse - 0.4, { ...at(1540, 110), opacity: 0.62 }, 2.5);
+      go("#bg-b", C.verse - 0.4, { opacity: 0.55 }, 2.5);
       // the arrival: the light opens toward the centre as the product is named
       go("#bg-a", C.title - 0.2, { ...at(1080, 170), opacity: 1, scale: 1.18 }, 1.6, "power2.inOut");
       go("#bg-b", C.title - 0.2, { ...at(260, 980), opacity: 0.95 }, 1.6, "power2.inOut");

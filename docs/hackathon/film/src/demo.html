@@ -122,7 +122,6 @@
           <div class="dm-sec" id="dm-c1"><i></i>What you covered</div>
           <div class="dm-sec" id="dm-c2"><i></i>What you could add</div>
           <div class="dm-sec" id="dm-c3"><i></i>A verse to study</div>
-          <div class="dm-stamp" id="dm-stamp">No scores. No grades.</div>
         </div>
         <div id="dm-rv2" class="dm-g">
           <div class="dm-sub" id="dm-print">Print it for your small group.</div>
@@ -170,7 +169,7 @@
         tl.to(sel, { color: "#FFFFFF", borderColor: "#7137FF", duration: 0.2 }, t);
         if (dot) tl.to(`${sel} i`, { backgroundColor: "#7137FF", duration: 0.2 }, t);
       };
-      gsap.set(["#dm-r16", "#dm-r8", "#dm-noacct", "#dm-p1", "#dm-p2", "#dm-p3", "#dm-diff", "#dm-five", "#dm-q1", "#dm-pair-h", "#dm-you1", "#dm-sk1", "#dm-cq1", "#dm-cq3", "#dm-own", "#dm-pq", "#dm-debate", "#dm-person", "#dm-stamp", "#dm-print", "#dm-church"], { opacity: 0 });
+      gsap.set(["#dm-r16", "#dm-r8", "#dm-noacct", "#dm-p1", "#dm-p2", "#dm-p3", "#dm-diff", "#dm-five", "#dm-q1", "#dm-pair-h", "#dm-you1", "#dm-sk1", "#dm-cq1", "#dm-cq3", "#dm-own", "#dm-pq", "#dm-debate", "#dm-person", "#dm-print", "#dm-church"], { opacity: 0 });
       gsap.set(".dm-turns b", { scaleX: 0 });
 
       // the honesty line, once, while the app is first on screen
@@ -235,7 +234,6 @@
       lit("#dm-c1", T.covered - 0.1);
       lit("#dm-c2", T.add - 0.1);
       lit("#dm-c3", T.verseW - 0.1);
-      tl.fromTo("#dm-stamp", { opacity: 0, scale: 1.3, rotate: -4 }, { opacity: 1, scale: 1, rotate: -2, duration: 0.35, ease: "back.out(2)" }, T.scores - 0.1);
       groupOut("#dm-rv", T.print - 0.3);
       groupIn("#dm-rv2", T.print - 0.2);
       land("#dm-print", T.print - 0.1);

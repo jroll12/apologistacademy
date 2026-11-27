@@ -207,7 +207,9 @@ def build_graph(tl, music, scored, plan):
     inputs, parts, vo, fx = [], [], [], []
     for i, v in enumerate(tl["vo"]):
         inputs += ["-i", R(v["file"])]
-        parts.append(placed(f"[{len(inputs) // 2 - 1}:a]", v["start"], f"[v{i}]"))
+        cut = (f",atrim=end_sample={int(round(v['end'] * SR))},afade=t=out:st={v['end'] - 0.05:.4f}:d=0.05"
+               if v.get("end") else "")  # a take cut short (a line dropped from the film)
+        parts.append(placed(f"[{len(inputs) // 2 - 1}:a]", v["start"], f"[v{i}]", cut))
         vo.append(f"[v{i}]")
     for j, s in enumerate(tl["sfx"]):
         f = R("assets", "sfx", s["f"] + ".mp3")
@@ -256,7 +258,7 @@ def arc_envelope(tl, n, scored):
         return db * sm((tc - (a - ra)) / ra) * (1 - sm((tc - b) / rb))
 
     if scored:
-        up = sm((tc - (c["gap"] - 1.0)) / 1.5)
+        up = sm((tc - (c.get("gap", c["verse"]) - 1.0)) / 1.5)
         g += -14 * (1 - up)                                              # cold open: near silence
         g += -6 * up * (1 - sm((tc - (arrival(tl) - 0.4)) / 0.5))        # the question: low until the arrival
     g += move(-6.0, tk["personal"][0] - 0.2, tk["review"][0] - 0.3, 0.8, 1.0)   # personal: strip back

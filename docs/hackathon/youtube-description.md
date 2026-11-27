@@ -51,19 +51,18 @@ Built for the AI for Church Hackathon 2026 with the Apologist Project's AI platf
 
 ## If you upload the animated film instead
 
-The film (`film/`, 2:50) has different chapters. Swap the "Chapters" block above for this one. The times come from the film's own build (`film/build/timeline.json`), so they are exact, and every chapter is at least 10 seconds long (YouTube's minimum):
+The film (`film/`, 2:37) has different chapters. Swap the "Chapters" block above for this one. The times come from the film's own build (`film/build/timeline.json`), so they are exact, and every chapter is at least 10 seconds long (YouTube's minimum):
 
 ```
 Chapters
 0:00 A hard question
-0:18 Where do we practice?
-0:40 Apologist Academy
-1:05 Talk it through
-1:18 Ask Coach
-1:38 Your review
-1:57 Safeguards
-2:14 How the AI is used
-2:33 Try it
+0:32 Apologist Academy
+0:57 Talk it through
+1:10 Ask Coach
+1:30 Your review
+1:49 Safeguards
+2:07 How the AI is used
+2:20 Try it
 ```
 
 The film has no burned-in captions. Upload `apologist-academy-film.srt` under Subtitles (English) so viewers can turn captions on (and the words are searchable).

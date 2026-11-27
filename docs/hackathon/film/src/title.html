@@ -36,16 +36,10 @@
       const tl = gsap.timeline({ paused: true });
       gsap.set(["#tt-mark", "#tt-line"], { opacity: 0 });
       gsap.set("#tt-name span", { opacity: 0 });
-      // the question comes back
-      tl.fromTo("#tt-row", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18 }, 0);
-      // on "So we built...": the ? turns into the mark (same place, same colour family)
-      const m = Math.max(0.4, T.so - 0.12);
-      tl.to("#tt-q", { opacity: 0, scale: 0.4, rotate: 20, filter: "blur(6px)", duration: 0.22, ease: "power3.in", transformOrigin: "40% 60%" }, m);
-      tl.fromTo("#tt-mark", { opacity: 0, scale: 0.3, rotate: -14 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.5, ease: "back.out(1.7)" }, m + 0.12);
-      // the row steps away, the mark rises to its place over the name
-      const up = Math.min(m + 0.42, T.name - 0.5);
-      tl.to("#tt-row", { opacity: 0, x: -60, filter: "blur(8px)", duration: 0.3, ease: "power2.in" }, up - 0.1);
-      tl.to("#tt-mark", { x: 880 - 1290, y: 230 - 476, duration: 0.55, ease: "power3.inOut" }, up);
+      // (the "Christians -> ?" callback is gone with the pilots/surgeons scene; the mark lands on its own)
+      gsap.set("#tt-row", { opacity: 0 });
+      gsap.set("#tt-mark", { x: 880 - 1290, y: 230 - 476, width: 160, height: 160 });
+      tl.fromTo("#tt-mark", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" }, Math.max(0.3, T.so - 0.1));
       tl.fromTo("#tt-name span", { opacity: 0, filter: "blur(6px)", y: 10 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.22, stagger: 0.045, ease: "power3.out" }, T.name - 0.12);
       tl.fromTo("#tt-line", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.24 }, T.safe - 0.1);
       // into the product: the title lifts away as the phone rises in from below (the demo runs on top of this)

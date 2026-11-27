@@ -52,6 +52,6 @@ Built for the AI for Church Hackathon 2026 with the Apologist Project's AI platf
 ## Before you publish
 
 - **Fix the chapter times.** They come from the script's targets, not your recording. Scrub through your video and change each time to where that part really starts. YouTube needs the first one to be 0:00, at least three chapters, and each at least 10 seconds long, or it won't show chapters.
-- **Thumbnail:** upload `youtube-thumbnail.png` (1280×720) under Thumbnail. Custom thumbnails need a verified YouTube account (a phone check in YouTube settings).
+- **Thumbnail:** three options: `youtube-thumbnail-demo.jpg` (name and "Live demo" tag, best for the hackathon), `youtube-thumbnail-devices.jpg` (laptop, tablet and phone, no text), and `youtube-thumbnail.png` ("Could you answer this?", for a public video later). Upload one under Thumbnail. Custom thumbnails need a verified YouTube account (a phone check in YouTube settings).
 - **Visibility:** "Unlisted" means only people with the link can watch, which is enough for a hackathon form. "Public" lets anyone find it.
 - **Audience:** answer "No, it's not made for kids."

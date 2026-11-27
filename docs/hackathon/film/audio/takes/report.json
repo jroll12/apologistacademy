@@ -1,0 +1,68 @@
+{
+ "open": {
+  "seconds": 7.81,
+  "words": 21,
+  "text": "[warm, natural, conversational] A coworker texts you. Honest question. If God is good, why did my sister get cancer? What do you type back?",
+  "words_per_second": 2.69
+ },
+ "freeze": {
+  "seconds": 15.73,
+  "words": 41,
+  "text": "[warm, natural, conversational] Most of us freeze. Not because we don't believe, but because we've never practiced saying it out loud, to someone who pushes back. Pilots train in simulators. Surgeons practice on models. So where do Christians practice the hardest conversations about faith?",
+  "words_per_second": 2.61
+ },
+ "verse": {
+  "seconds": 11.96,
+  "words": 33,
+  "text": "[warm, sincere] Peter wrote, always be prepared to give a defense to everyone who asks you the reason for the hope that is in you. But respond with gentleness and respect. Being prepared takes practice.",
+  "words_per_second": 2.76
+ },
+ "intro": {
+  "seconds": 14.92,
+  "words": 39,
+  "text": "[warm, natural, conversational] So we built Apologist Academy. A safe place to practice the hard questions, before someone asks you for real. Pick one of sixteen questions across eight topics, from suffering to science to other faiths. No account. Nothing to install.",
+  "words_per_second": 2.61
+ },
+ "demo": {
+  "seconds": 22.2,
+  "words": 63,
+  "text": "[warm, natural, conversational] Then choose who you're talking to. Curious asks honest questions. Hostile pushes hard, but stays civil. And you set how hard it pushes. Now you talk it through, for five turns. Type your reply, or just speak it. The skeptic isn't reading from a script. It answers what you actually said. Pick a tougher skeptic, and it won't let a vague answer slide.",
+  "words_per_second": 2.84
+ },
+ "coach": {
+  "seconds": 10.92,
+  "words": 30,
+  "text": "[warm, natural, conversational] Stuck? Ask Coach. It helps in steps. First a hint. Then an outline. Then a sample reply, only if you want it. The goal is to find your own words.",
+  "words_per_second": 2.75
+ },
+ "personal": {
+  "seconds": 4.36,
+  "words": 13,
+  "text": "[warm, sincere] Because this isn't a debate to win. It's a person to listen to.",
+  "words_per_second": 2.98
+ },
+ "review": {
+  "seconds": 17.16,
+  "words": 53,
+  "text": "[warm, natural, conversational] After five turns, Coach writes you a short review. What you covered, what you could add, and a verse to study. No scores. No grades. Print it, and bring it to your small group. It doesn't replace your church. It helps you get ready for real conversations. And it works on any screen.",
+  "words_per_second": 3.09
+ },
+ "trust": {
+  "seconds": 17.55,
+  "words": 51,
+  "text": "[warm, clear, quietly confident] We built it carefully. The AI is always labeled. The skeptic never pretends to be converted, and never insults you or your faith. If someone seems to be in crisis, it stops the exercise and points them to real help. And Coach quotes one checked verse, and never makes up sources.",
+  "words_per_second": 2.91
+ },
+ "hood": {
+  "seconds": 18.36,
+  "words": 50,
+  "text": "[warm, clear, quietly confident] Under the hood, our server sets the rules: five turns, separate instructions for each role, and a daily limit. The Apologist Project's AI platform plays the skeptic and powers Coach and the review, with memory turned off. It's for small groups, students, new believers, and church leaders training their people.",
+  "words_per_second": 2.72
+ },
+ "close": {
+  "seconds": 11.47,
+  "words": 28,
+  "text": "[warmly] So the next time someone asks, you won't freeze. You'll be ready, with gentleness and respect. Apologist Academy. Try it free at apologist academy dot pages dot dev.",
+  "words_per_second": 2.44
+ }
+}

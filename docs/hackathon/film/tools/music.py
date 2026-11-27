@@ -26,7 +26,7 @@ def main():
         sys.exit("ELEVENLABS_API_KEY is not set in this environment")
     body = {"prompt": PROMPT, "music_length_ms": a.seconds * 1000, "model_id": "music_v1", "force_instrumental": True}
     req = urllib.request.Request(
-        "https://api.elevenlabs.io/v1/music?output_format=mp3_44100_192", data=json.dumps(body).encode(),
+        "https://api.elevenlabs.io/v1/music?output_format=mp3_44100_128", data=json.dumps(body).encode(),
         method="POST", headers={"xi-api-key": os.environ["ELEVENLABS_API_KEY"], "Content-Type": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=600) as r:

@@ -1,0 +1,100 @@
+{
+ "capturedAt": "2026-11-27T04:32:51.285Z",
+ "site": "https://apologistacademy.pages.dev",
+ "question": "Why does God allow suffering?",
+ "persona": "balanced",
+ "difficulty": "standard",
+ "note": "Text copied from the live API responses during one real run. Nothing edited.",
+ "skeptic": [
+  "I'll be honest, this is the question that keeps me from landing anywhere. If God is all powerful and loving, I don't see why a child gets cancer or a tsunami wipes out a village. What would you say to someone who has seen that kind of suffering up close?",
+  "I can see why that's appealing, and it does seem to explain a lot of the cruelty people do to each other. But what about suffering where nobody is choosing anything, like a child dying of cancer or an earthquake that wipes out a town? How does free will explain that?",
+  "A little, yes. Someone close to me went through a long illness, and I never knew what to make of it. I can see why it matters that God isn't just watching from a distance, but a friend who sits with me in pain is different from one who could have stopped it. Does Jesus entering suffering say anything about why God permits it in the first place?",
+  "I appreciate you not pretending to have an answer for every case, and Jesus weeping is a moving picture. But in that story he knew he was about to raise Lazarus, and most grieving people never get that. If he cares so much, why does he step in for some and not for the rest?",
+  "That's a kind thing to say, and I'd rather have someone sit with me than hand me a tidy formula. But I'm still left wondering what you actually think. Do you believe God has a reason for allowing it, or is \"I don't know\" really your answer?",
+  "I like that you'd start by listening, and the idea that God isn't distant from pain does carry some weight with me. But sharing in suffering isn't the same as explaining why he permitted it in the first place. If I let something terrible happen and then suffered alongside the victim, I'd still owe an answer for letting it happen."
+ ],
+ "me": [
+  "That's a fair question, and I don't want to give you a cheap answer. I think part of it is that God made a world where love is real, and real love needs real choices.",
+  "You're right, that doesn't explain all of it. What I hold on to is that God didn't stay far from pain. In Jesus he stepped into it. Can I ask if this question is personal for you?",
+  "If it is personal, I'm sorry. I don't know why God allows each thing. I do know Jesus wept at a friend's grave. Pain matters to him.",
+  "I'd rather sit with you in it than explain it away.",
+  "Mostly, I'd listen. And I'd say the cross means God knows suffering from the inside, and it won't have the last word."
+ ],
+ "coach": {
+  "nudge": "The skeptic is checking whether your answer can be honest about suffering that no person chooses, so they are looking for candor more than a clever fix.",
+  "outline": "Admit that free will does not cover suffering nobody chooses\nSay that Christians have long taught the world is broken and not as God meant it, while admitting we disagree on how that works and do not know all of why\nPoint to a God who is close to those who hurt, and to the hope that he will make things right\nInvite them to share what they have seen up close",
+  "sample": "You're right, free will doesn't explain a child with cancer or an earthquake, and I won't pretend it does. Christians have long taught that the world is broken and not the way God meant it to be, but we disagree about how that fits together, and I don't think anyone fully knows why. What I hold onto is that God doesn't watch from far away, and the Psalms say, \"The LORD is near to the brokenhearted; He saves the contrite in spirit.\" Can I ask what you saw up close?"
+ },
+ "coachBeforeReply": 2,
+ "review": {
+  "covered": "You were honest that free will doesn't explain every kind of suffering, and you didn't fake an answer. Asking gently whether the question was personal, then pointing to Jesus weeping and to the cross, showed real care.",
+  "couldAdd": "When the skeptic asked what you actually think, you stayed with listening. Next time, also say plainly what you believe and why, for example that you trust God has reasons you can't see, and say honestly that Christians don't all agree on how much we can know.",
+  "possibleAnswer": "Christians don't claim to know why God allows each evil, and we differ on how much can be said. We do hold that God is good, that in Jesus he shared the worst of human pain, and that he promises to end evil and make all things new. So I trust him with what I can't explain, because the cross shows he is not indifferent."
+ },
+ "calls": [
+  {
+   "api": "/api/skeptic",
+   "status": 200,
+   "myRepliesSoFar": 0,
+   "body": "I'll be honest, this is the question that keeps me from landing anywhere. If God is all powerful and loving, I don't see why a child gets cancer or a tsunami wipes out a village. What would you say to someone who has seen that kind of suffering up close?",
+   "done": true,
+   "at": "2026-11-27T04:32:03.664Z"
+  },
+  {
+   "api": "/api/skeptic",
+   "status": 200,
+   "myRepliesSoFar": 1,
+   "body": "I can see why that's appealing, and it does seem to explain a lot of the cruelty people do to each other. But what about suffering where nobody is choosing anything, like a child dying of cancer or an earthquake that wipes out a town? How does free will explain that?",
+   "done": true,
+   "at": "2026-11-27T04:32:06.931Z"
+  },
+  {
+   "api": "/api/coach",
+   "status": 200,
+   "myRepliesSoFar": 1,
+   "body": "{\"nudge\":\"The skeptic is checking whether your answer can be honest about suffering that no person chooses, so they are looking for candor more than a clever fix.\",\"outline\":\"Admit that free will does not cover suffering nobody chooses\\nSay that Christians have long taught the world is broken and not as God meant it, while admitting we disagree on how that works and do not know all of why\\nPoint to a God who is close to those who hurt, and to the hope that he will make things right\\nInvite them to share what they have seen up close\",\"sample\":\"You're right, free will doesn't explain a child with cancer or an earthquake, and I won't pretend it does. Christians have long taught that the world is broken and not the way God meant it to be, but we disagree about how that fits together, and I don't think anyone fully knows why. What I hold onto is that God doesn't watch from far away, and the Psalms say, \\\"The LORD is near to the brokenhearted; He saves the contrite in spirit.\\\" Can I ask what you saw up close?\"}",
+   "done": true,
+   "at": "2026-11-27T04:32:19.082Z"
+  },
+  {
+   "api": "/api/skeptic",
+   "status": 200,
+   "myRepliesSoFar": 2,
+   "body": "A little, yes. Someone close to me went through a long illness, and I never knew what to make of it. I can see why it matters that God isn't just watching from a distance, but a friend who sits with me in pain is different from one who could have stopped it. Does Jesus entering suffering say anything about why God permits it in the first place?",
+   "done": true,
+   "at": "2026-11-27T04:32:26.615Z"
+  },
+  {
+   "api": "/api/skeptic",
+   "status": 200,
+   "myRepliesSoFar": 3,
+   "body": "I appreciate you not pretending to have an answer for every case, and Jesus weeping is a moving picture. But in that story he knew he was about to raise Lazarus, and most grieving people never get that. If he cares so much, why does he step in for some and not for the rest?",
+   "done": true,
+   "at": "2026-11-27T04:32:31.883Z"
+  },
+  {
+   "api": "/api/skeptic",
+   "status": 200,
+   "myRepliesSoFar": 4,
+   "body": "That's a kind thing to say, and I'd rather have someone sit with me than hand me a tidy formula. But I'm still left wondering what you actually think. Do you believe God has a reason for allowing it, or is \"I don't know\" really your answer?",
+   "done": true,
+   "at": "2026-11-27T04:32:35.691Z"
+  },
+  {
+   "api": "/api/skeptic",
+   "status": 200,
+   "myRepliesSoFar": 5,
+   "body": "I like that you'd start by listening, and the idea that God isn't distant from pain does carry some weight with me. But sharing in suffering isn't the same as explaining why he permitted it in the first place. If I let something terrible happen and then suffered alongside the victim, I'd still owe an answer for letting it happen.",
+   "done": true,
+   "at": "2026-11-27T04:32:39.846Z"
+  },
+  {
+   "api": "/api/review",
+   "status": 200,
+   "myRepliesSoFar": 5,
+   "body": "{\"covered\":\"You were honest that free will doesn't explain every kind of suffering, and you didn't fake an answer. Asking gently whether the question was personal, then pointing to Jesus weeping and to the cross, showed real care.\",\"couldAdd\":\"When the skeptic asked what you actually think, you stayed with listening. Next time, also say plainly what you believe and why, for example that you trust God has reasons you can't see, and say honestly that Christians don't all agree on how much we can know.\",\"possibleAnswer\":\"Christians don't claim to know why God allows each evil, and we differ on how much can be said. We do hold that God is good, that in Jesus he shared the worst of human pain, and that he promises to end evil and make all things new. So I trust him with what I can't explain, because the cross shows he is not indifferent.\"}",
+   "done": true,
+   "at": "2026-11-27T04:32:45.516Z"
+  }
+ ]
+}

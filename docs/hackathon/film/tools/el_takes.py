@@ -22,7 +22,7 @@ def spoken(text, table):
 def tts(text, out_mp3, voice, model, settings):
     body = {"text": text, "model_id": model, "voice_settings": settings}
     req = urllib.request.Request(
-        f"https://api.elevenlabs.io/v1/text-to-speech/{voice}?output_format=mp3_44100_192",
+        f"https://api.elevenlabs.io/v1/text-to-speech/{voice}?output_format=mp3_44100_128",
         data=json.dumps(body).encode(), method="POST",
         headers={"xi-api-key": os.environ["ELEVENLABS_API_KEY"], "Content-Type": "application/json"})
     try:

@@ -1,7 +1,7 @@
 <template>
   <style>
     /*{{LIB}}*/
-    /* a light animated grain over everything: breaks up banding in the dark gradients after YouTube's encode */
+    /* a light still dither over everything: breaks up banding in the dark gradients */
     #gr { position: absolute; inset: 0; background: url("assets/img/grain.png") repeat; background-size: 512px 512px; opacity: 0.032; pointer-events: none; }
   </style>
   <div id="root" data-composition-id="grain" data-width="1920" data-height="1080">
@@ -11,9 +11,9 @@
     (function () {
       const T = /*{{T}}*/ {};
       const tl = gsap.timeline({ paused: true });
-      const n = Math.round(T.total * 30);
-      // a new offset every frame (173 px, 311 px steps never line up with the 512 px tile)
-      tl.fromTo("#gr", { backgroundPosition: "0px 0px" }, { backgroundPosition: `${n * 173}px ${n * 311}px`, duration: T.total, ease: `steps(${n})` }, 0);
+      // a still dither, not animated: animated grain made every frame unique and the file ~50 Mb/s
+      tl.set("#gr", { opacity: 0.028 }, 0);
+      tl.set({}, {}, T.total);
       window.__timelines["grain"] = tl;
     })();
   </script>

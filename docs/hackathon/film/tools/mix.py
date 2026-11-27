@@ -17,6 +17,10 @@ own resolved ending lands on the end of the film.
 Music, --scored: a track composed to the film's cuts (audio/music-v2.mp3) plays from 0:00 as it is, trimmed to the
 film with a 1.5 s fade if it runs long, padded with silence if it is short.
 
+The story arc is written on top as volume automation (the composed track did not follow its sections when
+measured): the personal beat and the bookend strip back (-6 / -5 dB), the three screens lift (+2 dB), and in
+--scored mode the cold open sits near silence (-14 dB) and the question low (-6 dB) until the title arrives.
+
 Either way the bed gets a static -3 dB cut around 350 Hz (where Jason's voice has its body) and is ducked by an
 envelope computed from the narration windows, not by a compressor: it stays down (-9 dB) for the whole of each take,
 pauses included, and comes back up only between takes more than 1.2 s apart (0.4 s ramps; the ramp down starts
@@ -166,7 +170,7 @@ def plan_recut(music, title, total):
           f"{phase:.3f} s)")
     print(f"bed: build at {build:.3f} s in the bed (rise of {rise:.1f} dB at {tb:.2f} s, onset {t_on:.3f} s, "
           f"snapped to beat {round((build - phase) / T)})")
-    print(f"bed: offset {off:+.3f} s, so the build lands on cut.title {title:.2f} s; first audible at "
+    print(f"bed: offset {off:+.3f} s, so the build lands on the title's arrival {title:.2f} s; first audible at "
           f"{max(0.0, off + first):.2f} s film time, {FADE_IN:.0f} s fade-in")
     print(f"bed: head = bed 0.00-{h + XF:.3f} s; crossfade {XF:.0f} s from film {off + h:.3f} s (head beat "
           f"{round((h - phase) / T)}) into bed {t_s:.3f} s (beat {round((t_s - phase) / T)}); the bed ends at film "
@@ -233,6 +237,34 @@ def build_graph(tl, music, scored, plan):
     return inputs, ";".join(parts)
 
 
+# ── the story arc ──────────────────────────────────────────────────────────────────────────────────────────
+def arrival(tl):
+    """The title's arrival: the ? becomes the mark as "So we built..." begins (the riser and impact peak here)."""
+    return tl["lines"]["L7"]["start"]
+
+
+def arc_envelope(tl, n, scored):
+    """Per-sample gain in dB: section moves written over the bed (raised-cosine ramps)."""
+    c, tk = tl["cut"], {v["take"]: (v["start"], v["start"] + v["dur"]) for v in tl["vo"]}
+    card = tl["lines"]["L22"]["start"] - 0.35
+    cr = 1000.0
+    tc = np.arange(int(n / SR * cr) + 2) / cr
+    sm = lambda u: 0.5 - 0.5 * np.cos(np.pi * np.clip(u, 0, 1))
+    g = np.zeros_like(tc)
+
+    def move(db, a, b, ra, rb):  # db between a and b, ramped in over ra before a and out over rb after b
+        return db * sm((tc - (a - ra)) / ra) * (1 - sm((tc - b) / rb))
+
+    if scored:
+        up = sm((tc - (c["gap"] - 1.0)) / 1.5)
+        g += -14 * (1 - up)                                              # cold open: near silence
+        g += -6 * up * (1 - sm((tc - (arrival(tl) - 0.4)) / 0.5))        # the question: low until the arrival
+    g += move(-6.0, tk["personal"][0] - 0.2, tk["review"][0] - 0.3, 0.8, 1.0)   # personal: strip back
+    g += move(+2.0, c["screens"] - 0.1, c["safe"] + 0.3, 0.5, 1.0)              # three screens: lift
+    g += move(-5.0, c["close"], card - 0.4, 0.4, 1.4)                           # bookend: strip back, then resolve
+    return np.interp(np.arange(n) / SR, tc, g)
+
+
 # ── ducking ───────────────────────────────────────────────────────────────────────────────────────────────────
 def duck_envelope(vo, n):
     """Per-sample gain in dB (0 = up, -DUCK_DB = down) from the narration windows, and the open gaps."""
@@ -296,7 +328,7 @@ def main():
               + (f"trimmed to {total:.2f} s with a {SCORED_FADE} s fade" if plan["dur"] > total + 0.01
                  else f"padded with silence to {total:.2f} s"))
     else:
-        plan = plan_recut(music, tl["cut"]["title"], total)
+        plan = plan_recut(music, arrival(tl), total)
     inputs, graph = build_graph(tl, music, a.scored, plan)
     os.makedirs(R("renders", "stems"), exist_ok=True)
     stem = lambda k: R("renders", "stems", k + ".wav")
@@ -310,6 +342,7 @@ def main():
               f"{chained['LRA']:.1f} LU, true peak {raw['Peak']:.1f} -> {chained['Peak']:.1f} dBFS")
         voice = np.fromfile(T("voice"), np.float32).astype(np.float64)
         bed = np.fromfile(T("bed"), np.float32).astype(np.float64)
+        bed = bed * 10 ** (arc_envelope(tl, len(bed), a.scored) / 20)
         mus, st = duck_and_level(tl, voice, bed)
         mus.astype(np.float32).tofile(T("music"))
         print(f"duck: {DUCK_DB:.0f} dB under every take; bed back up in {len(st['open'])} gaps: "
@@ -330,6 +363,14 @@ def main():
              "-map", "0:a", "-ar", "48000", stem("voice"),
              "-map", "1:a", "-ar", "48000", stem("music"),
              "-map", "2:a", "-ar", "48000", stem("sfx")])
+        # gain to about -14 LUFS, then a peak limiter (TTS plosives sit ~20 dB over the average), so that the
+        # two-pass loudnorm below can stay linear (it falls back to a pumping dynamic mode when peaks don't fit)
+        i0 = ebur128(pre)["I"]
+        lim = os.path.join(tmp, "lim.wav")
+        run(["ffmpeg", "-v", "error", "-y", "-i", pre, "-af",
+             f"volume={-14.0 - i0:.2f}dB,alimiter=limit=0.79:attack=2:release=60:level=false:asc=1",
+             "-c:a", "pcm_f32le", lim])
+        pre = lim
         # loudness, pass 1: measure; pass 2: apply linearly
         err = run(["ffmpeg", "-v", "info", "-y", "-i", pre, "-af", "loudnorm=I=-14:TP=-1:LRA=11:print_format=json",
                    "-f", "null", "-"])

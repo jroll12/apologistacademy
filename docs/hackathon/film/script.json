@@ -25,7 +25,7 @@
     { "id": "close", "direction": "[warmly]", "lines": ["L21", "L22"] }
   ],
   "lines": [
-    { "id": "L1", "scene": "cold", "text": "A coworker texts you. Honest question. If God is good, why did my sister get cancer?", "cap": "A coworker texts you. / Honest question. / If God is good, / why did my sister get cancer?" },
+    { "id": "L1", "scene": "cold", "text": "A coworker texts you. Honest question. If God is good, why does my sister have cancer?", "cap": "A coworker texts you. / Honest question. / If God is good, / why does my sister have cancer?" },
     { "id": "L2", "scene": "cold", "text": "What do you type back?", "cap": "What do you type back?" },
     { "id": "L3", "scene": "freeze", "text": "Most of us freeze. Not because we don't believe, but because we've never practiced saying it out loud, to someone who pushes back.", "cap": "Most of us freeze. / Not because we don't believe, / but because we've never practiced / saying it out loud, / to someone who pushes back." },
     { "id": "L4", "scene": "gap", "text": "Pilots train in simulators. Surgeons practice on models. So where do Christians practice the hardest conversations about faith?", "cap": "Pilots train in simulators. / Surgeons practice on models. / So where do Christians practice / the hardest conversations / about faith?" },

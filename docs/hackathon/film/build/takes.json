@@ -1,25 +1,30 @@
 {
  "open": {
-  "dur": 7.73,
+  "dur": 7.52,
   "lines": {
    "L1": {
     "start": 0.0,
-    "end": 5.78,
+    "end": 5.68,
     "words": [
      {
       "w": "A",
       "start": 0.0,
-      "end": 0.2
+      "end": 0.16
+     },
+     {
+      "w": "coworker",
+      "start": 0.16,
+      "end": 0.68
      },
      {
       "w": "texts",
-      "start": 0.56,
-      "end": 0.92
+      "start": 0.68,
+      "end": 0.9
      },
      {
       "w": "you.",
-      "start": 0.92,
-      "end": 1.36
+      "start": 0.9,
+      "end": 1.32
      },
      {
       "w": "Honest",
@@ -29,316 +34,321 @@
      {
       "w": "question.",
       "start": 1.96,
-      "end": 2.38
+      "end": 2.36
      },
      {
       "w": "If",
-      "start": 3.06,
-      "end": 3.16
+      "start": 3.04,
+      "end": 3.14
      },
      {
       "w": "God",
-      "start": 3.16,
-      "end": 3.38
+      "start": 3.14,
+      "end": 3.34
      },
      {
       "w": "is",
-      "start": 3.38,
+      "start": 3.34,
       "end": 3.56
      },
      {
       "w": "good,",
       "start": 3.56,
-      "end": 3.88
+      "end": 3.84
      },
      {
       "w": "why",
-      "start": 4.34,
-      "end": 4.52
+      "start": 4.28,
+      "end": 4.46
+     },
+     {
+      "w": "does",
+      "start": 4.46,
+      "end": 4.58
      },
      {
       "w": "my",
-      "start": 4.68,
-      "end": 4.84
+      "start": 4.58,
+      "end": 4.78
      },
      {
       "w": "sister",
-      "start": 4.84,
-      "end": 5.12
+      "start": 4.78,
+      "end": 5.02
      },
      {
-      "w": "get",
-      "start": 5.12,
-      "end": 5.38
+      "w": "have",
+      "start": 5.02,
+      "end": 5.28
      },
      {
       "w": "cancer?",
-      "start": 5.38,
-      "end": 5.78
+      "start": 5.28,
+      "end": 5.68
      }
     ]
    },
    "L2": {
-    "start": 6.66,
-    "end": 7.5,
+    "start": 6.52,
+    "end": 7.3,
     "words": [
      {
       "w": "What",
-      "start": 6.66,
-      "end": 6.8
+      "start": 6.52,
+      "end": 6.64
      },
      {
       "w": "do",
-      "start": 6.8,
-      "end": 6.88
+      "start": 6.64,
+      "end": 6.72
      },
      {
       "w": "you",
-      "start": 6.88,
-      "end": 6.96
+      "start": 6.72,
+      "end": 6.8
      },
      {
       "w": "type",
-      "start": 6.96,
-      "end": 7.16
+      "start": 6.8,
+      "end": 6.98
      },
      {
       "w": "back?",
-      "start": 7.16,
-      "end": 7.5
+      "start": 6.98,
+      "end": 7.3
      }
     ]
    }
   },
-  "heard": "A co -worker texts you. Honest question. If God is good, why didn't my sister get cancer? What do you type back?",
-  "match": 0.905
+  "heard": "A coworker texts you. Honest question. If God is good, why does my sister have cancer? What do you type back?",
+  "match": 1.0
  },
  "freeze": {
-  "dur": 15.57,
+  "dur": 15.48,
   "lines": {
    "L3": {
     "start": 0.0,
-    "end": 7.24,
+    "end": 7.38,
     "words": [
      {
       "w": "Most",
       "start": 0.0,
-      "end": 0.36
+      "end": 0.32
      },
      {
       "w": "of",
-      "start": 0.36,
-      "end": 0.5
+      "start": 0.32,
+      "end": 0.46
      },
      {
       "w": "us",
-      "start": 0.5,
-      "end": 0.66
+      "start": 0.46,
+      "end": 0.62
      },
      {
       "w": "freeze.",
-      "start": 0.66,
-      "end": 1.08
+      "start": 0.62,
+      "end": 1.02
      },
      {
       "w": "Not",
-      "start": 1.74,
-      "end": 1.9
+      "start": 1.68,
+      "end": 1.92
      },
      {
       "w": "because",
-      "start": 1.9,
-      "end": 2.12
+      "start": 1.92,
+      "end": 2.16
      },
      {
       "w": "we",
-      "start": 2.12,
-      "end": 2.28
+      "start": 2.16,
+      "end": 2.32
      },
      {
       "w": "don't",
-      "start": 2.28,
-      "end": 2.46
+      "start": 2.32,
+      "end": 2.52
      },
      {
       "w": "believe,",
-      "start": 2.46,
-      "end": 2.84
+      "start": 2.52,
+      "end": 2.88
      },
      {
       "w": "but",
-      "start": 3.36,
-      "end": 3.46
+      "start": 3.54,
+      "end": 3.6
      },
      {
       "w": "because",
-      "start": 3.46,
-      "end": 3.72
+      "start": 3.6,
+      "end": 3.82
      },
      {
       "w": "we've",
-      "start": 3.72,
-      "end": 3.96
+      "start": 3.82,
+      "end": 4.04
      },
      {
       "w": "never",
-      "start": 3.96,
-      "end": 4.2
+      "start": 4.04,
+      "end": 4.26
      },
      {
       "w": "practiced",
-      "start": 4.2,
-      "end": 4.66
+      "start": 4.26,
+      "end": 4.72
      },
      {
       "w": "saying",
-      "start": 4.66,
-      "end": 5.0
+      "start": 4.72,
+      "end": 5.08
      },
      {
       "w": "it",
-      "start": 5.0,
-      "end": 5.18
+      "start": 5.08,
+      "end": 5.24
      },
      {
       "w": "out",
-      "start": 5.18,
-      "end": 5.3
+      "start": 5.24,
+      "end": 5.4
      },
      {
       "w": "loud,",
-      "start": 5.3,
-      "end": 5.66
+      "start": 5.4,
+      "end": 5.7
      },
      {
       "w": "to",
-      "start": 5.66,
-      "end": 6.12
+      "start": 5.7,
+      "end": 6.22
      },
      {
       "w": "someone",
-      "start": 6.12,
-      "end": 6.4
+      "start": 6.22,
+      "end": 6.5
      },
      {
       "w": "who",
-      "start": 6.4,
-      "end": 6.56
+      "start": 6.5,
+      "end": 6.68
      },
      {
       "w": "pushes",
-      "start": 6.56,
-      "end": 6.8
+      "start": 6.68,
+      "end": 6.94
      },
      {
       "w": "back.",
-      "start": 6.8,
-      "end": 7.24
+      "start": 6.94,
+      "end": 7.38
      }
     ]
    },
    "L4": {
-    "start": 8.04,
-    "end": 15.24,
+    "start": 8.14,
+    "end": 15.2,
     "words": [
      {
       "w": "Pilots",
-      "start": 8.04,
-      "end": 8.24
+      "start": 8.14,
+      "end": 8.34
      },
      {
       "w": "train",
-      "start": 8.24,
-      "end": 8.54
+      "start": 8.34,
+      "end": 8.68
      },
      {
       "w": "in",
-      "start": 8.54,
-      "end": 8.7
+      "start": 8.68,
+      "end": 8.84
      },
      {
       "w": "simulators.",
-      "start": 8.7,
-      "end": 9.24
+      "start": 8.84,
+      "end": 9.4
      },
      {
       "w": "Surgeons",
-      "start": 9.94,
-      "end": 10.18
+      "start": 10.16,
+      "end": 10.38
      },
      {
       "w": "practice",
-      "start": 10.18,
-      "end": 10.54
+      "start": 10.38,
+      "end": 10.72
      },
      {
       "w": "on",
-      "start": 10.54,
-      "end": 10.82
+      "start": 10.72,
+      "end": 11.02
      },
      {
       "w": "models.",
-      "start": 10.82,
-      "end": 11.14
+      "start": 11.02,
+      "end": 11.38
      },
      {
       "w": "So",
-      "start": 11.74,
-      "end": 11.92
+      "start": 12.0,
+      "end": 12.14
      },
      {
       "w": "where",
-      "start": 11.92,
-      "end": 12.26
+      "start": 12.14,
+      "end": 12.32
      },
      {
       "w": "do",
-      "start": 12.26,
-      "end": 12.42
+      "start": 12.32,
+      "end": 12.48
      },
      {
       "w": "Christians",
-      "start": 12.42,
-      "end": 12.8
+      "start": 12.48,
+      "end": 12.84
      },
      {
       "w": "practice",
-      "start": 12.8,
-      "end": 13.24
+      "start": 12.84,
+      "end": 13.26
      },
      {
       "w": "the",
-      "start": 13.24,
-      "end": 13.52
+      "start": 13.26,
+      "end": 13.58
      },
      {
       "w": "hardest",
-      "start": 13.52,
-      "end": 13.86
+      "start": 13.58,
+      "end": 13.88
      },
      {
       "w": "conversations",
-      "start": 13.86,
-      "end": 14.56
+      "start": 13.88,
+      "end": 14.52
      },
      {
       "w": "about",
-      "start": 14.56,
-      "end": 14.96
+      "start": 14.52,
+      "end": 14.9
      },
      {
       "w": "faith?",
-      "start": 14.96,
-      "end": 15.24
+      "start": 14.9,
+      "end": 15.2
      }
     ]
    }
   },
-  "heard": "Most of us freeze. Not because we don't believe, but because we've never practiced saying it out loud to someone who pushes back. Pilots train in simulators. Surgeons practice on models. So where do Christians practice the hardest conversations about faith?",
+  "heard": "Most of us freeze, not because we don't believe, but because we've never practiced saying it out loud to someone who pushes back. Pilots train in simulators. Surgeons practice on models. So where do Christians practice the hardest conversations about faith?",
   "match": 1.0
  },
  "verse": {
-  "dur": 11.91,
+  "dur": 11.92,
   "lines": {
    "L5": {
     "start": 0.0,
@@ -347,16 +357,16 @@
      {
       "w": "Peter",
       "start": 0.0,
-      "end": 0.26
+      "end": 0.28
      },
      {
       "w": "wrote,",
-      "start": 0.26,
+      "start": 0.28,
       "end": 0.58
      },
      {
       "w": "always",
-      "start": 1.3,
+      "start": 1.28,
       "end": 1.5
      },
      {
@@ -482,11 +492,11 @@
      {
       "w": "and",
       "start": 8.28,
-      "end": 8.62
+      "end": 8.64
      },
      {
       "w": "respect.",
-      "start": 8.62,
+      "start": 8.64,
       "end": 9.06
      }
     ]
@@ -522,211 +532,221 @@
   "match": 1.0
  },
  "intro": {
-  "dur": 14.83,
+  "dur": 14.77,
   "lines": {
    "L7": {
     "start": 0.0,
-    "end": 6.62,
+    "end": 6.5,
     "words": [
      {
       "w": "So",
       "start": 0.0,
-      "end": 0.46
+      "end": 0.36
      },
      {
       "w": "we",
-      "start": 0.66,
-      "end": 0.88
+      "start": 0.56,
+      "end": 0.76
      },
      {
       "w": "built",
-      "start": 0.88,
-      "end": 1.12
+      "start": 0.76,
+      "end": 1.0
      },
      {
       "w": "Apologist",
-      "start": 1.12,
-      "end": 1.6
+      "start": 1.0,
+      "end": 1.5
      },
      {
       "w": "Academy.",
-      "start": 1.6,
-      "end": 2.08
+      "start": 1.5,
+      "end": 1.98
      },
      {
       "w": "A",
-      "start": 2.64,
-      "end": 2.76
+      "start": 2.5,
+      "end": 2.66
      },
      {
       "w": "safe",
-      "start": 2.76,
-      "end": 3.06
+      "start": 2.66,
+      "end": 2.96
      },
      {
       "w": "place",
-      "start": 3.06,
-      "end": 3.36
+      "start": 2.96,
+      "end": 3.24
      },
      {
       "w": "to",
-      "start": 3.36,
-      "end": 3.58
+      "start": 3.24,
+      "end": 3.48
      },
      {
       "w": "practice",
-      "start": 3.58,
-      "end": 3.88
+      "start": 3.48,
+      "end": 3.8
      },
      {
       "w": "the",
-      "start": 3.88,
-      "end": 4.16
+      "start": 3.8,
+      "end": 4.06
      },
      {
       "w": "hard",
-      "start": 4.16,
-      "end": 4.44
+      "start": 4.06,
+      "end": 4.32
      },
      {
       "w": "questions,",
-      "start": 4.44,
-      "end": 4.9
+      "start": 4.32,
+      "end": 4.78
      },
      {
       "w": "before",
-      "start": 5.2,
-      "end": 5.44
+      "start": 5.14,
+      "end": 5.32
      },
      {
       "w": "someone",
-      "start": 5.44,
-      "end": 5.72
+      "start": 5.32,
+      "end": 5.6
      },
      {
       "w": "asks",
-      "start": 5.72,
-      "end": 5.94
+      "start": 5.6,
+      "end": 5.84
      },
      {
       "w": "you",
-      "start": 5.94,
-      "end": 6.14
+      "start": 5.84,
+      "end": 6.04
      },
      {
       "w": "for",
-      "start": 6.14,
-      "end": 6.3
+      "start": 6.04,
+      "end": 6.18
      },
      {
       "w": "real.",
-      "start": 6.3,
-      "end": 6.62
+      "start": 6.18,
+      "end": 6.5
      }
     ]
    },
    "L8": {
-    "start": 7.22,
-    "end": 14.58,
+    "start": 7.1,
+    "end": 14.46,
     "words": [
      {
       "w": "Pick",
-      "start": 7.22,
-      "end": 7.32
+      "start": 7.1,
+      "end": 7.22
      },
      {
       "w": "one",
-      "start": 7.32,
-      "end": 7.52
+      "start": 7.22,
+      "end": 7.4
      },
      {
       "w": "of",
-      "start": 7.52,
-      "end": 7.62
+      "start": 7.4,
+      "end": 7.54
+     },
+     {
+      "w": "sixteen",
+      "start": 7.54,
+      "end": 7.96
      },
      {
       "w": "questions",
-      "start": 8.08,
-      "end": 8.56
+      "start": 7.96,
+      "end": 8.46
      },
      {
       "w": "across",
-      "start": 8.56,
-      "end": 8.94
+      "start": 8.46,
+      "end": 8.82
+     },
+     {
+      "w": "eight",
+      "start": 8.82,
+      "end": 9.18
      },
      {
       "w": "topics,",
-      "start": 9.3,
-      "end": 9.72
+      "start": 9.18,
+      "end": 9.62
      },
      {
       "w": "from",
-      "start": 10.18,
-      "end": 10.24
+      "start": 10.06,
+      "end": 10.14
      },
      {
       "w": "suffering",
-      "start": 10.24,
-      "end": 10.64
+      "start": 10.14,
+      "end": 10.52
      },
      {
       "w": "to",
-      "start": 10.96,
-      "end": 11.04
+      "start": 10.86,
+      "end": 10.92
      },
      {
       "w": "science",
-      "start": 11.04,
-      "end": 11.4
+      "start": 10.92,
+      "end": 11.3
      },
      {
       "w": "to",
-      "start": 11.72,
-      "end": 11.76
+      "start": 11.6,
+      "end": 11.64
      },
      {
       "w": "other",
-      "start": 11.76,
-      "end": 11.96
+      "start": 11.64,
+      "end": 11.86
      },
      {
       "w": "faiths.",
-      "start": 11.96,
-      "end": 12.24
+      "start": 11.86,
+      "end": 12.14
      },
      {
       "w": "No",
-      "start": 12.86,
-      "end": 13.06
+      "start": 12.76,
+      "end": 12.96
      },
      {
       "w": "account.",
-      "start": 13.06,
-      "end": 13.38
+      "start": 12.96,
+      "end": 13.26
      },
      {
       "w": "Nothing",
-      "start": 13.84,
-      "end": 13.98
+      "start": 13.68,
+      "end": 13.88
      },
      {
       "w": "to",
-      "start": 13.98,
-      "end": 14.24
+      "start": 13.88,
+      "end": 14.12
      },
      {
       "w": "install.",
-      "start": 14.24,
-      "end": 14.58
+      "start": 14.12,
+      "end": 14.46
      }
     ]
    }
   },
-  "heard": "So, we built Apologist Academy. A safe place to practice the hard questions, before someone asks you for real. Pick one of 16 questions across 8 topics, from suffering, to science, to other faiths. No account, nothing to install.",
-  "match": 0.949
+  "heard": "So, we built Apologist Academy. A safe place to practice the hard questions. Before someone asks you for real, pick one of 16 questions across 8 topics, from suffering, to science, to other faiths. No account, nothing to install.",
+  "match": 1.0
  },
  "demo": {
-  "dur": 22.15,
+  "dur": 22.16,
   "lines": {
    "L9": {
     "start": 0.0,
@@ -932,7 +952,7 @@
    },
    "L11": {
     "start": 14.38,
-    "end": 21.9,
+    "end": 21.92,
     "words": [
      {
       "w": "The",
@@ -967,7 +987,7 @@
      {
       "w": "script.",
       "start": 15.96,
-      "end": 16.28
+      "end": 16.26
      },
      {
       "w": "It",
@@ -1057,7 +1077,7 @@
      {
       "w": "slide.",
       "start": 21.48,
-      "end": 21.9
+      "end": 21.92
      }
     ]
    }
@@ -1066,174 +1086,174 @@
   "match": 1.0
  },
  "coach": {
-  "dur": 10.88,
+  "dur": 10.79,
   "lines": {
    "L12": {
     "start": 0.0,
-    "end": 10.58,
+    "end": 10.44,
     "words": [
      {
       "w": "Stuck?",
       "start": 0.0,
-      "end": 0.52
+      "end": 0.42
      },
      {
       "w": "Ask",
-      "start": 1.06,
-      "end": 1.2
+      "start": 0.94,
+      "end": 1.12
      },
      {
       "w": "Coach.",
-      "start": 1.2,
-      "end": 1.5
+      "start": 1.12,
+      "end": 1.42
      },
      {
       "w": "It",
-      "start": 2.08,
-      "end": 2.16
+      "start": 1.96,
+      "end": 2.08
      },
      {
       "w": "helps",
-      "start": 2.16,
-      "end": 2.34
+      "start": 2.08,
+      "end": 2.26
      },
      {
       "w": "in",
-      "start": 2.34,
-      "end": 2.54
+      "start": 2.26,
+      "end": 2.46
      },
      {
       "w": "steps.",
-      "start": 2.54,
-      "end": 2.92
+      "start": 2.46,
+      "end": 2.84
      },
      {
       "w": "First",
-      "start": 3.58,
-      "end": 3.68
+      "start": 3.38,
+      "end": 3.6
      },
      {
       "w": "a",
-      "start": 3.68,
-      "end": 3.88
+      "start": 3.6,
+      "end": 3.8
      },
      {
       "w": "hint.",
-      "start": 3.88,
-      "end": 4.1
+      "start": 3.8,
+      "end": 4.0
      },
      {
       "w": "Then",
-      "start": 4.44,
-      "end": 4.86
+      "start": 4.46,
+      "end": 4.76
      },
      {
       "w": "an",
-      "start": 4.86,
-      "end": 5.08
+      "start": 4.76,
+      "end": 4.98
      },
      {
       "w": "outline.",
-      "start": 5.08,
-      "end": 5.48
+      "start": 4.98,
+      "end": 5.38
      },
      {
       "w": "Then",
-      "start": 6.08,
-      "end": 6.2
+      "start": 5.96,
+      "end": 6.1
      },
      {
       "w": "a",
-      "start": 6.2,
-      "end": 6.42
+      "start": 6.1,
+      "end": 6.34
      },
      {
       "w": "sample",
-      "start": 6.42,
-      "end": 6.7
+      "start": 6.34,
+      "end": 6.62
      },
      {
       "w": "reply,",
-      "start": 6.7,
-      "end": 7.14
+      "start": 6.62,
+      "end": 7.06
      },
      {
       "w": "only",
-      "start": 7.36,
-      "end": 7.56
+      "start": 7.28,
+      "end": 7.46
      },
      {
       "w": "if",
-      "start": 7.56,
-      "end": 7.74
+      "start": 7.46,
+      "end": 7.64
      },
      {
       "w": "you",
-      "start": 7.74,
-      "end": 7.86
+      "start": 7.64,
+      "end": 7.76
      },
      {
       "w": "want",
-      "start": 7.86,
-      "end": 8.04
+      "start": 7.76,
+      "end": 7.96
      },
      {
       "w": "it.",
-      "start": 8.04,
-      "end": 8.26
+      "start": 7.96,
+      "end": 8.16
      },
      {
       "w": "The",
-      "start": 8.68,
-      "end": 8.78
+      "start": 8.54,
+      "end": 8.68
      },
      {
       "w": "goal",
-      "start": 8.78,
-      "end": 9.0
+      "start": 8.68,
+      "end": 8.92
      },
      {
       "w": "is",
-      "start": 9.0,
-      "end": 9.26
+      "start": 8.92,
+      "end": 9.16
      },
      {
       "w": "to",
-      "start": 9.26,
-      "end": 9.44
+      "start": 9.16,
+      "end": 9.34
      },
      {
       "w": "find",
-      "start": 9.44,
-      "end": 9.68
+      "start": 9.34,
+      "end": 9.58
      },
      {
       "w": "your",
-      "start": 9.68,
-      "end": 9.9
+      "start": 9.58,
+      "end": 9.8
      },
      {
       "w": "own",
-      "start": 9.9,
-      "end": 10.18
+      "start": 9.8,
+      "end": 10.1
      },
      {
       "w": "words.",
-      "start": 10.18,
-      "end": 10.58
+      "start": 10.1,
+      "end": 10.44
      }
     ]
    }
   },
-  "heard": "Stuck? Ask coach. It helps in steps. First a hint, then an outline. Then a sample reply, only if you want it. The goal is to find your own words.",
+  "heard": "Stuck? Ask coach. It helps in steps. First a hint. Then an outline. Then a sample reply, only if you want it. The goal is to find your own words.",
   "match": 1.0
  },
  "personal": {
-  "dur": 4.31,
+  "dur": 4.13,
   "lines": {
    "L13": {
     "start": 0.0,
-    "end": 4.1,
+    "end": 3.94,
     "words": [
      {
       "w": "Because",
@@ -1243,62 +1263,62 @@
      {
       "w": "this",
       "start": 0.34,
-      "end": 0.62
+      "end": 0.6
      },
      {
       "w": "isn't",
-      "start": 0.62,
-      "end": 1.06
+      "start": 0.6,
+      "end": 0.98
      },
      {
       "w": "a",
-      "start": 1.06,
-      "end": 1.12
+      "start": 0.98,
+      "end": 1.1
      },
      {
       "w": "debate",
-      "start": 1.12,
-      "end": 1.4
+      "start": 1.1,
+      "end": 1.38
      },
      {
       "w": "to",
-      "start": 1.4,
-      "end": 1.66
+      "start": 1.38,
+      "end": 1.64
      },
      {
       "w": "win.",
-      "start": 1.66,
-      "end": 1.96
+      "start": 1.64,
+      "end": 1.94
      },
      {
       "w": "It's",
-      "start": 2.66,
-      "end": 2.82
+      "start": 2.58,
+      "end": 2.7
      },
      {
       "w": "a",
-      "start": 2.82,
-      "end": 2.94
+      "start": 2.7,
+      "end": 2.82
      },
      {
       "w": "person",
-      "start": 2.94,
-      "end": 3.2
+      "start": 2.82,
+      "end": 3.06
      },
      {
       "w": "to",
-      "start": 3.2,
-      "end": 3.54
+      "start": 3.06,
+      "end": 3.42
      },
      {
       "w": "listen",
-      "start": 3.54,
-      "end": 3.76
+      "start": 3.42,
+      "end": 3.62
      },
      {
       "w": "to.",
-      "start": 3.76,
-      "end": 4.1
+      "start": 3.62,
+      "end": 3.94
      }
     ]
    }
@@ -1307,25 +1327,25 @@
   "match": 1.0
  },
  "review": {
-  "dur": 17.06,
+  "dur": 17.11,
   "lines": {
    "L14": {
     "start": 0.0,
-    "end": 7.96,
+    "end": 7.94,
     "words": [
      {
       "w": "After",
       "start": 0.0,
-      "end": 0.32
+      "end": 0.3
      },
      {
       "w": "five",
-      "start": 0.32,
-      "end": 0.64
+      "start": 0.3,
+      "end": 0.62
      },
      {
       "w": "turns,",
-      "start": 0.64,
+      "start": 0.62,
       "end": 1.12
      },
      {
@@ -1336,127 +1356,127 @@
      {
       "w": "writes",
       "start": 1.52,
-      "end": 1.82
+      "end": 1.8
      },
      {
       "w": "you",
-      "start": 1.82,
+      "start": 1.8,
       "end": 2.02
      },
      {
       "w": "a",
       "start": 2.02,
-      "end": 2.18
+      "end": 2.14
      },
      {
       "w": "short",
-      "start": 2.18,
+      "start": 2.14,
       "end": 2.36
      },
      {
       "w": "review.",
       "start": 2.36,
-      "end": 2.74
+      "end": 2.72
      },
      {
       "w": "What",
       "start": 3.26,
-      "end": 3.34
+      "end": 3.32
      },
      {
       "w": "you",
-      "start": 3.34,
+      "start": 3.32,
       "end": 3.46
      },
      {
       "w": "covered,",
       "start": 3.46,
-      "end": 3.8
+      "end": 3.78
      },
      {
       "w": "what",
-      "start": 4.16,
-      "end": 4.26
+      "start": 4.1,
+      "end": 4.24
      },
      {
       "w": "you",
-      "start": 4.26,
+      "start": 4.24,
       "end": 4.38
      },
      {
       "w": "could",
       "start": 4.38,
-      "end": 4.54
+      "end": 4.52
      },
      {
       "w": "add,",
-      "start": 4.54,
+      "start": 4.52,
       "end": 4.86
      },
      {
       "w": "and",
-      "start": 5.16,
+      "start": 5.12,
       "end": 5.3
      },
      {
       "w": "a",
       "start": 5.3,
-      "end": 5.4
+      "end": 5.38
      },
      {
       "w": "verse",
-      "start": 5.4,
-      "end": 5.54
+      "start": 5.38,
+      "end": 5.52
      },
      {
       "w": "to",
-      "start": 5.54,
-      "end": 5.78
+      "start": 5.52,
+      "end": 5.76
      },
      {
       "w": "study.",
-      "start": 5.78,
+      "start": 5.76,
       "end": 6.0
      },
      {
       "w": "No",
-      "start": 6.52,
-      "end": 6.7
+      "start": 6.5,
+      "end": 6.68
      },
      {
       "w": "scores.",
-      "start": 6.7,
+      "start": 6.68,
       "end": 7.02
      },
      {
       "w": "No",
-      "start": 7.44,
+      "start": 7.42,
       "end": 7.64
      },
      {
       "w": "grades.",
       "start": 7.64,
-      "end": 7.96
+      "end": 7.94
      }
     ]
    },
    "L15": {
-    "start": 8.58,
+    "start": 8.56,
     "end": 14.46,
     "words": [
      {
       "w": "Print",
-      "start": 8.58,
-      "end": 8.68
+      "start": 8.56,
+      "end": 8.66
      },
      {
       "w": "it,",
-      "start": 8.68,
-      "end": 8.88
+      "start": 8.66,
+      "end": 8.86
      },
      {
       "w": "and",
-      "start": 8.88,
+      "start": 8.86,
       "end": 9.18
      },
      {
@@ -1467,27 +1487,27 @@
      {
       "w": "it",
       "start": 9.34,
-      "end": 9.46
+      "end": 9.44
      },
      {
       "w": "to",
-      "start": 9.46,
-      "end": 9.56
+      "start": 9.44,
+      "end": 9.54
      },
      {
       "w": "your",
-      "start": 9.56,
+      "start": 9.54,
       "end": 9.66
      },
      {
       "w": "small",
       "start": 9.66,
-      "end": 9.92
+      "end": 9.9
      },
      {
       "w": "group.",
-      "start": 9.92,
-      "end": 10.14
+      "start": 9.9,
+      "end": 10.12
      },
      {
       "w": "It",
@@ -1497,51 +1517,51 @@
      {
       "w": "doesn't",
       "start": 10.76,
-      "end": 11.06
+      "end": 11.04
      },
      {
       "w": "replace",
-      "start": 11.06,
-      "end": 11.44
+      "start": 11.04,
+      "end": 11.42
      },
      {
       "w": "your",
-      "start": 11.44,
-      "end": 11.68
+      "start": 11.42,
+      "end": 11.66
      },
      {
       "w": "church.",
-      "start": 11.68,
+      "start": 11.66,
       "end": 11.92
      },
      {
       "w": "It",
-      "start": 12.44,
-      "end": 12.56
+      "start": 12.42,
+      "end": 12.54
      },
      {
       "w": "helps",
-      "start": 12.56,
-      "end": 12.72
+      "start": 12.54,
+      "end": 12.7
      },
      {
       "w": "you",
-      "start": 12.72,
+      "start": 12.7,
       "end": 12.88
      },
      {
       "w": "get",
       "start": 12.88,
-      "end": 13.04
+      "end": 13.02
      },
      {
       "w": "ready",
-      "start": 13.04,
-      "end": 13.3
+      "start": 13.02,
+      "end": 13.28
      },
      {
       "w": "for",
-      "start": 13.3,
+      "start": 13.28,
       "end": 13.52
      },
      {
@@ -1558,7 +1578,7 @@
    },
    "L16": {
     "start": 15.16,
-    "end": 16.82,
+    "end": 16.8,
     "words": [
      {
       "w": "And",
@@ -1568,27 +1588,27 @@
      {
       "w": "it",
       "start": 15.42,
-      "end": 15.72
+      "end": 15.7
      },
      {
       "w": "works",
-      "start": 15.72,
+      "start": 15.7,
       "end": 15.92
      },
      {
       "w": "on",
       "start": 15.92,
-      "end": 16.16
+      "end": 16.14
      },
      {
       "w": "any",
-      "start": 16.16,
-      "end": 16.44
+      "start": 16.14,
+      "end": 16.42
      },
      {
       "w": "screen.",
-      "start": 16.44,
-      "end": 16.82
+      "start": 16.42,
+      "end": 16.8
      }
     ]
    }
@@ -1597,11 +1617,11 @@
   "match": 1.0
  },
  "trust": {
-  "dur": 17.52,
+  "dur": 17.04,
   "lines": {
    "L17": {
     "start": 0.0,
-    "end": 8.26,
+    "end": 8.08,
     "words": [
      {
       "w": "We",
@@ -1611,267 +1631,262 @@
      {
       "w": "built",
       "start": 0.18,
-      "end": 0.44
+      "end": 0.4
      },
      {
       "w": "it",
-      "start": 0.44,
-      "end": 0.64
+      "start": 0.4,
+      "end": 0.62
      },
      {
       "w": "carefully.",
-      "start": 0.64,
-      "end": 1.1
+      "start": 0.62,
+      "end": 1.06
      },
      {
       "w": "The",
-      "start": 1.84,
-      "end": 1.86
-     },
-     {
-      "w": "AI",
-      "start": 1.86,
-      "end": 2.26
+      "start": 1.68,
+      "end": 1.76
      },
      {
       "w": "is",
-      "start": 2.26,
-      "end": 2.52
+      "start": 2.2,
+      "end": 2.46
      },
      {
       "w": "always",
-      "start": 2.52,
-      "end": 2.98
+      "start": 2.46,
+      "end": 2.92
      },
      {
       "w": "labeled.",
-      "start": 2.98,
-      "end": 3.42
+      "start": 2.92,
+      "end": 3.34
      },
      {
       "w": "The",
-      "start": 3.9,
-      "end": 3.98
+      "start": 3.86,
+      "end": 3.94
      },
      {
       "w": "skeptic",
-      "start": 3.98,
-      "end": 4.42
+      "start": 3.94,
+      "end": 4.44
      },
      {
       "w": "never",
-      "start": 4.42,
-      "end": 4.68
+      "start": 4.44,
+      "end": 4.64
      },
      {
       "w": "pretends",
-      "start": 4.68,
-      "end": 5.16
+      "start": 4.64,
+      "end": 5.1
      },
      {
       "w": "to",
-      "start": 5.16,
-      "end": 5.3
+      "start": 5.1,
+      "end": 5.24
      },
      {
       "w": "be",
-      "start": 5.3,
-      "end": 5.42
+      "start": 5.24,
+      "end": 5.36
      },
      {
       "w": "converted,",
-      "start": 5.42,
-      "end": 5.8
+      "start": 5.36,
+      "end": 5.72
      },
      {
       "w": "and",
-      "start": 5.8,
-      "end": 6.28
+      "start": 5.72,
+      "end": 6.22
      },
      {
       "w": "never",
-      "start": 6.28,
-      "end": 6.64
+      "start": 6.22,
+      "end": 6.58
      },
      {
       "w": "insults",
-      "start": 6.64,
-      "end": 7.08
+      "start": 6.58,
+      "end": 6.98
      },
      {
       "w": "you",
-      "start": 7.08,
-      "end": 7.46
+      "start": 6.98,
+      "end": 7.34
      },
      {
       "w": "or",
-      "start": 7.46,
-      "end": 7.78
+      "start": 7.34,
+      "end": 7.62
      },
      {
       "w": "your",
-      "start": 7.78,
-      "end": 7.94
+      "start": 7.62,
+      "end": 7.78
      },
      {
       "w": "faith.",
-      "start": 7.94,
-      "end": 8.26
+      "start": 7.78,
+      "end": 8.08
      }
     ]
    },
    "L18": {
-    "start": 8.86,
-    "end": 17.12,
+    "start": 8.68,
+    "end": 16.64,
     "words": [
      {
       "w": "If",
-      "start": 8.86,
-      "end": 9.0
+      "start": 8.68,
+      "end": 8.8
      },
      {
       "w": "someone",
-      "start": 9.0,
-      "end": 9.26
+      "start": 8.8,
+      "end": 9.04
      },
      {
       "w": "seems",
-      "start": 9.26,
-      "end": 9.48
+      "start": 9.04,
+      "end": 9.26
      },
      {
       "w": "to",
-      "start": 9.48,
-      "end": 9.66
+      "start": 9.26,
+      "end": 9.44
      },
      {
       "w": "be",
-      "start": 9.66,
-      "end": 9.8
+      "start": 9.44,
+      "end": 9.54
      },
      {
       "w": "in",
-      "start": 9.8,
-      "end": 9.9
+      "start": 9.54,
+      "end": 9.68
      },
      {
       "w": "crisis,",
-      "start": 9.9,
-      "end": 10.24
+      "start": 9.68,
+      "end": 9.98
      },
      {
       "w": "it",
-      "start": 10.68,
-      "end": 10.84
+      "start": 10.4,
+      "end": 10.6
      },
      {
       "w": "stops",
-      "start": 10.84,
-      "end": 11.18
+      "start": 10.6,
+      "end": 10.92
      },
      {
       "w": "the",
-      "start": 11.18,
-      "end": 11.38
+      "start": 10.92,
+      "end": 11.12
      },
      {
       "w": "exercise",
-      "start": 11.38,
-      "end": 11.84
+      "start": 11.12,
+      "end": 11.56
      },
      {
       "w": "and",
-      "start": 11.84,
-      "end": 12.14
+      "start": 11.56,
+      "end": 11.82
      },
      {
       "w": "points",
-      "start": 12.14,
-      "end": 12.42
+      "start": 11.82,
+      "end": 12.08
      },
      {
       "w": "them",
-      "start": 12.42,
-      "end": 12.62
+      "start": 12.08,
+      "end": 12.28
      },
      {
       "w": "to",
-      "start": 12.62,
-      "end": 12.84
+      "start": 12.28,
+      "end": 12.46
      },
      {
       "w": "real",
-      "start": 12.84,
-      "end": 13.08
+      "start": 12.46,
+      "end": 12.72
      },
      {
       "w": "help.",
-      "start": 13.08,
-      "end": 13.52
+      "start": 12.72,
+      "end": 13.14
      },
      {
       "w": "And",
-      "start": 14.04,
-      "end": 14.16
+      "start": 13.62,
+      "end": 13.74
      },
      {
       "w": "Coach",
-      "start": 14.16,
-      "end": 14.38
+      "start": 13.74,
+      "end": 13.92
      },
      {
       "w": "quotes",
-      "start": 14.38,
-      "end": 14.66
+      "start": 13.92,
+      "end": 14.24
      },
      {
       "w": "one",
-      "start": 14.66,
-      "end": 14.98
+      "start": 14.24,
+      "end": 14.6
      },
      {
       "w": "checked",
-      "start": 14.98,
-      "end": 15.24
+      "start": 14.6,
+      "end": 14.86
      },
      {
       "w": "verse,",
-      "start": 15.24,
-      "end": 15.54
+      "start": 14.86,
+      "end": 15.16
      },
      {
       "w": "and",
-      "start": 15.54,
-      "end": 16.04
+      "start": 15.16,
+      "end": 15.62
      },
      {
       "w": "never",
-      "start": 16.04,
-      "end": 16.4
+      "start": 15.62,
+      "end": 15.94
      },
      {
       "w": "makes",
-      "start": 16.4,
-      "end": 16.64
+      "start": 15.94,
+      "end": 16.18
      },
      {
       "w": "up",
-      "start": 16.64,
-      "end": 16.84
+      "start": 16.18,
+      "end": 16.36
      },
      {
       "w": "sources.",
-      "start": 16.84,
-      "end": 17.12
+      "start": 16.36,
+      "end": 16.64
      }
     ]
    }
   },
-  "heard": "We built it carefully. The AI is always labeled. The skeptic never pretends to be converted and never insults you or your faith. If someone seems to be in crisis, it stops the exercise and points them to real help. And Coach quotes one checked verse and never makes up sources.",
-  "match": 1.0
+  "heard": "We built it carefully. The A .I. is always labeled. The skeptic never pretends to be converted and never insults you or your faith. If someone seems to be in crisis, it stops the exercise and points them to real help. And Coach quotes one checked verse and never makes up sources.",
+  "match": 0.98
  },
  "hood": {
-  "dur": 18.23,
+  "dur": 18.32,
   "lines": {
    "L19": {
     "start": 0.0,
@@ -1885,11 +1900,11 @@
      {
       "w": "the",
       "start": 0.24,
-      "end": 0.38
+      "end": 0.4
      },
      {
       "w": "hood,",
-      "start": 0.38,
+      "start": 0.4,
       "end": 0.62
      },
      {
@@ -1900,11 +1915,11 @@
      {
       "w": "server",
       "start": 1.18,
-      "end": 1.56
+      "end": 1.58
      },
      {
       "w": "sets",
-      "start": 1.56,
+      "start": 1.58,
       "end": 1.86
      },
      {
@@ -2010,11 +2025,11 @@
      {
       "w": "skeptic",
       "start": 9.6,
-      "end": 10.1
+      "end": 10.12
      },
      {
       "w": "and",
-      "start": 10.1,
+      "start": 10.12,
       "end": 10.3
      },
      {
@@ -2040,21 +2055,21 @@
      {
       "w": "review,",
       "start": 11.36,
-      "end": 11.66
+      "end": 11.7
      },
      {
       "w": "with",
-      "start": 11.66,
-      "end": 12.14
+      "start": 11.96,
+      "end": 12.16
      },
      {
       "w": "memory",
-      "start": 12.14,
-      "end": 12.44
+      "start": 12.16,
+      "end": 12.42
      },
      {
       "w": "turned",
-      "start": 12.44,
+      "start": 12.42,
       "end": 12.76
      },
      {
@@ -2066,7 +2081,7 @@
    },
    "L20": {
     "start": 13.56,
-    "end": 17.98,
+    "end": 18.0,
     "words": [
      {
       "w": "It's",
@@ -2116,11 +2131,11 @@
      {
       "w": "leaders",
       "start": 16.86,
-      "end": 17.16
+      "end": 17.14
      },
      {
       "w": "training",
-      "start": 17.16,
+      "start": 17.14,
       "end": 17.54
      },
      {
@@ -2131,16 +2146,16 @@
      {
       "w": "people.",
       "start": 17.76,
-      "end": 17.98
+      "end": 18.0
      }
     ]
    }
   },
-  "heard": "Under the hood, our server sets the rules. Five turns, separate instructions for each role, and a daily limit. The Apologist Project's AI platform plays the skeptic and powers Coach and the review with memory turned off. It's for small groups, students, new believers, and church leaders training their people.",
+  "heard": "Under the hood, our server sets the rules. Five turns, separate instructions for each role, and a daily limit. The Apologist Project's AI platform plays the skeptic and powers coach and the review, with memory turned off. It's for small groups, students, new believers, and church leaders training their people.",
   "match": 1.0
  },
  "close": {
-  "dur": 11.35,
+  "dur": 11.44,
   "lines": {
    "L21": {
     "start": 0.0,
@@ -2178,7 +2193,7 @@
      },
      {
       "w": "you",
-      "start": 1.86,
+      "start": 1.88,
       "end": 2.02
      },
      {
@@ -2193,12 +2208,12 @@
      },
      {
       "w": "You'll",
-      "start": 3.22,
-      "end": 3.36
+      "start": 3.2,
+      "end": 3.38
      },
      {
       "w": "be",
-      "start": 3.36,
+      "start": 3.38,
       "end": 3.5
      },
      {
@@ -2229,12 +2244,12 @@
     ]
    },
    "L22": {
-    "start": 6.68,
+    "start": 6.64,
     "end": 11.2,
     "words": [
      {
       "w": "Apologist",
-      "start": 6.68,
+      "start": 6.64,
       "end": 6.98
      },
      {
@@ -2265,17 +2280,17 @@
      {
       "w": "pages",
       "start": 9.86,
-      "end": 10.46
+      "end": 10.48
      },
      {
       "w": "dev.",
-      "start": 10.46,
+      "start": 10.48,
       "end": 11.2
      }
     ]
    }
   },
-  "heard": "So the next time someone asks, you won't freeze. You'll be ready with gentleness and respect. Apologist Academy. Try it free at apologistacademy .pages .dev",
+  "heard": "So the next time someone asks, you won't freeze, you'll be ready with gentleness and respect. Apologist Academy. Try it free at apologistacademy .pages .dev",
   "match": 0.857
  }
 }

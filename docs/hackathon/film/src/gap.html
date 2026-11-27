@@ -1,0 +1,64 @@
+<template>
+  <style>
+    /*{{LIB}}*/
+    #gp-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    .gp-row { position: absolute; left: 330px; width: 1300px; height: 170px; }
+    #gp-r1 { top: 170px; } #gp-r2 { top: 400px; } #gp-r3 { top: 630px; }
+    .gp-ico { position: absolute; left: 0; top: 18px; width: 128px; height: 128px; border-radius: 34px; background: rgba(113,55,255,.14); border: 1px solid rgba(157,123,255,.3); }
+    .gp-ico svg { position: absolute; left: 30px; top: 30px; width: 68px; height: 68px; }
+    .gp-who { position: absolute; left: 172px; top: 34px; font: 700 84px/1 "AA Outfit"; letter-spacing: -0.015em; color: #fff; }
+    .gp-arrow { position: absolute; left: 640px; top: 76px; width: 120px; height: 4px; background: rgba(255,255,255,.35); transform-origin: 0 50%; }
+    .gp-arrow::after { content: ""; position: absolute; right: -2px; top: -9px; border-left: 18px solid rgba(255,255,255,.35); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
+    .gp-what { position: absolute; left: 800px; top: 34px; font: 600 84px/1 "AA Outfit"; color: #9D7BFF; }
+    #gp-q { position: absolute; left: 800px; top: -10px; font: 700 150px/1 "AA Outfit"; color: #9D7BFF; }
+    #gp-r3 .gp-ico { background: #7137FF; border-color: #7137FF; }
+  </style>
+
+  <div id="root" data-composition-id="gap" data-width="1920" data-height="1080">
+    <div class="bg"></div>
+    <div id="gp-stage">
+      <div id="gp-r1" class="gp-row">
+        <div class="gp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C4B1FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></div>
+        <div class="gp-who">Pilots</div>
+        <div class="gp-arrow"></div>
+        <div class="gp-what">simulators</div>
+      </div>
+      <div id="gp-r2" class="gp-row">
+        <div class="gp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C4B1FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div>
+        <div class="gp-who">Surgeons</div>
+        <div class="gp-arrow"></div>
+        <div class="gp-what">models</div>
+      </div>
+      <div id="gp-r3" class="gp-row">
+        <div class="gp-ico"><svg viewBox="0 0 304.63 304.63"><path fill="#FFFFFF" d="M95.56,144.05v-36.56h113.51v36.56h-113.51ZM131.49,261.05V43.58h41.66v217.46h-41.66Z"/></svg></div>
+        <div class="gp-who">Christians</div>
+        <div class="gp-arrow"></div>
+        <div id="gp-q">?</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const T = /*{{T}}*/ {};
+      const tl = gsap.timeline({ paused: true });
+      const row = (id, tWho, tWhat, what) => {
+        tl.fromTo(`${id} .gp-ico`, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(1.6)" }, tWho - 0.12);
+        tl.fromTo(`${id} .gp-who`, { opacity: 0, x: -30, filter: "blur(8px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.36, ease: "expo.out" }, tWho - 0.08);
+        tl.fromTo(`${id} .gp-arrow`, { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, tWhat - 0.3);
+        tl.fromTo(what, { opacity: 0, x: 24, filter: "blur(8px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.34, ease: "expo.out" }, tWhat - 0.05);
+      };
+      gsap.set([".gp-ico", ".gp-who", ".gp-what", "#gp-q"], { opacity: 0 });
+      gsap.set(".gp-arrow", { scaleX: 0 });
+      tl.fromTo("#gp-stage", { x: 260, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "power4.out" }, 0);
+      row("#gp-r1", T.pilots, T.sim, "#gp-r1 .gp-what");
+      row("#gp-r2", T.surgeons, T.models, "#gp-r2 .gp-what");
+      row("#gp-r3", T.christians, T.q - 0.2, "#gp-q");
+      // the question mark is the point: the other rows step back
+      tl.to(["#gp-r1", "#gp-r2"], { opacity: 0.32, duration: 0.5, ease: "power2.out" }, T.q - 0.1);
+      tl.fromTo("#gp-q", { scale: 1.25, transformOrigin: "30% 60%" }, { scale: 1, duration: 0.5, ease: "back.out(1.8)" }, T.q - 0.2);
+      tl.to("#gp-stage", { y: -200, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in" }, T.exit);
+      window.__timelines["gap"] = tl;
+    })();
+  </script>
+</template>

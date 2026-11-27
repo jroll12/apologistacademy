@@ -1,0 +1,51 @@
+<template>
+  <style>
+    /*{{LIB}}*/
+    #sf-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #sf-head { position: absolute; left: 240px; top: 120px; }
+    #sf-head .h-big { margin-top: 20px; }
+    #sf-list { position: absolute; left: 240px; top: 360px; width: 1440px; }
+    .sf-item { display: flex; align-items: center; gap: 34px; margin-bottom: 36px; }
+    .sf-ico { flex: none; width: 96px; height: 96px; border-radius: 28px; background: rgba(113,55,255,.16); border: 1px solid rgba(157,123,255,.35); position: relative; }
+    .sf-ico svg { position: absolute; left: 24px; top: 24px; width: 48px; height: 48px; }
+    .sf-txt { font: 600 48px/1.2 "AA Outfit"; color: #fff; }
+    .sf-txt span { color: #9CA3AF; font-weight: 500; }
+  </style>
+
+  <div id="root" data-composition-id="safe" data-width="1920" data-height="1080">
+    <div class="bg"></div>
+    <div id="sf-stage">
+      <div id="sf-head"><div class="kicker">Safeguards</div><div class="h-big">Built <span class="v">carefully.</span></div></div>
+      <div id="sf-list">
+        <div class="sf-item" id="sf-1"><div class="sf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C4B1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg></div><div class="sf-txt">The AI is always labeled as AI.</div></div>
+        <div class="sf-item" id="sf-2"><div class="sf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C4B1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div><div class="sf-txt">Never pretends to be converted. <span>Never insults you or your faith.</span></div></div>
+        <div class="sf-item" id="sf-3"><div class="sf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C4B1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><div class="sf-txt">In a crisis, it stops <span>and points to real help.</span></div></div>
+        <div class="sf-item" id="sf-4"><div class="sf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C4B1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="m9 10 2 2 4-4"/></svg></div><div class="sf-txt">One checked verse. <span>No made-up sources.</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const T = /*{{T}}*/ {};
+      const tl = gsap.timeline({ paused: true });
+      const items = ["#sf-1", "#sf-2", "#sf-3", "#sf-4"];
+      gsap.set(items, { opacity: 0 });
+      gsap.set(".sf-txt span", { opacity: 0 });
+      tl.fromTo("#sf-stage", { y: 220, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "power4.out" }, 0);
+      const item = (id, t) => {
+        tl.fromTo(id, { opacity: 0, x: -40, filter: "blur(6px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.42, ease: "expo.out" }, t);
+        tl.fromTo(`${id} .sf-ico`, { scale: 0.6 }, { scale: 1, duration: 0.45, ease: "back.out(1.8)" }, t);
+      };
+      item("#sf-1", T.labeled - 0.35);
+      item("#sf-2", T.converted - 0.3);
+      tl.to("#sf-2 .sf-txt span", { opacity: 1, duration: 0.25 }, T.insults - 0.1);
+      item("#sf-3", T.crisis - 0.15);
+      tl.to("#sf-3 .sf-txt span", { opacity: 1, duration: 0.25 }, T.help - 0.4);
+      item("#sf-4", T.verse - 0.25);
+      tl.to("#sf-4 .sf-txt span", { opacity: 1, duration: 0.25 }, T.sources - 0.2);
+      tl.to("#sf-stage", { x: -260, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in" }, T.exit);
+      window.__timelines["safe"] = tl;
+    })();
+  </script>
+</template>

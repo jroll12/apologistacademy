@@ -1,0 +1,37 @@
+<template>
+  <style>
+    /*{{LIB}}*/
+    #tt-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #tt-mark { position: absolute; left: 880px; top: 230px; width: 160px; height: 160px; }
+    #tt-name { position: absolute; left: 0; top: 440px; width: 1920px; text-align: center; font: 700 120px/1 "AA Outfit"; letter-spacing: -0.025em; color: #fff; }
+    #tt-name span { display: inline-block; }
+    #tt-line { position: absolute; left: 0; top: 610px; width: 1920px; text-align: center; font: 500 46px/1.3 "AA Outfit"; color: #D1D5DB; }
+    #tt-steps { position: absolute; left: 0; top: 760px; width: 1920px; text-align: center; }
+    .tt-step { display: inline-block; margin: 0 14px; padding: 18px 30px; border-radius: 999px; background: rgba(17,24,39,.8); border: 1px solid rgba(157,123,255,.35); font: 600 28px/1 "AA Inter"; color: #E5E7EB; }
+    .tt-step b { color: #B191FF; font-weight: 700; margin-right: 12px; }
+  </style>
+
+  <div id="root" data-composition-id="title" data-width="1920" data-height="1080">
+    <div class="bg"></div>
+    <div id="tt-stage">
+      <img id="tt-mark" src="assets/img/mark.svg" alt="" />
+      <div id="tt-name"><span>A</span><span>p</span><span>o</span><span>l</span><span>o</span><span>g</span><span>i</span><span>s</span><span>t</span>&nbsp;<span>A</span><span>c</span><span>a</span><span>d</span><span>e</span><span>m</span><span>y</span></div>
+      <div id="tt-line">A safe place to practice the hard questions,<br />before someone asks you for real.</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const T = /*{{T}}*/ {};
+      const tl = gsap.timeline({ paused: true });
+      gsap.set(["#tt-mark", "#tt-line"], { opacity: 0 });
+      gsap.set("#tt-name span", { opacity: 0 });
+      tl.fromTo("#tt-mark", { opacity: 0, scale: 0.4, rotate: -8 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.7, ease: "back.out(1.7)" }, T.mark);
+      tl.fromTo("#tt-name span", { opacity: 0.0, filter: "blur(6px)", y: 10 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.22, stagger: 0.045, ease: "power3.out" }, T.name - 0.15);
+      tl.fromTo("#tt-line", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.24 }, T.safe - 0.1);
+      // into the product: the stage pushes in and dissolves into the phone
+      tl.to("#tt-stage", { scale: 1.5, opacity: 0, filter: "blur(14px)", duration: 0.36, ease: "power3.in", transformOrigin: "50% 45%" }, T.exit);
+      window.__timelines["title"] = tl;
+    })();
+  </script>
+</template>

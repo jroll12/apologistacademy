@@ -6,3 +6,4 @@ compositions/
 snapshots/
 .hyperframes/
 node_modules/
+__pycache__/

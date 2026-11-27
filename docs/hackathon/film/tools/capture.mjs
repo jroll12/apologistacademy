@@ -102,11 +102,11 @@ if (DEVICE === 'phone') {
   await touch(p.locator('a[href="/practice/suffering"]').last());
   await p.waitForURL(/practice/);
   mark('prebrief');
-  await wait(900);
-  await touch(p.getByText('Hostile', { exact: true }), { after: 500 });
-  await touch(p.getByText('Balanced', { exact: true }), { after: 500 });
-  await touch(p.getByText('Tough', { exact: true }), { after: 450 });
-  await touch(p.getByText('Standard', { exact: true }), { after: 450 });
+  await wait(1500);
+  await touch(p.getByText('Hostile', { exact: true }), { after: 1100 });
+  await touch(p.getByText('Balanced', { exact: true }), { after: 1000 });
+  await touch(p.getByText('Tough', { exact: true }), { after: 800 });
+  await touch(p.getByText('Standard', { exact: true }), { after: 900 });
   mark('start');
   await touch(p.getByRole('button', { name: 'Start', exact: true }));
   await p.waitForURL(/talk/);

@@ -49,6 +49,25 @@ Built for the AI for Church Hackathon 2026 with the Apologist Project's AI platf
 
 ---
 
+## If you upload the animated film instead
+
+The film (`film/`, about 2:52) has different chapters. Swap the "Chapters" block above for this one; the times come from the film's own build (`film/build/timeline.json`), so they are exact:
+
+```
+Chapters
+0:00 A hard question
+0:18 Where do we practice?
+0:40 Apologist Academy
+0:47 Pick a question and a skeptic
+1:18 Ask Coach
+1:40 Your review
+1:59 Safeguards
+2:17 How the AI is used
+2:36 Try it
+```
+
+Upload `apologist-academy-film.srt` under Subtitles (English) so the captions are searchable and can be turned off; the film also has them burned in.
+
 ## Before you publish
 
 - **Fix the chapter times.** They come from the script's targets, not your recording. Scrub through your video and change each time to where that part really starts. YouTube needs the first one to be 0:00, at least three chapters, and each at least 10 seconds long, or it won't show chapters.

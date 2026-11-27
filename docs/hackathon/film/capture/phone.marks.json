@@ -1,0 +1,22 @@
+{
+ "home": 0.57,
+ "chips": 3.697,
+ "tap-topic": 7.331,
+ "tap-question": 9.575,
+ "prebrief": 10.552,
+ "start": 18.381,
+ "talk": 19.469,
+ "reply1": 23.996,
+ "skeptic1": 33.203,
+ "coach": 38.052,
+ "outline": 42.151,
+ "sample": 45.587,
+ "back": 49.633,
+ "reply2": 51.158,
+ "skeptic2": 56.849,
+ "fast": 63.877,
+ "review-wait": 79.48,
+ "review": 79.481,
+ "conversation": 89.931,
+ "end": 96.245
+}

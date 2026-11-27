@@ -1,0 +1,99 @@
+<template>
+  <style>
+    /*{{LIB}}*/
+    #cd-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #cd-phone-wrap { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 960px 480px; }
+    #cd-phone { left: 746px; top: 56px; }
+    #cd-screen { width: 400px; height: 820px; background: #0B0F19; }
+    .cd-status { position: absolute; left: 34px; top: 22px; font: 600 19px/1 "AA Inter"; color: #E5E7EB; }
+    .cd-island { position: absolute; left: 140px; top: 14px; width: 120px; height: 34px; border-radius: 18px; background: #000; }
+    .cd-head { position: absolute; left: 0; top: 62px; width: 400px; height: 112px; border-bottom: 1px solid rgba(255,255,255,.07); text-align: center; }
+    .cd-ava { position: absolute; left: 172px; top: 8px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #6B7280, #374151); font: 600 24px/56px "AA Inter"; color: #fff; text-align: center; }
+    .cd-name { position: absolute; left: 0; top: 72px; width: 400px; font: 500 22px/1.2 "AA Inter"; color: #D1D5DB; }
+    .cd-time { position: absolute; left: 0; top: 192px; width: 400px; text-align: center; font: 500 17px/1 "AA Inter"; color: #9CA3AF; }
+    .cd-in { position: absolute; left: 20px; width: 300px; padding: 16px 20px; border-radius: 26px 26px 26px 8px; background: #262C3A; font: 400 23px/1.32 "AA Inter"; color: #F3F4F6; }
+    #cd-b1 { top: 228px; }
+    #cd-b2 { top: 302px; }
+    .cd-out { position: absolute; right: 20px; width: 300px; padding: 16px 20px; border-radius: 26px 26px 8px 26px; background: #7137FF; font: 400 23px/1.32 "AA Inter"; color: #fff; }
+    .cd-bar { position: absolute; left: 16px; top: 736px; width: 368px; height: 56px; border-radius: 28px; border: 1.5px solid rgba(255,255,255,.14); background: #111522; }
+    #cd-text { position: absolute; left: 22px; top: 16px; width: 290px; height: 28px; overflow: hidden; white-space: nowrap; font: 400 21px/26px "AA Inter"; color: #fff; }
+    #cd-ph { position: absolute; left: 22px; top: 16px; font: 400 21px/26px "AA Inter"; color: #6B7280; }
+    #cd-caret { display: inline-block; width: 2px; height: 26px; margin-left: 2px; vertical-align: -6px; background: #9D7BFF; }
+    #cd-send { position: absolute; right: 7px; top: 7px; width: 42px; height: 42px; border-radius: 50%; background: #374151; }
+    #cd-send i { position: absolute; left: 14px; top: 11px; width: 0; height: 0; border-left: 16px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
+    #cd-right { position: absolute; left: 1040px; top: 330px; width: 780px; }
+    #cd-t1 span { display: inline-block; }
+    #cd-t2 { margin-top: 34px; }
+  </style>
+
+  <div id="root" data-composition-id="cold" data-width="1920" data-height="1080">
+    <div class="bg"></div>
+    <div id="cd-stage">
+      <div id="cd-phone-wrap">
+        <div id="cd-phone" class="phone">
+          <div id="cd-screen" class="screen">
+            <div class="cd-island"></div>
+            <div class="cd-status">9:41</div>
+            <div class="cd-head"><div class="cd-ava">S</div><div class="cd-name">Sam · Work</div></div>
+            <div class="cd-time" id="cd-when">Today 7:12 PM</div>
+            <div id="cd-b1" class="cd-in">Honest question.</div>
+            <div id="cd-b2" class="cd-in">If God is good, why does my sister have cancer?</div>
+            <div class="cd-bar">
+              <div id="cd-ph">Message</div>
+              <div id="cd-text"><span id="cd-typed"></span><span id="cd-caret"></span></div>
+              <div id="cd-send"><i></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="cd-right">
+        <div id="cd-t1" class="h-hero"><span>Most</span> <span>of</span> <span>us</span> <span class="v">freeze.</span></div>
+        <div id="cd-t2" class="h-mid muted">Not for lack of belief.<br />For lack of <span class="v">practice</span>.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const T = /*{{T}}*/ {};
+      const tl = gsap.timeline({ paused: true });
+      const text = document.getElementById("cd-typed");
+      const ph = document.getElementById("cd-ph");
+      const caret = document.getElementById("cd-caret");
+      const send = document.getElementById("cd-send");
+      // the field shows the end of a long draft, like a phone does; the caret sits right after the text
+      const show = (s) => {
+        text.textContent = s.length > 25 ? "\u2026" + s.slice(-24) : s;
+        ph.style.opacity = s ? 0 : 1;
+        send.style.background = s ? "#7137FF" : "#374151";
+      };
+      const type = (s, at, dur, del) => {
+        const o = { n: del ? s.length : 0 };
+        tl.to(o, { n: del ? 0 : s.length, duration: dur, ease: "none", onUpdate: () => show(s.slice(0, Math.round(o.n))) }, at);
+      };
+      gsap.set(["#cd-b1", "#cd-b2"], { opacity: 0 });
+      gsap.set(caret, { opacity: 0 });
+      gsap.set("#cd-t1 span", { opacity: 0 });
+      gsap.set("#cd-t2", { opacity: 0 });
+      // the phone is already there; the coworker's message arrives
+      tl.fromTo("#cd-phone-wrap", { scale: 1.2 }, { scale: 1.12, duration: 1.4, ease: "power3.out" }, 0);
+      tl.fromTo("#cd-b1", { opacity: 0, y: 18, scale: 0.92, transformOrigin: "0% 100%" }, { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.5)" }, T.msg);
+      tl.fromTo("#cd-b2", { opacity: 0, y: 18, scale: 0.92, transformOrigin: "0% 100%" }, { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.5)" }, T.msg + 0.5);
+      // "What do you type back?": a reply starts, stops, and is deleted, twice
+      tl.set(caret, { opacity: 1 }, T.draftA - 0.3);
+      type(T.draft.A, T.draftA, 1.15);
+      type(T.draft.A, T.draftA + 1.35, 0.5, true);
+      type(T.draft.B, T.draftB, 0.8);
+      type(T.draft.B, T.draftB + 1.05, 0.4, true);
+      tl.to(caret, { opacity: 0, duration: 0.01, repeat: 5, yoyo: true, repeatDelay: 0.45 }, T.blank);
+      // "Most of us freeze": the phone steps back, the line lands word by word
+      tl.to("#cd-phone-wrap", { x: -420, scale: 0.9, duration: 0.8, ease: "power3.inOut" }, T.pull);
+      tl.to("#cd-screen", { opacity: 0.55, duration: 0.8, ease: "power2.inOut" }, T.pull);
+      tl.fromTo("#cd-t1 span", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.09 }, T.freeze - 0.25);
+      tl.fromTo("#cd-t2", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, T.practiced - 0.1);
+      // exit: everything travels left, blurring, into the next scene
+      tl.to("#cd-stage", { x: -260, opacity: 0, filter: "blur(10px)", duration: 0.32, ease: "power3.in" }, T.exit);
+      window.__timelines["cold"] = tl;
+    })();
+  </script>
+</template>

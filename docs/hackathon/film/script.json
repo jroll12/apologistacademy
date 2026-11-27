@@ -1,0 +1,51 @@
+{
+  "title": "Apologist Academy: Ready",
+  "voice": {
+    "provider": "ElevenLabs",
+    "voice_id": "ILP9IN5fT2Jr2fSfmoNh",
+    "voice_name": "Jason - Friendly and Approachable",
+    "model_id": "eleven_v4",
+    "settings": { "stability": 0.5, "similarity_boost": 0.75, "style": 0.0, "use_speaker_boost": true },
+    "source": "jroll12/promo-videos CLAUDE.md and zogreo-intro-16x9/tools/el.py"
+  },
+  "spoken_elevenlabs": {
+    "apologistacademy.pages.dev": "apologist academy dot pages dot dev"
+  },
+  "takes": [
+    { "id": "open", "direction": "[warm, natural, conversational]", "lines": ["L1", "L2"] },
+    { "id": "freeze", "direction": "[warm, natural, conversational]", "lines": ["L3", "L4"] },
+    { "id": "verse", "direction": "[warm, sincere]", "lines": ["L5", "L6"] },
+    { "id": "intro", "direction": "[warm, natural, conversational]", "lines": ["L7", "L8"] },
+    { "id": "demo", "direction": "[warm, natural, conversational]", "lines": ["L9", "L10", "L11"] },
+    { "id": "coach", "direction": "[warm, natural, conversational]", "lines": ["L12"] },
+    { "id": "personal", "direction": "[warm, sincere]", "lines": ["L13"] },
+    { "id": "review", "direction": "[warm, natural, conversational]", "lines": ["L14", "L15", "L16"] },
+    { "id": "trust", "direction": "[warm, clear, quietly confident]", "lines": ["L17", "L18"] },
+    { "id": "hood", "direction": "[warm, clear, quietly confident]", "lines": ["L19", "L20"] },
+    { "id": "close", "direction": "[warmly]", "lines": ["L21", "L22"] }
+  ],
+  "lines": [
+    { "id": "L1", "scene": "cold", "text": "A coworker texts you. Honest question. If God is good, why did my sister get cancer?", "cap": "A coworker texts you. / Honest question. / If God is good, / why did my sister get cancer?" },
+    { "id": "L2", "scene": "cold", "text": "What do you type back?", "cap": "What do you type back?" },
+    { "id": "L3", "scene": "freeze", "text": "Most of us freeze. Not because we don't believe, but because we've never practiced saying it out loud, to someone who pushes back.", "cap": "Most of us freeze. / Not because we don't believe, / but because we've never practiced / saying it out loud, / to someone who pushes back." },
+    { "id": "L4", "scene": "gap", "text": "Pilots train in simulators. Surgeons practice on models. So where do Christians practice the hardest conversations about faith?", "cap": "Pilots train in simulators. / Surgeons practice on models. / So where do Christians practice / the hardest conversations / about faith?" },
+    { "id": "L5", "scene": "verse", "text": "Peter wrote, always be prepared to give a defense to everyone who asks you the reason for the hope that is in you. But respond with gentleness and respect.", "cap": "" },
+    { "id": "L6", "scene": "verse", "text": "Being prepared takes practice.", "cap": "Being prepared takes practice." },
+    { "id": "L7", "scene": "title", "text": "So we built Apologist Academy. A safe place to practice the hard questions, before someone asks you for real.", "cap": "So we built Apologist Academy. / A safe place to practice / the hard questions, / before someone asks you for real." },
+    { "id": "L8", "scene": "pick", "text": "Pick one of sixteen questions across eight topics, from suffering to science to other faiths. No account. Nothing to install.", "cap": "Pick one of sixteen questions / across eight topics, / from suffering to science / to other faiths. / No account. / Nothing to install." },
+    { "id": "L9", "scene": "skeptic", "text": "Then choose who you're talking to. Curious asks honest questions. Hostile pushes hard, but stays civil. And you set how hard it pushes.", "cap": "Then choose who you're talking to. / Curious asks honest questions. / Hostile pushes hard, / but stays civil. / And you set how hard it pushes." },
+    { "id": "L10", "scene": "talk", "text": "Now you talk it through, for five turns. Type your reply, or just speak it.", "cap": "Now you talk it through, / for five turns. / Type your reply, / or just speak it." },
+    { "id": "L11", "scene": "talk", "text": "The skeptic isn't reading from a script. It answers what you actually said. Pick a tougher skeptic, and it won't let a vague answer slide.", "cap": "The skeptic isn't reading / from a script. / It answers what you actually said. / Pick a tougher skeptic, / and it won't let a vague answer slide." },
+    { "id": "L12", "scene": "coach", "text": "Stuck? Ask Coach. It helps in steps. First a hint. Then an outline. Then a sample reply, only if you want it. The goal is to find your own words.", "cap": "Stuck? Ask Coach. / It helps in steps. / First a hint. / Then an outline. / Then a sample reply, / only if you want it. / The goal is to find your own words." },
+    { "id": "L13", "scene": "personal", "text": "Because this isn't a debate to win. It's a person to listen to.", "cap": "Because this isn't a debate to win. / It's a person to listen to." },
+    { "id": "L14", "scene": "review", "text": "After five turns, Coach writes you a short review. What you covered, what you could add, and a verse to study. No scores. No grades.", "cap": "After five turns, / Coach writes you a short review. / What you covered, / what you could add, / and a verse to study. / No scores. No grades." },
+    { "id": "L15", "scene": "review", "text": "Print it, and bring it to your small group. It doesn't replace your church. It helps you get ready for real conversations.", "cap": "Print it, / and bring it to your small group. / It doesn't replace your church. / It helps you get ready / for real conversations." },
+    { "id": "L16", "scene": "screens", "text": "And it works on any screen.", "cap": "And it works on any screen." },
+    { "id": "L17", "scene": "safe", "text": "We built it carefully. The AI is always labeled. The skeptic never pretends to be converted, and never insults you or your faith.", "cap": "We built it carefully. / The AI is always labeled. / The skeptic never pretends / to be converted, / and never insults you or your faith." },
+    { "id": "L18", "scene": "safe", "text": "If someone seems to be in crisis, it stops the exercise and points them to real help. And Coach quotes one checked verse, and never makes up sources.", "cap": "If someone seems to be in crisis, / it stops the exercise / and points them to real help. / And Coach quotes one checked verse, / and never makes up sources." },
+    { "id": "L19", "scene": "hood", "text": "Under the hood, our server sets the rules: five turns, separate instructions for each role, and a daily limit. The Apologist Project's AI platform plays the skeptic and powers Coach and the review, with memory turned off.", "cap": "Under the hood, / our server sets the rules: / five turns, / separate instructions for each role, / and a daily limit. / The Apologist Project's AI platform / plays the skeptic / and powers Coach and the review, / with memory turned off." },
+    { "id": "L20", "scene": "who", "text": "It's for small groups, students, new believers, and church leaders training their people.", "cap": "It's for small groups, / students, new believers, / and church leaders / training their people." },
+    { "id": "L21", "scene": "bookend", "text": "So the next time someone asks, you won't freeze. You'll be ready, with gentleness and respect.", "cap": "So the next time someone asks, / you won't freeze. / You'll be ready, / with gentleness and respect." },
+    { "id": "L22", "scene": "close", "text": "Apologist Academy. Try it free at apologistacademy.pages.dev.", "cap": "Apologist Academy. / Try it free at / apologistacademy.pages.dev" }
+  ]
+}
